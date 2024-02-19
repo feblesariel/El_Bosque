@@ -1,0 +1,24 @@
+module.exports = (sequelize, dataTypes) => {
+    let alias = 'Category';
+    let cols = {
+        id: {
+            type: DataTypes.INTEGER,
+            allowNull: false,
+            primaryKey: true,
+            autoIncrement: true
+        },
+        name: {
+            type: DataTypes.STRING(100),
+            allowNull: false
+        }
+    };
+    let config = {
+        tableName: "categories",
+        timestamps: false
+    }
+
+    const Category = sequelize.define(alias, cols, config);
+
+    
+    return Category;
+};

@@ -39,7 +39,7 @@ CREATE TABLE product_images (
 CREATE TABLE discounts (
     id INT PRIMARY KEY AUTO_INCREMENT,
     code VARCHAR(50) NOT NULL,
-    description TEXT,
+    description TEXT NOT NULL,
     discount_percentage INT NOT NULL,
     active BOOLEAN NOT NULL DEFAULT TRUE
 );
