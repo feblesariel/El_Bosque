@@ -29,19 +29,9 @@ app.set('views', path.join(__dirname, '/views')); // Define la ubicación de la 
 
 // ************ Route System require and use() ************
 
-// const homeRouter = require("./routes/home");
-// const productsRouter = require("./routes/products");
-// const searchRouter = require("./routes/search");
-// const usersRouter = require("./routes/users");
-// const cartRouter = require("./routes/cart");
-// const settingsRouter = require("./routes/settings");
+const indexRouter = require("./routes/index");
 
-// app.use('/', homeRouter);
-// app.use('/products/', productsRouter);
-// app.use('/search/', searchRouter);
-// app.use('/users/', usersRouter);
-// app.use('/cart/', cartRouter);
-// app.use('/settings/', settingsRouter);
+app.use('/', indexRouter);
 
 // ************ Run server ************
 
