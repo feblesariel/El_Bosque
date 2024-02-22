@@ -51,7 +51,7 @@ CREATE TABLE orders (
     amount DECIMAL(10, 2) NOT NULL,
     method ENUM('Retiro', 'Envio') NOT NULL,    
     status ENUM('Procesando', 'Preparando', 'Listo', 'Completado', 'Cancelado') NOT NULL,    
-    scheduled_date TEXT NOT NULL,
+    scheduled_date TEXT NOT NULL, -- REVISAR --
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
     FOREIGN KEY (discount_id) REFERENCES discounts(id)
@@ -61,7 +61,7 @@ CREATE TABLE order_items (
     id INT PRIMARY KEY AUTO_INCREMENT,
     order_id INT NOT NULL,
     product_id INT NOT NULL,
-    product_options JSON NOT NULL,
+    product_options JSON NOT NULL, -- REVISAR --
     quantity INT NOT NULL DEFAULT 1,
     subtotal_amount DECIMAL(10, 2) NOT NULL,
     FOREIGN KEY (order_id) REFERENCES orders(id) ON DELETE CASCADE,
