@@ -1,5 +1,5 @@
 module.exports = (sequelize, DataTypes) => {
-    let alias = 'Order_detail';
+    let alias = 'Order_detail_pickup';
     let cols = {
         id: {
             type: DataTypes.INTEGER,
@@ -12,22 +12,6 @@ module.exports = (sequelize, DataTypes) => {
         },
         name: {
             type: DataTypes.STRING(255),
-            allowNull: false
-        },
-        dni: {
-            type: DataTypes.STRING(20),
-            allowNull: false
-        },
-        address: {
-            type: DataTypes.STRING(255),
-            allowNull: false
-        },
-        city: {
-            type: DataTypes.STRING(100),
-            allowNull: false
-        },
-        postal_code: {
-            type: DataTypes.STRING(20),
             allowNull: false
         },
         phone: {
@@ -44,20 +28,20 @@ module.exports = (sequelize, DataTypes) => {
         }
     };
     let config = {
-        tableName: "order_details",
+        tableName: "order_details_pickup",
         timestamps: false
     };
 
-    const Order_detail = sequelize.define(alias, cols, config);
+    const Order_detail_pickup = sequelize.define(alias, cols, config);
 
-    Order_detail.associate = function(models) {
+    Order_detail_pickup.associate = function(models) {
 
-        Order_detail.belongsTo(models.Order, {
+        Order_detail_pickup.belongsTo(models.Order, {
             as: 'Order',
             foreignKey: 'order_id',
             onDelete: 'CASCADE'
         });
     };
 
-    return Order_detail;
+    return Order_detail_pickup;
 };

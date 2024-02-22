@@ -18,8 +18,12 @@ module.exports = (sequelize, DataTypes) => {
             type: DataTypes.DECIMAL(10, 2),
             allowNull: false
         },
+        method: {
+            type: DataTypes.ENUM('Retiro', 'Envio'),
+            allowNull: false
+        },
         status: {
-            type: DataTypes.ENUM('Procesando', 'Preparando', 'Enviando', 'Completado', 'Cancelado'),
+            type: DataTypes.ENUM('Procesando', 'Preparando', 'Listo', 'Completado', 'Cancelado'),
             allowNull: false
         },
         scheduled_date: {

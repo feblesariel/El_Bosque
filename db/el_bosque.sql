@@ -49,7 +49,8 @@ CREATE TABLE orders (
     discount_id INT,
     code INT NOT NULL UNIQUE,
     amount DECIMAL(10, 2) NOT NULL,
-    status ENUM('Procesando', 'Preparando', 'Enviando', 'Completado', 'Cancelado') NOT NULL,    
+    method ENUM('Retiro', 'Envio') NOT NULL,    
+    status ENUM('Procesando', 'Preparando', 'Listo', 'Completado', 'Cancelado') NOT NULL,    
     scheduled_date TEXT NOT NULL,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
@@ -67,14 +68,23 @@ CREATE TABLE order_items (
     FOREIGN KEY (product_id) REFERENCES products(id)
 );
 
-CREATE TABLE order_details (
+CREATE TABLE order_details_delivery (
     id INT PRIMARY KEY AUTO_INCREMENT,
     order_id INT NOT NULL,
     name VARCHAR(255) NOT NULL,
-    dni VARCHAR(20) NOT NULL,
     address VARCHAR(255) NOT NULL,
     city VARCHAR(100) NOT NULL,
     postal_code VARCHAR(20) NOT NULL,
+    phone VARCHAR(20) NOT NULL,
+    email VARCHAR(255) NOT NULL,
+    note TEXT,
+    FOREIGN KEY (order_id) REFERENCES orders(id) ON DELETE CASCADE
+);
+
+CREATE TABLE order_details_pickup (
+    id INT PRIMARY KEY AUTO_INCREMENT,
+    order_id INT NOT NULL,
+    name VARCHAR(255) NOT NULL,
     phone VARCHAR(20) NOT NULL,
     email VARCHAR(255) NOT NULL,
     note TEXT,
