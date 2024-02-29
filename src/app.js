@@ -36,5 +36,5 @@ app.use('/', indexRouter);
 // ************ Run server ************
 
 app.listen(3000, () => {
-    console.log('Server running in 3000 port');
+    console.log('Server running in 3000 port.');
 });
