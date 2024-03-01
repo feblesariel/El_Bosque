@@ -21,18 +21,23 @@
                             <li><a href="/">Inicio</a></li>
                             <li><a href="#">Productos</a>
                                 <ul class="dropdown">
-                                    <li><a href="index.html">Home</a></li>
-                                    <li><a href="shop.html">Shop</a></li>
-                                    <li><a href="single-product-details.html">Product Details</a></li>
-                                    <li><a href="checkout.html">Checkout</a></li>
-                                    <li><a href="blog.html">Blog</a></li>
-                                    <li><a href="single-blog.html">Single Blog</a></li>
-                                    <li><a href="regular-page.html">Regular Page</a></li>
-                                    <li><a href="contact.html">Contact</a></li>
+
+                                    <!-- Muestro las categorias en el header -->
+
+                                    <% if (Categories && Categories.length) { %>
+
+                                        <% Categories.forEach(category => { %>
+                                            <li><a href="/"><%= category.name %></a></li>
+                                        <% }) %>
+
+                                    <% } else { %>
+                                        <li><a href="/">Sin categorias</a></li>
+                                    <% } %>                                    
+
                                 </ul>
                             </li>
-                            <li><a href="blog.html">Nosotros</a></li>
-                            <li><a href="blog.html">Contacto</a></li>
+                            <li><a href="/">Nosotros</a></li>
+                            <li><a href="/">Contacto</a></li>
                         </ul>
                     </div>
                     <!-- Nav End -->
