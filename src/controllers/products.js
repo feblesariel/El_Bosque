@@ -31,10 +31,28 @@ const productsController = {
             ]
         });
 
-        Promise.all([getCategories])
-        .then(([Categories]) => {
+        const getProduct = Product.findOne({
+            where: {                
+                id: req.params.id
+            },
+            include: [
+                {
+                    association: 'Category'
+                },
+                {
+                    association: 'Product_image'
+                },
+                {
+                    association: 'Product_option'
+                }
+            ]
+        });
+        
 
-            res.render('product-details', { Categories })
+        Promise.all([getCategories, getProduct])
+        .then(([Categories, Product]) => {
+
+            res.render('product-details', { Categories, Product })
 
         })
         .catch(error => {
