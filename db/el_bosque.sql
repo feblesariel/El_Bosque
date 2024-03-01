@@ -151,7 +151,7 @@ INSERT INTO product_images (product_id, url) VALUES
     (2, 'product-big-3.jpg'),
     (3, 'product-big-1.jpg'),
     (3, 'product-big-2.jpg'),
-    (3, 'product-big-3jpg'),
+    (3, 'product-big-3.jpg'),
     (4, 'product-big-1.jpg'),
     (4, 'product-big-2.jpg'),
     (4, 'product-big-3.jpg'),
