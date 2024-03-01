@@ -25,35 +25,40 @@
 
             <!-- Single Product Description -->
             <div class="single_product_desc clearfix">
-                <span>mango</span>
-                <a href="cart.html">
-                    <h2>One Shoulder Glitter Midi Dress</h2>
-                </a>
-                <p class="product-desc">Mauris viverra cursus ante laoreet eleifend. Donec vel fringilla ante. Aenean finibus velit id urna vehicula, nec maximus est sollicitudin.</p>
+                <span><%=Product.Category.name %></span>
+                <h2><%=Product.name %></h2>
+                <p class="product-desc"><%=Product.description %></p>
 
                 <!-- Form -->
                 <form class="cart-form clearfix" method="post">
                     <!-- Select Box -->
                     <div class="select-box d-flex mt-50 mb-30">
-                        <select name="select" id="productSize" class="mr-5">
-                            <option value="value">Size: XL</option>
-                            <option value="value">Size: X</option>
-                            <option value="value">Size: M</option>
-                            <option value="value">Size: S</option>
-                        </select>
-                        <select name="select" id="productColor">
-                            <option value="value">Color: Black</option>
-                            <option value="value">Color: White</option>
-                            <option value="value">Color: Red</option>
-                            <option value="value">Color: Purple</option>
-                        </select>
+
+                        <% const optionTypes = {}; %>
+                        <% Product.Product_option.forEach(item => { %>
+                            <% if (!optionTypes[item.option_type]) { %>
+                                <% optionTypes[item.option_type] = []; %>
+                            <% } %>
+                            <% optionTypes[item.option_type].push(item.option_value); %>
+                        <% }) %>
+                        
+                        <% for (const optionType in optionTypes) { %>
+                            <select name="select" id="<%=optionType %>" class="mr-5">
+                                <option value="" disabled selected><%=optionType %></option>
+                                <% optionTypes[optionType].forEach(optionValue => { %>
+                                    <option value="<%= optionValue %>"><%=optionValue %></option>
+                                <% }) %>
+                            </select>
+                        <% } %>                        
+
                     </div>
                     <!-- Cart & Favourite Box -->
                     <div class="cart-fav-box d-flex align-items-center">
                         <!-- Cart -->
-                        <button type="submit" name="addtocart" value="5" class="btn essence-btn">Add to cart</button>
+                        <button type="submit" name="addtocart" value="5" class="btn essence-btn">Añadir al carrito</button>
                     </div>
                 </form>
+
             </div>
 
         <% } %>
