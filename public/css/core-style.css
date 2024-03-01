@@ -1025,7 +1025,7 @@ img {
           font-size: 14px; } }
     .single_product_details_area .single_product_desc .nice-select {
       position: relative;
-      z-index: 100;
+      /* z-index: 100; */
       border: 1px solid #ebebeb;
       border-radius: 0;
       font-size: 14px;
