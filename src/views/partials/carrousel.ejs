@@ -24,9 +24,9 @@
                                 <!-- Product Image -->
                                 <div class="product-img">
                                     <% if (product.Product_image && product.Product_image.length > 0) { %>
-                                        <img src="img/product-img/<%= product.Product_image[0].url %>" alt="">
+                                        <img src="/img/product-img/<%= product.Product_image[0].url %>" alt="">
                                     <% } else { %>
-                                        <img src="img/product-img/default.jpg" alt="">
+                                        <img src="/img/product-img/default.jpg" alt="">
                                     <% } %>                                    
                                 </div>
                                 <!-- Product Description -->
@@ -40,7 +40,7 @@
                                     <div class="hover-content">
                                         <!-- Add to Cart -->
                                         <div class="add-to-cart-btn">
-                                            <a href="#" class="btn essence-btn">Ver mas</a>
+                                            <a href="/products/detail/<%=product.id%>" class="btn essence-btn">Ver mas</a>
                                         </div>
                                     </div>
                                 </div>
