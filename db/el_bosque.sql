@@ -20,7 +20,7 @@ CREATE TABLE products (
 CREATE TABLE product_options (
     id INT PRIMARY KEY AUTO_INCREMENT,
     id_product INT NOT NULL,
-    option_type ENUM('Tamaño', 'Relleno', 'Cobertura', 'Decoración') NOT NULL,
+    option_type ENUM('Tamaño', 'Relleno 1', 'Relleno 2', 'Cobertura', 'Decoración') NOT NULL,
     option_value VARCHAR(255) NOT NULL,
     description TEXT NOT NULL,
     price DECIMAL(10, 2) DEFAULT 0,
