@@ -23,24 +23,24 @@
                             <div class="single-product-wrapper">
                                 <!-- Product Image -->
                                 <div class="product-img">
-                                    <img src="img/product-img/<%=product.Product_image[0].url%>" alt="">
+                                    <img src="img/product-img/<%= product.Product_image[0].url %>" alt="">
                                     <!-- Hover Thumb -->
                                     <img class="hover-img" src="img/product-img/product-2.jpg" alt="">
 
                                 </div>
                                 <!-- Product Description -->
                                 <div class="product-description">
-                                    <span>topshop</span>
+                                    <span><%= product.Category.name %></span>
                                     <a href="single-product-details.html">
-                                        <h6>Knot Front Mini Dress</h6>
+                                        <h6><%= product.name %></h6>
                                     </a>
-                                    <p class="product-price">$80.00</p>
+                                    <p class="product-price">$<%= product.price %></p>
 
                                     <!-- Hover Content -->
                                     <div class="hover-content">
                                         <!-- Add to Cart -->
                                         <div class="add-to-cart-btn">
-                                            <a href="#" class="btn essence-btn">Add to Cart</a>
+                                            <a href="#" class="btn essence-btn">Ver mas</a>
                                         </div>
                                     </div>
                                 </div>

@@ -37,6 +37,9 @@ const indexController = {
             },
             include: [
                 {
+                    association: 'Category'
+                },
+                {
                     association: 'Product_image'
                 }
             ]
