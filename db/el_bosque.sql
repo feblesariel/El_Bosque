@@ -132,15 +132,20 @@ INSERT INTO products (category_id, name, price, description) VALUES
 
 INSERT INTO product_options (id_product, option_type, option_value, description) VALUES
     (1, 'Tamaño', 'Chica', 'Rinde para 8 porciones.'),
-    (1, 'Relleno', 'Dulce de leche', 'Relleno de dulce de leche Vacalin.'),
+    (1, 'Relleno 1', 'Dulce de leche', 'Relleno de dulce de leche Vacalin.'),
+    (1, 'Relleno 2', 'Merengue italiano', 'Relleno de merengue italiano.'),
     (2, 'Tamaño', 'Chica', 'Rinde para 8 porciones.'),
-    (2, 'Relleno', 'Dulce de leche', 'Relleno de dulce de leche Vacalin.'),
+    (2, 'Relleno 1', 'Dulce de leche', 'Relleno de dulce de leche Vacalin.'),
+    (2, 'Relleno 2', 'Merengue italiano', 'Relleno de merengue italiano.'),
     (3, 'Tamaño', 'Chica', 'Rinde para 8 porciones.'),
-    (3, 'Relleno', 'Dulce de leche', 'Relleno de dulce de leche Vacalin.'),
+    (3, 'Relleno 1', 'Dulce de leche', 'Relleno de dulce de leche Vacalin.'),
+    (3, 'Relleno 2', 'Merengue italiano', 'Relleno de merengue italiano.'),
     (4, 'Tamaño', 'Chica', 'Rinde para 8 porciones.'),
-    (4, 'Relleno', 'Dulce de leche', 'Relleno de dulce de leche Vacalin.'),
+    (4, 'Relleno 1', 'Dulce de leche', 'Relleno de dulce de leche Vacalin.'),
+    (4, 'Relleno 2', 'Merengue italiano', 'Relleno de merengue italiano.'),
     (5, 'Tamaño', 'Chica', 'Rinde para 8 porciones.'),
-    (5, 'Relleno', 'Dulce de leche', 'Relleno de dulce de leche Vacalin.');
+    (5, 'Relleno 1', 'Dulce de leche', 'Relleno de dulce de leche Vacalin.'),
+    (5, 'Relleno 2', 'Merengue italiano', 'Relleno de merengue italiano.');
 
 INSERT INTO product_images (product_id, url) VALUES
     (1, 'product-big-1.jpg'),
