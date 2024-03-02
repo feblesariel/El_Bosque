@@ -59,7 +59,32 @@ const productsController = {
             console.error('Error:', error);
         });
 
+    },
+
+    shop: function (req, res) {
+
+
+        const getCategories = Category.findAll({
+            order: [
+                ['name', 'ASC']
+            ]
+        });        
+
+        Promise.all([getCategories])
+        .then(([Categories]) => {
+
+            res.render('shop', { Categories })
+
+        })
+        .catch(error => {
+            console.error('Error:', error);
+        });
+
     }
+
+
+
 }
+
 
 module.exports = productsController;
