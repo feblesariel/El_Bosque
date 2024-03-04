@@ -12,7 +12,7 @@ function buildOrderURL(order) {
   window.location.href = url.toString();
 }
 
-// Leer la URL actual y agregar la clase "text-primary" a la opción de orden seleccionada
+// Leer la URL actual y quita la clase "d-none" para que se vea la opcion seleccionada con el punto.
 const currentURL = window.location.href;
 
 if (currentURL.includes('order=name')) {
