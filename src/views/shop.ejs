@@ -41,12 +41,12 @@
                             <div class="catagories-menu">
                                 <ul id="menu-content2" class="menu-content collapse show">
 
-                                    <% Categories.forEach(category => { %>
+                                    <% Categories.forEach((category, index) => { %>
 
                                     <!-- Single Item -->
                                     <li data-toggle="collapse" data-target="#<%=category.id%>" class="collapsed">
                                         <a href="#"><%=category.name%></a>
-                                        <ul class="sub-menu collapse" id="<%=category.id%>">
+                                        <ul class="sub-menu collapse <%= index === 0 ? 'show' : '' %>" id="<%=category.id%>">
 
                                             <% category.Products.forEach(product => { %>
 
