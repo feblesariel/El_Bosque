@@ -19,6 +19,16 @@ module.exports = (sequelize, DataTypes) => {
 
     const Category = sequelize.define(alias, cols, config);
 
+    Category.associate = function (models) {
+
+        Category.hasMany(models.Product, {
+            as: 'Products',
+            foreignKey: 'category_id',
+            onDelete: 'CASCADE'
+        });
+
+    }
+
     
     return Category;
 };

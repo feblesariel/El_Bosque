@@ -67,13 +67,34 @@ const productsController = {
         const getCategories = Category.findAll({
             order: [
                 ['name', 'ASC']
+            ],
+            include: [
+                {
+                    association: 'Products'
+                }
             ]
-        });        
+        });
 
-        Promise.all([getCategories])
-        .then(([Categories]) => {
+        const getTotalProductCount = Product.count('id');
 
-            res.render('shop', { Categories })
+        const getProducts = Product.findAll({
+            where: {
+                available: true
+            },
+            include: [
+                {
+                    association: 'Category'
+                },
+                {
+                    association: 'Product_image'
+                }
+            ]
+        });
+
+        Promise.all([getCategories, getTotalProductCount ,getProducts])
+        .then(([Categories, ProductCount, Products]) => {
+
+            res.render('shop', { Categories, ProductCount, Products })
 
         })
         .catch(error => {
