@@ -75,26 +75,10 @@ const productsController = {
             ]
         });
 
-        const getTotalProductCount = Product.count('id');
+        Promise.all([getCategories])
+        .then(([Categories]) => {
 
-        const getProducts = Product.findAll({
-            where: {
-                available: true
-            },
-            include: [
-                {
-                    association: 'Category'
-                },
-                {
-                    association: 'Product_image'
-                }
-            ]
-        });
-
-        Promise.all([getCategories, getTotalProductCount ,getProducts])
-        .then(([Categories, ProductCount, Products]) => {
-
-            res.render('shop', { Categories, ProductCount, Products })
+            res.render('shop', { Categories })
 
         })
         .catch(error => {
