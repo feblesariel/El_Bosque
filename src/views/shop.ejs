@@ -48,7 +48,7 @@
                                         <a href="#"><%=category.name%></a>
                                         <ul class="sub-menu collapse <%= index === 0 ? 'show' : '' %>" id="<%=category.id%>">
                                             <li>
-                                                <a href="#" id="category_<%=category.id%>" onclick="updateCategory('<%=category.id%>');">Todos</a>
+                                                <a href="#" onclick="updateCategory('<%=category.id%>');">Todos</a>
                                             </li>
                                             <% category.Products.forEach(product => { %>
                                                 <li>
