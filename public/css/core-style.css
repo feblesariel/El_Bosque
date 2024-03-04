@@ -46,7 +46,7 @@ a {
   transition: all 500ms ease 0s;
   text-decoration: none;
   outline: 0 solid transparent;
-  color: #fbf5f5;
+  color: black; /*HERE*/
   font-weight: 600;
   font-size: 12px; }
   a:hover, a:focus {
