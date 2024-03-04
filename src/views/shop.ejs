@@ -48,6 +48,8 @@
                                         <a href="#"><%=category.name%></a>
                                         <ul class="sub-menu collapse <%= index === 0 ? 'show' : '' %>" id="<%=category.id%>">
 
+                                            <li><a href="#">Todos</a></li>
+
                                             <% category.Products.forEach(product => { %>
 
                                             <li><a href="#"><%=product.name %></a></li>
