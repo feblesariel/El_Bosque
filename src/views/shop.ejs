@@ -47,15 +47,14 @@
                                     <li data-toggle="collapse" data-target="#<%=category.id%>" class="collapsed">
                                         <a href="#"><%=category.name%></a>
                                         <ul class="sub-menu collapse <%= index === 0 ? 'show' : '' %>" id="<%=category.id%>">
-
-                                            <li><a href="#">Todos</a></li>
-
+                                            <li>
+                                                <a href="#" id="category_<%=category.id%>" onclick="updateCategory('<%=category.id%>');">Todos</a>
+                                            </li>
                                             <% category.Products.forEach(product => { %>
-
-                                            <li><a href="#"><%=product.name %></a></li>
-
+                                                <li>
+                                                    <a href="#" onclick="updateProduct('<%=product.id%>');"><%=product.name %></a>
+                                                </li>
                                             <% }) %>
-
                                         </ul>
                                     </li>
 
@@ -461,6 +460,8 @@
     <script src="/js/active.js"></script>
     <!-- Order js -->
     <script src="/js/itemsOrder.js"></script>
+    <!-- Filter js -->
+    <script src="/js/itemsFilter.js"></script>   
 
 </body>
 
