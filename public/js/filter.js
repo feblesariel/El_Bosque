@@ -4,7 +4,6 @@ function updateCategory(categoryID) {
     url.searchParams.delete('product'); // Eliminar el parámetro 'product'
     url.searchParams.set('category', categoryID); // Establecer el parámetro 'category'.
     window.location.href = url.toString(); // Redirigir a la URL actualizada.
-    document.getElementById('categoryID').classList.add('show');
 }
 
 // Función para actualizar la URL con el parámetro de producto.

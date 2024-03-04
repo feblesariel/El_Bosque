@@ -46,7 +46,7 @@
                                     <!-- Single Item -->
                                     <li data-toggle="collapse" data-target="#<%=category.id%>" class="collapsed">
                                         <a href="#"><%=category.name%></a>
-                                        <ul class="sub-menu collapse <%= index === 0 ? 'show' : '' %>" id="<%=category.id%>">
+                                        <ul class="sub-menu collapse show" id="<%=category.id%>">
                                             <li>
                                                 <a href="#" onclick="updateCategory('<%=category.id%>');">Todos</a>
                                             </li>
