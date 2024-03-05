@@ -7,7 +7,7 @@
 
         <!-- Cart Button -->
         <div class="cart-button">
-            <a href="#" id="rightSideCart"><img src="/img/core-img/bag.svg" alt=""> <span>3</span></a>
+            <a href="#" id="rightSideCart"><img src="/img/core-img/bag.svg" alt=""> <span><%= cart ? Object.keys(cart).length : 0 %></span></a>
         </div>
 
         <div class="cart-content d-flex">
