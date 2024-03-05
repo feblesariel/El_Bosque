@@ -59,6 +59,19 @@
         cartOverlay.toggleClass(cartOverlayOn);
         cartWrapper.toggleClass(cartOn);
     });
+
+    // Para abrir el carrito luego de agregar un producto.
+    $(document).ready(function() {
+        // Lee la URL actual para buscar el parámetro.
+        const currentURL = window.location.href;
+
+        // Verifica si la URL contiene el parámetro 'openCart=true'.
+        if (currentURL.includes('openCart=true')) {
+            // Si la URL contiene el parámetro, activa el evento de clic en el botón del carrito.
+            cartbtn1.trigger('click');
+        }
+    });
+
     cartOverlay.on('click', function () {
         $(this).removeClass(cartOverlayOn);
         cartWrapper.removeClass(cartOn);

@@ -82,7 +82,7 @@ const cartController = {
             // Define la cookie.
             res.cookie('cart', cart , options );
 
-            res.redirect('/products/shop/');
+            res.redirect('/products/shop/?openCart=true');
 
         })
         .catch(error => {
