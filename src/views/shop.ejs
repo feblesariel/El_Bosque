@@ -34,45 +34,30 @@
                         <div class="widget catagory mb-50">
                             <!-- Widget Title -->
                             <h6 class="widget-title mb-30">CATEGORIAS</h6>
-
                             <!--  Catagories  -->
                             <div class="catagories-menu">
-
                                 <ul>
-
                                     <!-- Single Item -->
                                     <li>
-
                                         <a href="/products/shop/">Ver todo</a>
-
                                         <% Categories.forEach((category) => { %>
-
                                             <a href="#" onclick="updateCategory('<%=category.id%>', '<%=category.name%>')"><%=category.name%></a>
-
                                         <% }) %>
-
-                                    </li>                                    
-
+                                    </li>
                                 </ul>
-
                             </div>
-
                         </div>
-
                     </div>
                 </div>
-
                 <div class="col-12 col-md-8 col-lg-9">
                     <div class="shop_grid_product_area">
                         <div class="row">
                             <div class="col-12">
                                 <div class="product-topbar d-flex align-items-center justify-content-between">
-
                                     <!-- Total Products -->
                                     <div class="total-products">
                                         <p><span><%=TotalFilteredProductCount%></span> productos encontrados</p>
                                     </div>
-
                                     <!-- Sorting -->
                                     <div class="product-sorting d-flex">
                                         <button type="button" class="btn btn-sm btn-light" data-toggle="dropdown"><p class="dropdown-toggle">Ordenar por</p></button>
@@ -83,7 +68,6 @@
                                           <a class="dropdown-item" href="#" onclick="buildOrderURL('highPrice')"><p>Mayor precio <span id="orderHighPrice" class="d-none">●</span></p></a>
                                         </div>                                                                      
                                     </div>
-
                                 </div>
                             </div>
                         </div>
@@ -99,7 +83,6 @@
                                     <div class="product-img">
                                         <img src="/img/product-img/<%=product.Product_image[0].url%>" alt="">
                                     </div>
-
                                     <!-- Product Description -->
                                     <div class="product-description">
                                         <span><%=product.Category.name%></span>
@@ -107,7 +90,6 @@
                                             <h6><%=product.name%></h6>
                                         </a>
                                         <p class="product-price">$<%=product.price%></p>
-
                                         <!-- Hover Content -->
                                         <div class="hover-content">
                                             <!-- Add to Cart -->
@@ -121,24 +103,10 @@
 
                             <% }) %>
 
-
                         </div>
                     </div>
 
-
-                    <!-- Pagination -->
-                    <!-- <nav aria-label="navigation">
-                        <ul class="pagination mt-50 mb-70">
-                            <li class="page-item"><a class="page-link" href="#"><i class="fa fa-angle-left"></i></a></li>
-                            <li class="page-item"><a class="page-link" href="#">1</a></li>
-                            <li class="page-item"><a class="page-link" href="#">2</a></li>
-                            <li class="page-item"><a class="page-link" href="#">3</a></li>
-                            <li class="page-item"><a class="page-link" href="#">...</a></li>
-                            <li class="page-item"><a class="page-link" href="#">21</a></li>
-                            <li class="page-item"><a class="page-link" href="#"><i class="fa fa-angle-right"></i></a></li>
-                        </ul>
-                    </nav> -->
-                    
+                    <!-- Pagination -->                    
                     <nav aria-label="navigation">
                         <ul class="pagination mt-50 mb-70">
                             <li class="page-item <%= currentPage === 1 ? 'disabled' : '' %>"><a class="page-link" href="?page=<%= currentPage - 1 %>"><i class="fa fa-angle-left"></i></a></li>
@@ -160,8 +128,9 @@
 
     <!-- Script de paginacion -->
     <script>
+
         const paginationLinks = document.querySelectorAll('.pagination .page-link');
-        
+
         paginationLinks.forEach(link => {
             link.addEventListener('click', (event) => {
                 event.preventDefault();
@@ -171,6 +140,7 @@
                 window.location.href = currentURL;
             });
         });
+
     </script>
 
     <!-- jQuery (Necessary for All JavaScript Plugins) -->
