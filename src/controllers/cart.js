@@ -25,6 +25,8 @@ const cartController = {
 
     add: function (req, res) {
 
+        console.log(req.body)
+
 
 
     }

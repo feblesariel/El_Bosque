@@ -60,20 +60,20 @@
                         
                         <% for (const optionType in optionTypes) { %>
                             <div class="select-box d-flex mt-3 mb-3">
-                                <select name="select" id="<%=optionType %>" class="mr-5">
+                                <select name="option" id="<%=optionType %>" class="mr-5">
                                     <option value="" disabled selected><%=optionType %></option>
                                     <% optionTypes[optionType].forEach(optionValue => { %>
-                                        <option value="<%= optionValue %>"><%=optionValue %></option>
+                                        <option value="<%=optionType + ': ' + optionValue%>"><%=optionValue %></option>
                                     <% }) %>
                                 </select>
                             </div>
                         <% } %>   
                         
                         <div class="select-box d-flex mt-3 mb-5">
-                            <select name="select" id="cant" class="mr-5">
+                            <select name="amount" id="cant" class="mr-5">
                                 <option value="" disabled selected>Cantidad</option>
                                 <% for (let i = 1; i <= 5; i++) { %>
-                                    <option value="<%= i %>"><%= i %></option>
+                                    <option value="<%=i%>"><%= i %></option>
                                 <% } %>
                             </select>                            
                         </div>
@@ -81,7 +81,7 @@
                     <!-- Cart & Favourite Box -->
                     <div class="cart-fav-box d-flex align-items-center">
                         <!-- Cart -->
-                        <button type="submit" name="addtocart" value="5" class="btn essence-btn">Añadir al carrito</button>
+                        <button type="submit" name="product_id" value="<%=Product.id%>" class="btn essence-btn">Añadir al carrito</button>
                     </div>
                 </form>
 
