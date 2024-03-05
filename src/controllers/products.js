@@ -102,13 +102,20 @@ const productsController = {
         }
     
         const getAllProducts = Product.findAll({
-          where: {
-            [Op.and]: whereClause[Op.and]
-          },
-          order: orderOption,
+        where: {
+        [Op.and]: whereClause[Op.and]
+        },
+        order: orderOption,
         //   limit,
         //   offset,
-          include: [{ association: 'Product_image' }]
+        include: [
+        {
+            association: 'Category'
+        },
+        {
+            association: 'Product_image'
+        }
+        ]
         });
     
         // Consulto la cantidad de productos que hay con la actual configuracion de filtrado.
