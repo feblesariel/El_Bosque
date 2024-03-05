@@ -1,16 +1,8 @@
 // Función para actualizar la URL con el parámetro de categoría.
 function updateCategory(categoryID) {
     const url = new URL(window.location.href);
-    url.searchParams.delete('product'); // Eliminar el parámetro 'product'
-    url.searchParams.set('category', categoryID); // Establecer el parámetro 'category'.
-    window.location.href = url.toString(); // Redirigir a la URL actualizada.
-}
-
-// Función para actualizar la URL con el parámetro de producto.
-function updateProduct(productID) {
-    const url = new URL(window.location.href);
-    url.searchParams.delete('category'); // Eliminar el parámetro 'category'.
-    url.searchParams.set('product', productID); // Establecer el parámetro 'product'.
+    url.searchParams.delete('category'); // Eliminar el parámetro 'category' preexistente.
+    url.searchParams.set('category', categoryID); // Establecer el parámetro 'category'
     window.location.href = url.toString(); // Redirigir a la URL actualizada.
 }
 

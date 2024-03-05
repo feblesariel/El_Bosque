@@ -39,28 +39,20 @@
 
                             <!--  Catagories  -->
                             <div class="catagories-menu">
-                                <ul id="menu-content2" class="menu-content collapse show">
 
-                                    <% Categories.forEach((category, index) => { %>
+                                <ul>
+
+                                    <% Categories.forEach((category) => { %>
 
                                     <!-- Single Item -->
-                                    <li data-toggle="collapse" data-target="#<%=category.id%>" class="collapsed">
-                                        <a href="#"><%=category.name%></a>
-                                        <ul class="sub-menu collapse show" id="<%=category.id%>">
-                                            <li>
-                                                <a href="#" onclick="updateCategory('<%=category.id%>');">Todos</a>
-                                            </li>
-                                            <% category.Products.forEach(product => { %>
-                                                <li>
-                                                    <a href="#" onclick="updateProduct('<%=product.id%>');"><%=product.name %></a>
-                                                </li>
-                                            <% }) %>
-                                        </ul>
+                                    <li>
+                                        <a href="#" onclick="updateCategory('<%=category.id%>', '<%=category.name%>')"><%=category.name%></a>
                                     </li>
 
                                     <% }) %>
 
                                 </ul>
+
                             </div>
 
                             <% } %>
