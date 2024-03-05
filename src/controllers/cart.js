@@ -64,7 +64,7 @@ const cartController = {
 
             if (!cart[cartProductId]) { // Si el producto aún no está en el carrito, agrégalo.
                 cart[cartProductId] = {
-                    c: productId,
+                    product_id: productId,
                     category: product.Category.name,
                     name: product.name,
                     selectedOptions: selectedOptions,
