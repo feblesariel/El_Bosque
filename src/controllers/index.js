@@ -45,10 +45,14 @@ const indexController = {
             ]
         });
 
+        const cart = req.cookies.cart;
+
+        console.log(cart)
+
         Promise.all([getCategories, getProducts])
             .then(([Categories, Products]) => {
 
-                res.render('index', { Categories, Products })
+                res.render('index', { Categories, Products, cart})
 
             })
             .catch(error => {

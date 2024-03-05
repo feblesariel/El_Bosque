@@ -48,11 +48,12 @@ const productsController = {
             ]
         });
         
+        const cart = req.cookies.cart;
 
         Promise.all([getCategories, getProduct])
         .then(([Categories, Product]) => {
 
-            res.render('product-details', { Categories, Product })
+            res.render('product-details', { Categories, Product, cart })
 
         })
         .catch(error => {
@@ -124,11 +125,14 @@ const productsController = {
           where: whereClause[Op.and]
         });
 
+        const cart = req.cookies.cart;
+
 
         Promise.all([getCategories, getAllProducts, getTotalFilteredProductCount])
         .then(([Categories, AllProducts, TotalFilteredProductCount]) => {
+
             const totalPages = Math.ceil(TotalFilteredProductCount / perPage);
-            res.render('shop', { Categories, AllProducts, TotalFilteredProductCount, currentPage: page, totalPages })
+            res.render('shop', { Categories, AllProducts, TotalFilteredProductCount, currentPage: page, totalPages, cart })
 
         })
         .catch(error => {
