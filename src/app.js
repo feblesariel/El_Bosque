@@ -4,6 +4,7 @@ const express = require('express');
 const session = require("express-session");
 const path = require('path');
 const methodOverride = require('method-override'); // Para poder usar los métodos PUT y DELETE.
+const cookieParser = require('cookie-parser'); // Para poder usar Cookies.
 
 // ************ express() - (don't touch) ************
 
@@ -21,6 +22,7 @@ app.use(express.static(publicPath));  // Indica donde estan los archivos estáti
 app.use(express.urlencoded({ extended: false }));  // Captura la informacion enviada por POST.
 app.use(express.json()); // Solicitudes entrantes con formato JSON.
 app.use(methodOverride('_method'));  // Para poder pisar el method="POST" en el formulario por PUT y DELETE.
+app.use(cookieParser()); // Middleware Cookie.
 
 // ************ Template Engine - (don't touch) ************
 
