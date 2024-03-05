@@ -124,8 +124,10 @@
 
                         </div>
                     </div>
+
+
                     <!-- Pagination -->
-                    <nav aria-label="navigation">
+                    <!-- <nav aria-label="navigation">
                         <ul class="pagination mt-50 mb-70">
                             <li class="page-item"><a class="page-link" href="#"><i class="fa fa-angle-left"></i></a></li>
                             <li class="page-item"><a class="page-link" href="#">1</a></li>
@@ -135,7 +137,18 @@
                             <li class="page-item"><a class="page-link" href="#">21</a></li>
                             <li class="page-item"><a class="page-link" href="#"><i class="fa fa-angle-right"></i></a></li>
                         </ul>
+                    </nav> -->
+                    
+                    <nav aria-label="navigation">
+                        <ul class="pagination mt-50 mb-70">
+                            <li class="page-item <%= currentPage === 1 ? 'disabled' : '' %>"><a class="page-link" href="?page=<%= currentPage - 1 %>"><i class="fa fa-angle-left"></i></a></li>
+                            <% for (let i = 1; i <= totalPages; i++) { %>
+                                <li class="page-item <%= i === currentPage ? 'active' : '' %>"><a class="page-link" href="?page=<%= i %>"><%= i %></a></li>
+                            <% } %>
+                            <li class="page-item <%= currentPage === totalPages ? 'disabled' : '' %>"><a class="page-link" href="?page=<%= currentPage + 1 %>"><i class="fa fa-angle-right"></i></a></li>
+                        </ul>
                     </nav>
+
                 </div>
             </div>
         </div>
@@ -144,6 +157,21 @@
 
     <!-- ##### Footer Area Start ##### -->
     <%-include("./partials/footer.ejs")%>
+
+    <!-- Script de paginacion -->
+    <script>
+        const paginationLinks = document.querySelectorAll('.pagination .page-link');
+        
+        paginationLinks.forEach(link => {
+            link.addEventListener('click', (event) => {
+                event.preventDefault();
+                const newPage = event.target.getAttribute('href').split('?page=')[1];
+                const currentURL = new URL(window.location.href);
+                currentURL.searchParams.set('page', newPage);
+                window.location.href = currentURL;
+            });
+        });
+    </script>
 
     <!-- jQuery (Necessary for All JavaScript Plugins) -->
     <script src="/js/jquery/jquery-2.2.4.min.js"></script>

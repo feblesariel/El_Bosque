@@ -2,6 +2,7 @@
 function updateCategory(categoryID) {
     const url = new URL(window.location.href);
     url.searchParams.delete('category'); // Eliminar el parámetro 'category' preexistente.
+    url.searchParams.delete('page'); // Eliminar el parámetro 'page' preexistente.
     url.searchParams.set('category', categoryID); // Establecer el parámetro 'category'
     window.location.href = url.toString(); // Redirigir a la URL actualizada.
 }
@@ -10,6 +11,7 @@ function updateCategory(categoryID) {
 function buildOrderURL(order) {
     const url = new URL(window.location.href);
     url.searchParams.delete('order'); // Eliminar el parámetro 'order' preexistente.
+    url.searchParams.delete('page'); // Eliminar el parámetro 'page' preexistente.
     url.searchParams.set('order', order); // Establecer el parámetro 'order'.
     window.location.href = url.toString(); // Redirigir a la URL actualizada.
   }

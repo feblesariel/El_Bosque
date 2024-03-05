@@ -76,10 +76,10 @@ const productsController = {
         const category = req.query.category;
         const order = req.query.order;
     
-        // const page = req.query.page ? parseInt(req.query.page) : 1;
-        // const perPage = 9; // Cantidad de productos por página.
-        // const offset = (page - 1) * perPage;
-        // const limit = perPage;
+        const page = req.query.page ? parseInt(req.query.page) : 1;
+        const perPage = 9; // Cantidad de productos por página.
+        const offset = (page - 1) * perPage;
+        const limit = perPage;
     
         let orderOption = [];
     
@@ -106,8 +106,8 @@ const productsController = {
         [Op.and]: whereClause[Op.and]
         },
         order: orderOption,
-        //   limit,
-        //   offset,
+               limit,
+               offset,
         include: [
         {
             association: 'Category'
@@ -127,8 +127,8 @@ const productsController = {
 
         Promise.all([getCategories, getAllProducts, getTotalFilteredProductCount])
         .then(([Categories, AllProducts, TotalFilteredProductCount]) => {
-
-            res.render('shop', { Categories, AllProducts, TotalFilteredProductCount })
+            const totalPages = Math.ceil(TotalFilteredProductCount / perPage);
+            res.render('shop', { Categories, AllProducts, TotalFilteredProductCount, currentPage: page, totalPages })
 
         })
         .catch(error => {
