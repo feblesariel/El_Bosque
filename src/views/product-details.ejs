@@ -47,7 +47,7 @@
                 <p class="product-desc"><%=Product.description %></p>
 
                 <!-- Form -->
-                <form class="cart-form clearfix" method="post">
+                <form class="cart-form clearfix" action="/cart/add/<%=Product.id%>" method="POST">
                     <!-- Select Box -->
 
                         <% const optionTypes = {}; %>
