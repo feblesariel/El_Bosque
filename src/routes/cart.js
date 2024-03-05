@@ -9,7 +9,7 @@ const cartController = require ("../controllers/cart")
 
 // ************ Rutas ************
 
-router.post("/add/:id/", cartController.add);
+router.post("/add/", cartController.add);
 
 
 module.exports = router;
