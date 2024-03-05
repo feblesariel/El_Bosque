@@ -72,12 +72,16 @@ const cartController = {
                     image: product.Product_image[0].url
                 };
             }
-            
-            console.log(cart)
-    
-            // Establecer la cookie del carrito actualizada.
-            //res.cookie('cart', cart);
 
+            // Define opciones para la cookie
+            const options = {
+                maxAge: 600000 // Tiempo de vida de la cookie en milisegundos (en este caso, 10 minutos).
+            };
+
+            // Define la cookie.
+            res.cookie('cart', cart , options );
+
+            res.redirect('/products/shop/');
 
         })
         .catch(error => {
