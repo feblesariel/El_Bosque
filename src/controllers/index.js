@@ -47,8 +47,6 @@ const indexController = {
 
         const cart = req.cookies.cart;
 
-        console.log(cart)
-
         Promise.all([getCategories, getProducts])
             .then(([Categories, Products]) => {
 
