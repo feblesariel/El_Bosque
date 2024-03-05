@@ -52,6 +52,23 @@
             </div>
         </div>
 
+        <% } else { %>
+
+        <!-- Cart Button -->
+        <div class="cart-button">
+            <a href="#" id="rightSideCart"><img src="/img/core-img/bag.svg" alt=""> <span><%= cart ? Object.keys(cart).length : 0 %></span></a>
+        </div>
+
+        <div class="row justify-content-center align-items-center" style="height: 100vh;">
+            <div class="col text-center">
+                <span class="text-uppercase">carrito vacio</span>
+                <div class="checkout-btn mt-100">
+                    <a href="/products/shop/" class="btn essence-btn">comprar</a>
+                </div>
+            </div>
+        </div>
+        
+
         <% } %>
 
     </div>
