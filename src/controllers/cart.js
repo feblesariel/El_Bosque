@@ -30,14 +30,13 @@ const cartController = {
         let product = "";
 
         // Datos del formulario.
-        const quantity = req.body.amount;
+        const quantity = req.body.amount !== undefined ? req.body.amount : '1';
         const productId = req.body.product_id;
         if (req.body.option) {
             selectedOptions = Array.isArray(req.body.option) ? req.body.option.join(', ') : req.body.option;
         }
 
         // Obtengo el producto.
-
         const getProduct = Product.findOne({
             where: {                
                 id: productId
@@ -57,10 +56,14 @@ const cartController = {
 
             product = result;
 
-            let cart = req.cookies.cart || {}; // Si la cookie del carrito existe, obtén su valor; de lo contrario, crea un objeto vacío
+            let cart = req.cookies.cart || {}; // Si la cookie del carrito existe, obtén su valor; de lo contrario, crea un objeto vacío.
+            let cartLength = Object.keys(cart).length; // Obtengo el largo del array para confeccionar el identificador unico de la cookie.
 
-            if (!cart[productId]) { // Si el producto aún no está en el carrito, agrégalo
-                cart[productId] = {
+            // Genera un identificador único para el producto en el carrito
+            const cartProductId = generateCartProductId(cartLength, productId);
+
+            if (!cart[cartProductId]) { // Si el producto aún no está en el carrito, agrégalo.
+                cart[cartProductId] = {
                     category: product.Category.name,
                     name: product.name,
                     selectedOptions: selectedOptions,
@@ -68,13 +71,11 @@ const cartController = {
                     price: product.price,
                     image: product.Product_image[0].url
                 };
-            } else { // Si el producto ya está en el carrito, actualiza su cantidad
-                cart[productId].quantity += quantity;
-            }  
+            }
             
             console.log(cart)
     
-            // Establecer la cookie del carrito actualizada
+            // Establecer la cookie del carrito actualizada.
             //res.cookie('cart', cart);
 
 
@@ -85,6 +86,11 @@ const cartController = {
 
     }
 
+}
+
+// Función para generar un identificador único para el producto en el carrito.
+function generateCartProductId(cartLength, productId) {
+    return cartLength + '-' + productId;
 }
 
 module.exports = cartController;
