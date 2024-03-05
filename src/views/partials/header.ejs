@@ -19,23 +19,23 @@
                     <div class="classynav">
                         <ul>
                             <li><a href="/">Inicio</a></li>
-                            <li><a href="#">Productos</a>
+                            <li><a href="#">Pasteleria</a>
                                 <ul class="dropdown">
 
-                                    <li><a href="/">Ver todo</a></li>
+                                    <li><a href="/products/shop/">Ver todo</a></li>
 
                                     <% if (Categories && Categories.length) { %>
 
                                         <% Categories.forEach(category => { %>
-                                            <li><a href="/"><%= category.name %></a></li>
+                                            <li><a href="/products/shop/?category=<%=category.id%>"><%=category.name%></a></li>
                                         <% }) %>
 
                                     <% } %>                                 
 
                                 </ul>
                             </li>
-                            <li><a href="/">Contacto</a></li>
-                            <li><a href="/">Tu pedido</a></li>                            
+                            <li><a href="#">Contacto</a></li>
+                            <li><a href="#">Tu pedido</a></li>                            
                         </ul>
                     </div>
                     <!-- Nav End -->

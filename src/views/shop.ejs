@@ -70,7 +70,7 @@
 
                                     <!-- Total Products -->
                                     <div class="total-products">
-                                        <p><span><%=TotalFilteredProductCount%></span> products found</p>
+                                        <p><span><%=TotalFilteredProductCount%></span> productos encontrados</p>
                                     </div>
 
                                     <!-- Sorting -->
@@ -103,7 +103,7 @@
                                     <!-- Product Description -->
                                     <div class="product-description">
                                         <span><%=product.Category.name%></span>
-                                        <a href="#">
+                                        <a href="/products/detail/<%=product.id%>">
                                             <h6><%=product.name%></h6>
                                         </a>
                                         <p class="product-price">$<%=product.price%></p>
@@ -112,7 +112,7 @@
                                         <div class="hover-content">
                                             <!-- Add to Cart -->
                                             <div class="add-to-cart-btn">
-                                                <a href="#" class="btn essence-btn">Ver mas</a>
+                                                <a href="/products/detail/<%=product.id%>" class="btn essence-btn">Ver mas</a>
                                             </div>
                                         </div>
                                     </div>
