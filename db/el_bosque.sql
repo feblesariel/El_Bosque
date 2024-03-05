@@ -12,6 +12,7 @@ CREATE TABLE products (
     category_id INT NOT NULL,
     name VARCHAR(255) NOT NULL,
     price DECIMAL(10, 2) NOT NULL,
+    sold_count INT NOT NULL DEFAULT 0,
     description TEXT NOT NULL,
     available BOOLEAN NOT NULL DEFAULT TRUE,    
     FOREIGN KEY (category_id) REFERENCES categories(id) ON DELETE CASCADE

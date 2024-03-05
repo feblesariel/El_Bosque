@@ -40,14 +40,18 @@
 
                                 <ul>
 
-                                    <% Categories.forEach((category) => { %>
-
                                     <!-- Single Item -->
                                     <li>
-                                        <a href="#" onclick="updateCategory('<%=category.id%>', '<%=category.name%>')"><%=category.name%></a>
-                                    </li>
 
-                                    <% }) %>
+                                        <a href="#">Ver todo</a>
+
+                                        <% Categories.forEach((category) => { %>
+
+                                            <a href="#" onclick="updateCategory('<%=category.id%>', '<%=category.name%>')"><%=category.name%></a>
+
+                                        <% }) %>
+
+                                    </li>                                    
 
                                 </ul>
 
@@ -66,7 +70,7 @@
 
                                     <!-- Total Products -->
                                     <div class="total-products">
-                                        <p><span>156</span> products found</p>
+                                        <p><span><%=TotalFilteredProductCount%></span> products found</p>
                                     </div>
 
                                     <!-- Sorting -->

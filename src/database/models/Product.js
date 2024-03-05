@@ -18,6 +18,11 @@ module.exports = (sequelize, DataTypes) => {
             type: DataTypes.DECIMAL(10, 2),
             allowNull: false
         },
+        sold_count: {
+            type: DataTypes.INTEGER(5),
+            allowNull: false,
+            defaultValue: 0
+        },
         description: {
             type: DataTypes.TEXT,
             allowNull: false
