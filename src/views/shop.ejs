@@ -39,6 +39,8 @@
     </div>
     <!-- ##### Breadcumb Area End ##### -->
 
+    <% if (Categories && TotalFilteredProductCount && AllProducts && currentPage && totalPages) { %>
+
     <!-- ##### Shop Grid Area Start ##### -->
     <section class="shop_grid_area section-padding-80">
         <div class="container">
@@ -138,6 +140,12 @@
         </div>
     </section>
     <!-- ##### Shop Grid Area End ##### -->
+
+    <% } else { %>
+
+        <!-- include error.ejs  -->
+
+    <% } %>
 
     <!-- ##### Footer Area Start ##### -->
     <%-include("./partials/footer.ejs")%>

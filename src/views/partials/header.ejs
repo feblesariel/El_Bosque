@@ -24,13 +24,17 @@
 
                                     <li><a href="/products/shop/">Ver todo</a></li>
 
-                                    <% if (Categories && Categories.length) { %>
+                                    <% if (Categories) { %>
 
                                         <% Categories.forEach(category => { %>
                                             <li><a href="/products/shop/?category=<%=category.id%>"><%=category.name%></a></li>
                                         <% }) %>
 
-                                    <% } %>                                 
+                                    <% } else { %>
+
+                                        <!-- include error.ejs  -->
+
+                                    <% } %>                           
 
                                 </ul>
                             </li>
