@@ -39,9 +39,9 @@
                                 <ul>
                                     <!-- Single Item -->
                                     <li>
-                                        <a href="/products/shop/">Ver todo</a>
+                                        <a class="text-dark" href="/products/shop/">Ver todo</a>
                                         <% Categories.forEach((category) => { %>
-                                            <a href="#" onclick="updateCategory('<%=category.id%>')"><%=category.name%></a>
+                                            <a class="text-dark" href="#" onclick="updateCategory('<%=category.id%>')"><%=category.name%></a>
                                         <% }) %>
                                     </li>
                                 </ul>
