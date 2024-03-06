@@ -106,17 +106,27 @@ const cartController = {
 
                 // Elimina el elemento del carrito
                 delete cart[itemId];
-    
-                // Define opciones para la cookie
-                const options = {
-                    maxAge: 600000 // Tiempo de vida de la cookie en milisegundos (en este caso, 10 minutos).
-                };
 
-                // Eliminar la cookie existente antes de redefinirla
-                res.clearCookie('cart');
-    
-                // Define la cookie actualizada.
-                res.cookie('cart', cart , options );
+                // Verifica si hay elementos restantes en el carrito
+                if (Object.keys(cart).length > 0) {
+
+                    // Define opciones para la cookie
+                    const options = {
+                        maxAge: 600000 // Tiempo de vida de la cookie en milisegundos (en este caso, 10 minutos).
+                    };
+
+                    // Eliminar la cookie existente antes de redefinirla
+                    res.clearCookie('cart');
+
+                    // Define la cookie actualizada.
+                    res.cookie('cart', cart , options );
+
+                } else {
+
+                    // Si no quedan elementos en el carrito, elimina la cookie
+                    res.clearCookie('cart');
+                    
+                }
     
                 // Redirige a la página de origen.
                 res.redirect("/products/shop/");
