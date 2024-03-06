@@ -47,41 +47,37 @@
                 <p class="product-desc"><%=Product.description %></p>
 
                 <!-- Form -->
-                <form class="cart-form clearfix" action="/cart/add/" method="POST">
+                <form id="cartForm" class="cart-form clearfix" action="/cart/add/" method="POST">
                     <!-- Select Box -->
-
-                        <% const optionTypes = {}; %>
-                        <% Product.Product_option.forEach(item => { %>
-                            <% if (!optionTypes[item.option_type]) { %>
-                                <% optionTypes[item.option_type] = []; %>
-                            <% } %>
-                            <% optionTypes[item.option_type].push(item.option_value); %>
-                        <% }) %>
-                        
-                        <% for (const optionType in optionTypes) { %>
-                            <div class="select-box d-flex mt-3 mb-3">
-                                <select name="option" id="<%=optionType %>" class="mr-5">
-                                    <option value="" disabled selected><%=optionType %></option>
-                                    <% optionTypes[optionType].forEach(optionValue => { %>
-                                        <option value="<%=optionType + ': ' + optionValue%>"><%=optionValue %></option>
-                                    <% }) %>
-                                </select>
-                            </div>
-                        <% } %>   
-                        
-                        <div class="select-box d-flex mt-3 mb-5">
-                            <select name="amount" id="amount" class="mr-5">
-                                <option value="" disabled selected>Cantidad</option>
-                                <% for (let i = 1; i <= 5; i++) { %>
-                                    <option value="<%=i%>"><%=i%></option>
-                                <% } %>
-                            </select>                            
+                    <% const optionTypes = {}; %>
+                    <% Product.Product_option.forEach(item => { %>
+                        <% if (!optionTypes[item.option_type]) { %>
+                            <% optionTypes[item.option_type] = []; %>
+                        <% } %>
+                        <% optionTypes[item.option_type].push(item.option_value); %>
+                    <% }) %>
+                    <% for (const optionType in optionTypes) { %>
+                        <div class="select-box d-flex mt-3 mb-3">
+                            <select name="option" id="<%=optionType %>" class="mr-5" onchange="validateSelections()">
+                                <option value="" disabled selected><%=optionType %></option>
+                                <% optionTypes[optionType].forEach(optionValue => { %>
+                                    <option value="<%=optionType + ': ' + optionValue%>"><%=optionValue %></option>
+                                <% }) %>
+                            </select>
                         </div>
-                    
+                    <% } %>   
+                    <div class="select-box d-flex mt-3 mb-5">
+                        <select name="amount" id="amount" class="mr-5" onchange="validateSelections()">
+                            <option value="" disabled selected>Cantidad</option>
+                            <% for (let i = 1; i <= 5; i++) { %>
+                                <option value="<%=i%>"><%=i%></option>
+                            <% } %>
+                        </select>                            
+                    </div>
                     <!-- Cart & Favourite Box -->
                     <div class="cart-fav-box d-flex align-items-center">
                         <!-- Cart -->
-                        <button type="submit" name="product_id" value="<%=Product.id%>" class="btn essence-btn">Añadir al carrito</button>
+                        <button id="addToCartBtn" type="submit" name="product_id" value="<%=Product.id%>" class="btn essence-btn" disabled>Añadir al carrito</button>
                     </div>
                 </form>
 
@@ -98,6 +94,21 @@
 
     <!-- ##### Footer Area Start ##### -->
     <%-include("./partials/footer.ejs")%>
+
+    <!-- Validation form js -->
+    <script>
+        // Función para validar las selecciones
+        function validateSelections() {
+            // Obtener todos los select
+            const selects = document.querySelectorAll('.select-box select');
+            // Obtener el botón de "Añadir al carrito"
+            const addToCartBtn = document.getElementById('addToCartBtn');
+            // Verificar si todas las selecciones son válidas
+            const allValid = Array.from(selects).every(select => select.value !== '');
+            // Habilitar o deshabilitar el botón según la validación
+            addToCartBtn.disabled = !allValid;
+        }
+    </script>
 
     <!-- jQuery (Necessary for All JavaScript Plugins) -->
     <script src="/js/jquery/jquery-2.2.4.min.js"></script>
