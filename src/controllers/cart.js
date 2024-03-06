@@ -60,7 +60,7 @@ const cartController = {
             let cartLength = Object.keys(cart).length; // Obtengo el largo del array para confeccionar el identificador unico de la cookie.
 
             // Genera un identificador único para el producto en el carrito
-            const cartProductId = generateCartProductId(cartLength, productId);
+            const cartProductId = generateCartProductId(cartLength);
 
             if (!cart[cartProductId]) { // Si el producto aún no está en el carrito, agrégalo.
                 cart[cartProductId] = {
@@ -89,13 +89,48 @@ const cartController = {
             console.error('Error:', error);
         });
 
-    }
+    },
+
+    remove: function (req, res) {
+
+        // Obtengo key del item.
+        const itemId = req.params.id;
+    
+        if (req.cookies && req.cookies.cart) {
+
+            // Obtén el carrito como un objeto JavaScript directamente
+            let cart = req.cookies.cart;
+    
+            // Verifica si el elemento existe en el carrito
+            if (cart.hasOwnProperty(itemId)) {
+                // Elimina el elemento del carrito
+                delete cart[itemId];
+    
+                // Define opciones para la cookie
+                const options = {
+                    maxAge: 600000 // Tiempo de vida de la cookie en milisegundos (en este caso, 10 minutos).
+                };
+    
+                // Define la cookie actualizada.
+                res.cookie('cart', cart , options );
+    
+                // Redirige a la página de origen.
+                res.redirect("/products/shop/");
+
+            } else {
+                res.status(404).send('El ítem especificado no fue encontrado en el carrito.');
+            }
+
+        } else {
+            res.status(404).send('No se encontró un carrito en la solicitud.');
+        }
+    }      
 
 }
 
 // Función para generar un identificador único para el producto en el carrito.
-function generateCartProductId(cartLength, productId) {
-    return cartLength + '-' + productId;
+function generateCartProductId(cartLength) {
+    return cartLength;
 }
 
 module.exports = cartController;
