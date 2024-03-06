@@ -103,6 +103,7 @@ const cartController = {
     
             // Verifica si el elemento existe en el carrito
             if (cart.hasOwnProperty(itemId)) {
+
                 // Elimina el elemento del carrito
                 delete cart[itemId];
     
@@ -110,6 +111,9 @@ const cartController = {
                 const options = {
                     maxAge: 600000 // Tiempo de vida de la cookie en milisegundos (en este caso, 10 minutos).
                 };
+
+                // Eliminar la cookie existente antes de redefinirla
+                res.clearCookie('cart');
     
                 // Define la cookie actualizada.
                 res.cookie('cart', cart , options );
@@ -124,7 +128,7 @@ const cartController = {
         } else {
             res.status(404).send('No se encontró un carrito en la solicitud.');
         }
-    }      
+    }
 
 }
 
