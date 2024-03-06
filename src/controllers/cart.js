@@ -132,11 +132,15 @@ const cartController = {
                 res.redirect("/products/shop/");
 
             } else {
-                res.status(404).send('El ítem especificado no fue encontrado en el carrito.');
+
+                //No se encontro el item en la cookie.
+                res.redirect("/");
             }
 
         } else {
-            res.status(404).send('No se encontró un carrito en la solicitud.');
+
+            //No se encontro la cookie.
+            res.redirect("/");
         }
     }
 
