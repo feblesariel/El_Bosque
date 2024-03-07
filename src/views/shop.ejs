@@ -131,6 +131,8 @@
                         </div>
                     </div>
 
+                    <% if (TotalFilteredProductCount > 9) { %>
+
                     <!-- Pagination -->                    
                     <nav aria-label="navigation">
                         <ul class="pagination mt-50 mb-70">
@@ -141,6 +143,8 @@
                             <li class="page-item <%= currentPage === totalPages ? 'disabled' : '' %>"><a class="page-link" href="?page=<%= currentPage + 1 %>"><i class="fa fa-angle-right"></i></a></li>
                         </ul>
                     </nav>
+
+                    <% } %>
 
                     <% } else { %>
 
