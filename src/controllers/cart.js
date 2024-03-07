@@ -76,7 +76,7 @@ const cartController = {
 
             // Define opciones para la cookie
             const options = {
-                maxAge: 600000 // Tiempo de vida de la cookie en milisegundos (en este caso, 10 minutos).
+                maxAge: 3600000 // Tiempo de vida de la cookie en milisegundos (en este caso, 10 minutos).
             };
 
             // Define la cookie.
@@ -112,7 +112,7 @@ const cartController = {
 
                     // Define opciones para la cookie
                     const options = {
-                        maxAge: 600000 // Tiempo de vida de la cookie en milisegundos (en este caso, 10 minutos).
+                        maxAge: 3600000 // Tiempo de vida de la cookie en milisegundos (en este caso, 10 minutos).
                     };
 
                     // Eliminar la cookie existente antes de redefinirla
