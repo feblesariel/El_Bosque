@@ -64,6 +64,10 @@
 
                 <div class="d-none" id="formContainer">
 
+                    <span><%=Product.Category.name %></span>
+                    <h2><%=Product.name %></h2>
+                    <span>elegi entre las diferentes opciones y arma tu <%=Product.name %> como mas te guste</span>
+
                     <!-- Form -->
                     <form id="cartForm" class="cart-form clearfix" action="/cart/add/" method="POST">                    
                         <!-- Select Box -->
@@ -76,7 +80,7 @@
                         <% }) %>
                         <% for (const optionType in optionTypes) { %>
                             <div class="select-box d-flex flex-column mt-3 mb-3">
-                                <span>elije un <%=optionType %></span>
+
                                 <select name="option" id="<%=optionType %>" class="mr-5" onchange="validateSelections()">
                                     <option value="" disabled selected><%=optionType %></option>
                                     <% optionTypes[optionType].forEach(optionValue => { %>
@@ -86,7 +90,7 @@
                             </div>
                         <% } %>   
                         <div class="select-box d-flex flex-column mt-3 mb-5">
-                            <span>elije la cantidad</span>
+
                             <select name="amount" id="amount" class="mr-5" onchange="validateSelections()">                                
                                 <option value="" disabled selected>Cantidad</option>
                                 <% for (let i = 1; i <= 5; i++) { %>
