@@ -21,7 +21,7 @@ CREATE TABLE products (
 CREATE TABLE product_options (
     id INT PRIMARY KEY AUTO_INCREMENT,
     id_product INT NOT NULL,
-    option_type ENUM('Tamaño', 'Relleno 1', 'Relleno 2', 'Cobertura', 'Decoración') NOT NULL,
+    option_type ENUM('Tamaño', 'Bizcochuelo', 'Relleno 1', 'Relleno 2', 'Cobertura', 'Decoración') NOT NULL,
     option_value VARCHAR(255) NOT NULL,
     description TEXT NOT NULL,
     price DECIMAL(10, 2) DEFAULT 0,
@@ -125,7 +125,7 @@ CREATE TABLE subscribers (
 INSERT INTO categories (name) VALUES ('Categoria 1'), ('Categoria 2'), ('Categoria 3');
 
 INSERT INTO products (category_id, name, price, description) VALUES
-    (1, 'Producto 1', 499.99, 'Clásica chocotorta con ganache de chocolate como topping y deco con picos de dulce de leche, chocolatines y chips de chocolate.'),
+    (1, 'Producto 1', 499.99, '3 capas de bizcochuelo y 1 de relleno firme a elección (no cremas, seleccionar ambos rellenos iguales, en caso de elegir distintos se hará con el primero). Los bizcochuelos son humedecidos con almíbar y las tortas cubiertas de buttercream. Se mantienen en heladera. Se entrega en base de carton con blonda y caja cerrada.\n\nTamaño chica rinde 6 porciones.\n\nTamaño chica rinde 10 porciones.'),
     (2, 'Producto 2', 299.99, 'Clásica chocotorta con ganache de chocolate como topping y deco con picos de dulce de leche, chocolatines y chips de chocolate.'),
     (3, 'Producto 3', 899.99, 'Clásica chocotorta con ganache de chocolate como topping y deco con picos de dulce de leche, chocolatines y chips de chocolate.'),
     (1, 'Producto 4', 79.99, 'Clásica chocotorta con ganache de chocolate como topping y deco con picos de dulce de leche, chocolatines y chips de chocolate.'),
@@ -133,18 +133,23 @@ INSERT INTO products (category_id, name, price, description) VALUES
 
 INSERT INTO product_options (id_product, option_type, option_value, description) VALUES
     (1, 'Tamaño', 'Chica', 'Rinde para 8 porciones.'),
+    (1, 'Bizcochuelo', 'Vainilla', 'Chocolate'),
     (1, 'Relleno 1', 'Dulce de leche', 'Relleno de dulce de leche Vacalin.'),
     (1, 'Relleno 2', 'Merengue italiano', 'Relleno de merengue italiano.'),
     (2, 'Tamaño', 'Chica', 'Rinde para 8 porciones.'),
+    (2, 'Bizcochuelo', 'Vainilla', 'Chocolate'),
     (2, 'Relleno 1', 'Dulce de leche', 'Relleno de dulce de leche Vacalin.'),
     (2, 'Relleno 2', 'Merengue italiano', 'Relleno de merengue italiano.'),
     (3, 'Tamaño', 'Chica', 'Rinde para 8 porciones.'),
+    (3, 'Bizcochuelo', 'Vainilla', 'Chocolate'),
     (3, 'Relleno 1', 'Dulce de leche', 'Relleno de dulce de leche Vacalin.'),
     (3, 'Relleno 2', 'Merengue italiano', 'Relleno de merengue italiano.'),
     (4, 'Tamaño', 'Chica', 'Rinde para 8 porciones.'),
+    (4, 'Bizcochuelo', 'Vainilla', 'Chocolate'),
     (4, 'Relleno 1', 'Dulce de leche', 'Relleno de dulce de leche Vacalin.'),
     (4, 'Relleno 2', 'Merengue italiano', 'Relleno de merengue italiano.'),
     (5, 'Tamaño', 'Chica', 'Rinde para 8 porciones.'),
+    (5, 'Bizcochuelo', 'Vainilla', 'Chocolate'),
     (5, 'Relleno 1', 'Dulce de leche', 'Relleno de dulce de leche Vacalin.'),
     (5, 'Relleno 2', 'Merengue italiano', 'Relleno de merengue italiano.');
 

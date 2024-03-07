@@ -44,7 +44,12 @@
                 <span><%=Product.Category.name %></span>
                 <h2><%=Product.name %></h2>
                 <p class="product-price">$<%=Product.price %></p>
-                <p class="product-desc"><%=Product.description %></p>
+
+                <!-- Para mostrar los saltos de linea como corresponden, sino usar la etiquta normal <p class="product-desc"> Product.description </p> -->
+                <% const descriptionLines = Product.description.split('\n'); %>
+                <% descriptionLines.forEach(line => { %>
+                    <p class="product-desc"><%= line %></p>
+                <% }) %>
 
                 <!-- Form -->
                 <form id="cartForm" class="cart-form clearfix" action="/cart/add/" method="POST">
