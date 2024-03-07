@@ -76,6 +76,7 @@ const productsController = {
 
         const category = req.query.category;
         const order = req.query.order;
+        const search = req.query.search;
     
         const page = req.query.page ? parseInt(req.query.page) : 1;
         const perPage = 9; // Cantidad de productos por página.
@@ -97,6 +98,10 @@ const productsController = {
         const whereClause = {
           [Op.and]: []
         };
+
+        if (search) {
+            whereClause[Op.and].push({ name: { [Op.like]: `%${search}%` } });
+        }        
 
         if (category) {
             whereClause[Op.and].push({ category_id: category });

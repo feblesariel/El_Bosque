@@ -48,17 +48,20 @@
 
             <!-- Header Meta Data -->
             <div class="header-meta d-flex clearfix justify-content-end">
+
                 <!-- Search Area -->
                 <div class="search-area">
-                    <form action="#" method="post">
-                        <input type="search" name="search" id="headerSearch" placeholder="¿Que buscas?">
+                    <form id="searchForm" method="get">
+                        <input type="search" name="search" id="headerSearch" placeholder="¿Qué buscas?" required>
                         <button type="submit"><i class="fa fa-search" aria-hidden="true"></i></button>
                     </form>
                 </div>
+
                 <!-- Cart Area -->
                 <div class="cart-area">
                     <a href="#" id="essenceCartBtn"><img src="/img/core-img/bag.svg" alt=""><span><%= cart ? Object.keys(cart).length : 0 %></span></a>
                 </div>
+
             </div>
 
         </div>

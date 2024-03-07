@@ -2,8 +2,10 @@
 function updateCategory(categoryID) {
     const url = new URL(window.location.href);
     url.searchParams.delete('openCart'); // Eliminar el parámetro 'openCart' preexistente.
+    url.searchParams.delete('order'); // Eliminar el parámetro 'order' preexistente.
     url.searchParams.delete('category'); // Eliminar el parámetro 'category' preexistente.
     url.searchParams.delete('page'); // Eliminar el parámetro 'page' preexistente.
+    url.searchParams.delete('search'); // Eliminar el parámetro 'search' preexistente.
     url.searchParams.set('category', categoryID); // Establecer el parámetro 'category'
     window.location.href = url.toString(); // Redirigir a la URL actualizada.
 }
