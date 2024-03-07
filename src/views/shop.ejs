@@ -39,12 +39,13 @@
     </div>
     <!-- ##### Breadcumb Area End ##### -->
 
-    <% if (Categories && TotalFilteredProductCount && AllProducts && currentPage && totalPages) { %>
-
     <!-- ##### Shop Grid Area Start ##### -->
     <section class="shop_grid_area section-padding-80">
         <div class="container">
             <div class="row">
+
+                <% if (Categories) { %>
+
                 <div class="col-12 col-md-4 col-lg-3">
                     <div class="shop_sidebar_area">
 
@@ -67,7 +68,13 @@
                         </div>
                     </div>
                 </div>
+
+                <% } %>                
+
                 <div class="col-12 col-md-8 col-lg-9">
+
+                    <% if (TotalFilteredProductCount && AllProducts && currentPage && totalPages) { %>
+
                     <div class="shop_grid_product_area">
                         <div class="row">
                             <div class="col-12">
@@ -135,17 +142,28 @@
                         </ul>
                     </nav>
 
+                    <% } else { %>
+
+                        <div class="shop_grid_product_area">
+                            <div class="row">
+                                <div class="col-12">
+                                    <div class="product-topbar align-items-center">
+                                        <!-- Total Products -->
+                                        <div class="total-products">
+                                            <p><span>0</span> productos encontrados</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    <% }  %>
+
                 </div>
             </div>
         </div>
     </section>
     <!-- ##### Shop Grid Area End ##### -->
-
-    <% } else { %>
-
-        <!-- include error.ejs  -->
-
-    <% } %>
 
     <!-- ##### Footer Area Start ##### -->
     <%-include("./partials/footer.ejs")%>
