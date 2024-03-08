@@ -34,10 +34,12 @@ app.set('views', path.join(__dirname, '/views')); // Define la ubicación de la 
 const indexRouter = require("./routes/index");
 const productsRouter = require("./routes/products");
 const cartRouter = require("./routes/cart");
+const checkoutRouter = require("./routes/checkout");
 
 app.use('/', indexRouter);
 app.use('/products/', productsRouter);
 app.use('/cart/', cartRouter);
+app.use('/checkout/', checkoutRouter);
 
 // ************ Run server ************
 
