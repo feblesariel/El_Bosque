@@ -10,8 +10,8 @@ const checkoutController = require ("../controllers/checkout")
 
 // ************ Rutas ************
 
-router.get("/", cookieMiddleware ,checkoutController.checkout);
-router.post("/procces/", cookieMiddleware ,checkoutController.procces);
+router.get("/", cookieMiddleware , checkoutController.checkout);
+router.post("/procces/" , checkoutController.procces);
 
 
 module.exports = router;
