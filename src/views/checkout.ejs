@@ -115,6 +115,8 @@
 
                             </div>
 
+                            <button id="btnFormSend" type="submit" class="d-none"></button>
+
                         </form>
 
                     </div>
@@ -178,7 +180,7 @@
 
                         </div>
 
-                        <button id="btnSend" disabled class="btn essence-btn">enviar</button>
+                        <button id="btnSendOut" disabled class="btn essence-btn">enviar</button>
 
                     </div>
                 </div>
@@ -193,11 +195,11 @@
     <!-- Send Form js -->
     <script>
         // Agregar un event listener al botón de enviar
-        document.getElementById('btnSend').addEventListener('click', function() {
+        document.getElementById('btnSendOut').addEventListener('click', function() {
             // Obtener el formulario
-            const form = document.getElementById('checkoutForm');
+            const boton = document.getElementById('btnFormSend');
             // Enviar el formulario
-            form.submit();
+            boton.click();
         });
     </script>
     

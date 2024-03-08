@@ -23,7 +23,7 @@ function checkFormCompletion() {
 }
 
 // Variable sendBtn definida fuera del alcance de DOMContentLoaded
-const sendBtn = document.getElementById('btnSend');
+const sendBtn = document.getElementById('btnSendOut');
 
 function toggleDeliveryZone() {
     // Obtener el valor seleccionado en el select
