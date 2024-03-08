@@ -58,23 +58,23 @@
                             <div class="row">
 
                                 <div class="col-md-6 mb-3">
-                                    <label for="first_name">nombre <span>*</span></label>
-                                    <input type="text" class="form-control" id="first_name" value="" required>
+                                    <label for="name">nombre <span>*</span></label>
+                                    <input type="text" class="form-control" id="name" name="name">
                                 </div>
                                 <div class="col-md-6 mb-3">
-                                    <label for="last_name">telefono <span>*</span></label>
-                                    <input type="tel" class="form-control" id="last_name" value="" required>
+                                    <label for="tel">telefono <span>*</span></label>
+                                    <input type="tel" class="form-control" id="tel" name="tel">
                                 </div>
                                 <div class="col-12 mb-3">
-                                    <label for="email_address">Email <span>*</span></label>
-                                    <input type="email" class="form-control" id="email_address" value="">
+                                    <label for="email">Email <span>*</span></label>
+                                    <input type="email" class="form-control" id="email" name="email">
                                 </div>
                                 <div class="col-12 mb-3">
-                                    <label for="nota">Nota</label>
-                                    <textarea class="form-control" id="nota" name="nota" rows="4"></textarea>
+                                    <label for="note">Nota</label>
+                                    <textarea class="form-control" id="note" name="note"></textarea>
                                 </div>                                
                                 <div class="col-12 mb-3">
-                                    <label for="country">¿Retiro o envío? <span>*</span></label>
+                                    <label for="orderType">¿Retiro o envío? <span>*</span></label>
                                     <select class="w-100" id="orderType" onchange="toggleDeliveryZone()">
                                         <option value="pickup">Retiro</option>
                                         <option value="delivery">Envío a domicilio</option>
@@ -87,18 +87,18 @@
                             
                                 <div class="col-12 mb-3">
                                     <label for="postcode">codigo postal <span>*</span></label>
-                                    <input type="text" class="form-control" id="postcode" value="">
+                                    <input type="text" class="form-control" id="postcode" name="postcode">
                                 </div>
                                 <div class="col-12 mb-3">
                                     <label for="city">ciudad <span>*</span></label>
-                                    <input type="text" class="form-control" id="city" value="">
+                                    <input type="text" class="form-control" id="city" name="city">
                                 </div>
                                 <div class="col-12 mb-3">
-                                    <label for="street_address">direccion <span>*</span></label>
-                                    <input type="text" class="form-control" id="street_address2" value="">
+                                    <label for="address">direccion <span>*</span></label>
+                                    <input type="text" class="form-control" id="address" name="address">
                                 </div>
                                 <div class="col-12 mb-3">
-                                    <label for="fecha">¿Cuándo lo quieres recibir? <span>*</span></label>
+                                    <label for="date">¿Cuándo lo quieres recibir? <span>*</span></label>
                                     <input type="date" class="form-control" id="date" name="date" min="" max="">
                                 </div>                                                        
 
