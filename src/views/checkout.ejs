@@ -108,8 +108,8 @@
 
                                 <div class="col-12 mt-5">
                                     <div class="custom-control custom-checkbox d-block">
-                                        <input type="checkbox" class="custom-control-input" id="customCheck3">
-                                        <label class="custom-control-label" for="customCheck3">Subscribe to our newsletter</label>
+                                        <input type="checkbox" class="custom-control-input" id="newsletter" name="newsletter"> 
+                                        <label class="custom-control-label" for="newsletter">Subscribe to our newsletter</label>                                                                               
                                     </div>
                                 </div>
 
@@ -178,7 +178,8 @@
 
                         </div>
 
-                        <a href="#" class="btn essence-btn">enviar</a>
+                        <button id="btnSend" disabled class="btn essence-btn">enviar</button>
+
                     </div>
                 </div>
             </div>
@@ -188,6 +189,46 @@
 
     <!-- ##### Footer Area Start ##### -->
     <%-include("./partials/footer.ejs")%>
+
+    <!-- Validation form js -->
+    <script>
+
+        // Función para verificar si todos los campos del formulario están completos
+        function checkFormCompletion() {
+            // Obtener todos los campos del formulario
+            const formFields = document.querySelectorAll('#name, #tel, #email, #postcode, #city, #address, #date');
+        
+            // Verificar si todos los campos están completos
+            let allFieldsCompleted = true;
+            formFields.forEach(field => {
+                if (field.value.trim() === '') {
+                    allFieldsCompleted = false;
+                }
+            });
+        
+            // Devolver true si todos los campos están completos, de lo contrario, devolver false
+            return allFieldsCompleted;
+        }
+        
+        document.addEventListener('DOMContentLoaded', () => {
+
+            const sendBtn = document.getElementById('btnSend');
+    
+            // Agregar un event listener a cada campo de entrada para verificar si está completo
+            const formFields = document.querySelectorAll('#name, #tel, #email, #postcode, #city, #address, #date');
+            formFields.forEach(field => {
+                field.addEventListener('input', () => {
+                    const isFormCompleted = checkFormCompletion();
+                    sendBtn.disabled = !isFormCompleted;
+                });
+            });
+    
+            // Verificar el estado inicial del formulario
+            const isFormCompleted = checkFormCompletion();
+            sendBtn.disabled = !isFormCompleted;
+        });
+
+    </script>
     
     <!-- Calendar js -->
     <script>
