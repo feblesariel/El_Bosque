@@ -53,7 +53,7 @@
                             <h5>Dirección de facturación</h5>
                         </div>
 
-                        <form action="#" method="post">
+                        <form id="checkoutForm" action="/" method="get">
 
                             <div class="row">
 
@@ -189,6 +189,17 @@
 
     <!-- ##### Footer Area Start ##### -->
     <%-include("./partials/footer.ejs")%>
+
+    <!-- Send Form js -->
+    <script>
+        // Agregar un event listener al botón de enviar
+        document.getElementById('btnSend').addEventListener('click', function() {
+            // Obtener el formulario
+            const form = document.getElementById('checkoutForm');
+            // Enviar el formulario
+            form.submit();
+        });
+    </script>
     
     <!-- Calendar js -->
     <script>
