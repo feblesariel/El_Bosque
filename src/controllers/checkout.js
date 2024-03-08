@@ -57,7 +57,23 @@ const checkoutController = {
                 console.error('Error:', error);
             });
 
+    },
+
+    procces: function (req, res) {
+
+        console.log(req.body)
+
+
+
+
+
+
+
+
+
+
     }
+
 }
 
 module.exports = checkoutController;
