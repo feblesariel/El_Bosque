@@ -41,13 +41,12 @@
 
                 <h2>Resumen</h2>
                 <ul class="summary-table">
-                    <li><span>subtotal:</span> <span>$274.00</span></li>
-                    <li><span>delivery:</span> <span>Free</span></li>
-                    <li><span>discount:</span> <span>-15%</span></li>
+                    <li><span>items:</span> <span><%= cart ? Object.keys(cart).length : 0 %></span></li>
                     <li><span>total:</span> <span>$<%=total.toFixed(2)%></span></li>
                 </ul>
+                <span>¡Al realizar tu pedido recibis un cupón del 10% de descuento para tu próxima compra!</span>
                 <div class="checkout-btn mt-100">
-                    <a href="#" class="btn essence-btn">check out</a>
+                    <a href="#" class="btn essence-btn">finalizar</a>
                 </div>
             </div>
         </div>
