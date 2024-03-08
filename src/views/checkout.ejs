@@ -21,6 +21,8 @@
 
 <body>
 
+    <% let payMethod = "transfer" %>
+
     <!-- ##### Header Area Start ##### -->
     <%-include("./partials/header.ejs")%>
     <!-- ##### Right Side Cart Area ##### -->
@@ -115,7 +117,7 @@
 
                             </div>
 
-                            <button id="btnFormSend" name="method" value="ACA" type="submit" class="d-none"></button>
+                            <button id="btnFormSend" name="method" value="<%=payMethod%>" type="submit" class="d-none"></button>
 
                         </form>
 
@@ -155,7 +157,7 @@
                             <div class="card">
                                 <div class="card-header" role="tab" id="headingOne">
                                     <h6 class="mb-0">
-                                        <a class="text-dark" data-toggle="collapse" href="#collapseOne" aria-expanded="false" aria-controls="collapseOne"><i class="fa fa-credit-card mr-3"></i>mercado pago <img style="width: 75px;" src="/img/bg-img/mercadopago.png" alt=""></a>
+                                        <a class="text-dark" data-toggle="collapse" href="#collapseOne" aria-expanded="false" aria-controls="collapseOne" onclick="setPaymentMethod('mercado_pago')"><i class="fa fa-credit-card mr-3"></i>mercado pago <img style="width: 75px;" src="/img/bg-img/mercadopago.png" alt=""></a>
                                     </h6>
                                 </div>
 
@@ -168,7 +170,7 @@
                             <div class="card">
                                 <div class="card-header" role="tab" id="headingTwo">
                                     <h6 class="mb-0">
-                                        <a class="collapsed text-dark" data-toggle="collapse" href="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo"><i class="fa fa-university mr-3"></i>transferencia bancaria</a>
+                                        <a class="collapsed text-dark" data-toggle="collapse" href="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo" onclick="setPaymentMethod('transfer')"><i class="fa fa-university mr-3"></i>transferencia bancaria</a>
                                     </h6>
                                 </div>
                                 <div id="collapseTwo" class="collapse show" role="tabpanel" aria-labelledby="headingTwo" data-parent="#accordion">
@@ -191,6 +193,13 @@
 
     <!-- ##### Footer Area Start ##### -->
     <%-include("./partials/footer.ejs")%>
+
+    <!-- Pay Method -->
+    <script>
+        function setPaymentMethod(method) {
+            payMethod = method;
+        }        
+    </script>
 
     <!-- Send Form js -->
     <script>
