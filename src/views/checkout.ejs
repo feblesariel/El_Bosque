@@ -152,6 +152,21 @@
                             <li><span>Total</span> <span>$<%= (subtotal + shipping).toFixed(2) %></span></li>
                         </ul>
 
+                        <form action="/checkout/discount/" method="POST">
+
+                            <div class="row">
+
+                                <div class="col-sm-6 mb-3">
+                                    <input type="text" class="form-control" id="cupon" name="cupon" placeholder="¿Tenes cupon?">
+                                </div>
+                                <div class="col-sm-6 mb-3">
+                                    <button type="submit" class="btn text-uppercase">aplicar</button>
+                                </div>
+
+                            </div>
+                        
+                        </form>
+
                         <div id="accordion" role="tablist" class="mb-4">
 
                             <div class="card">
@@ -182,7 +197,7 @@
 
                         </div>
 
-                        <button id="btnSendOut" disabled class="btn essence-btn">enviar</button>
+                        <button id="btnSendOut" disabled class="btn essence-btn">continuar</button>
 
                     </div>
                 </div>
