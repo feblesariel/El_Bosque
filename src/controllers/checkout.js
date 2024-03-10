@@ -58,20 +58,42 @@ const checkoutController = {
 
     },
 
-    discount: function (req, res) {
+    discount: async function (req, res) {
 
+        try {
+            // Obtener el código del cupón del cuerpo de la solicitud
+            const { code } = req.body;
 
+            // Buscar el descuento en la base de datos por el código
+            const discount = await Discount.findOne({
+                where: {
+                    code: code,
+                    active: true // Asegúrate de que el descuento esté activo
+                }
+            });
 
+            // Verificar si se encontró un descuento válido
+            if (discount) {
+                // Aquí puedes realizar el cálculo del descuento y actualizar la cookie del carrito
+                // Por simplicidad, supongamos que el descuento es del 10%
+                const discountPercentage = discount.discount_percentage;
+                const newTotal = calcularNuevoTotal(req.cookies.cart.total, discountPercentage);
 
-        console.log(req.body)
+                // Aquí debes actualizar la cookie con el nuevo total y el estado del cupón
 
-
-
-
-
-
-
+                // Enviar una respuesta al frontend indicando que el cupón se aplicó correctamente
+                res.status(200).json({ success: true, message: 'Cupón aplicado correctamente' });
+            } else {
+                // Si no se encontró un descuento válido, enviar una respuesta indicando que el cupón es incorrecto
+                res.status(400).json({ success: false, message: 'Cupón incorrecto' });
+            }
+        } catch (error) {
+            // Manejar cualquier error que ocurra durante el proceso
+            console.error('Error al aplicar el cupón:', error);
+            res.status(500).json({ success: false, message: 'Error al aplicar el cupón' });
+        }
     },
+
 
     procces: function (req, res) {
 
@@ -88,7 +110,14 @@ const checkoutController = {
 
 
     }
+    
+};
 
+// Esta función calcula el nuevo total con el descuento aplicado
+function calcularNuevoTotal(totalActual, descuento) {
+    // Aquí puedes implementar la lógica para calcular el nuevo total con el descuento aplicado
+    return totalActual - (totalActual * (descuento / 100));
 }
+
 
 module.exports = checkoutController;
