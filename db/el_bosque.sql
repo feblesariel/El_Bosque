@@ -39,7 +39,7 @@ CREATE TABLE product_images (
 
 CREATE TABLE discounts (
     id INT PRIMARY KEY AUTO_INCREMENT,
-    code VARCHAR(50) NOT NULL,
+    code VARCHAR(50) NOT NULL UNIQUE,
     description TEXT NOT NULL,
     discount_percentage INT NOT NULL,
     active BOOLEAN NOT NULL DEFAULT TRUE
@@ -102,16 +102,6 @@ CREATE TABLE payments (
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
     FOREIGN KEY (order_id) REFERENCES orders(id) ON DELETE CASCADE
-);
-
-CREATE TABLE product_reviews (
-    id INT PRIMARY KEY AUTO_INCREMENT,
-    product_id INT NOT NULL,
-    rating INT NOT NULL,
-    email VARCHAR(255) NOT NULL,
-    comment TEXT,
-    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    FOREIGN KEY (product_id) REFERENCES products(id) ON DELETE CASCADE
 );
 
 CREATE TABLE subscribers (

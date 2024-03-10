@@ -8,7 +8,8 @@ module.exports = (sequelize, DataTypes) => {
         },
         code: {
             type: DataTypes.STRING(50),
-            allowNull: false
+            allowNull: false,
+            unique: true
         },
         description: {
             type: DataTypes.TEXT,

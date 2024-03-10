@@ -14,7 +14,7 @@ const app = express();
 
 const publicPath = path.resolve(__dirname, '../public');
 app.use(session({
-    secret: "Secreto",
+    secret: "Secret",
     resave: false,
     saveUninitialized: false,
 }));

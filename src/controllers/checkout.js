@@ -15,7 +15,6 @@ const Order = db.Order;
 const Payment = db.Payment;
 const Product_image = db.Product_image;
 const Product_option = db.Product_option;
-const Product_review = db.Product_review;
 const Product = db.Product;
 const Suscriber = db.Suscriber;
 
