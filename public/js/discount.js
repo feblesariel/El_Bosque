@@ -30,24 +30,29 @@ function applyCoupon() {
         return response.json();
     })    
     .then(data => {
-        // Actualiza la página con el nuevo valor total
-        document.getElementById('totalValue').innerText = "$" + data.newTotal;
-        // Muestra el mensaje de éxito
-        document.getElementById('discountMsg').classList.remove('d-none');
-        document.getElementById('discountMsgValue').innerText = "¡Cupón aplicado! " + data.discount.description;
-        let cuponInput = document.getElementById('coupon');
-        cuponInput.value = "";
-        validateCouponInput();
-        cuponInput.focus();
+
+        if (data.success) {
+            // Actualiza la página con el nuevo valor total
+            document.getElementById('totalValue').innerText = "$" + data.newTotal;
+            // Muestra el mensaje de éxito
+            document.getElementById('discountMsg').classList.remove('d-none');
+            document.getElementById('discountMsgValue').innerText = "¡Cupón aplicado! " + data.discount.description;
+            let cuponInput = document.getElementById('coupon');
+            cuponInput.value = "";
+            validateCouponInput();
+            cuponInput.focus();
+        } else {
+            document.getElementById('discountMsg').classList.remove('d-none');
+            document.getElementById('discountMsgValue').innerText = "¡El cupón no existe!";
+            let cuponInput = document.getElementById('coupon');
+            cuponInput.value = "";
+            validateCouponInput();
+            cuponInput.focus();
+        }
+
     })
     .catch(error => {
-        // Mostrar mensaje de error si la consulta falla
+        // Mostrar mensaje de error si la consulta falla.
         console.error('Error:', error);
-        document.getElementById('discountMsg').classList.remove('d-none');
-        document.getElementById('discountMsgValue').innerText = "¡El cupón no existe!";
-        let cuponInput = document.getElementById('coupon');
-        cuponInput.value = "";
-        validateCouponInput();
-        cuponInput.focus();
     });
 }
