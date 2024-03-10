@@ -155,16 +155,22 @@
                         <form action="/checkout/discount/" method="POST">
 
                             <div class="row">
-
-                                <div class="col-sm-6 mb-3">
-                                    <input type="text" class="form-control" id="cupon" name="cupon" placeholder="¿Tenes cupon?">
+                                <div class="col-sm-12 mb-3">
+                                    <div class="input-group">
+                                        <input type="text" class="form-control" name="query" placeholder="¿Tenes un cupón?">
+                                        <div class="input-group-append">
+                                            <button class="btn btn-primary" type="submit"><i class="fa fa-check"></i></button>
+                                        </div>
+                                    </div>
                                 </div>
-                                <div class="col-sm-6 mb-3">
-                                    <button type="submit" class="btn btn-primary text-uppercase" disabled>aplicar</button>
+                                <div class="col-sm-12 mb-3">
+                                    <p class="text-danger">*Cupón incorrecto.</p>
                                 </div>
+                                <div class="col-sm-12 mb-3">
+                                    <p class="text-success">*Cupón aplicado.</p>
+                                </div>
+                            </div>                            
 
-                            </div>
-                        
                         </form>
 
                         <div id="accordion" role="tablist" class="mb-4">
