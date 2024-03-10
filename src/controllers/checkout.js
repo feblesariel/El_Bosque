@@ -62,12 +62,12 @@ const checkoutController = {
 
         try {
             // Obtener el código del cupón del cuerpo de la solicitud
-            const { code } = req.body;
+            const { coupon } = req.body;
 
             // Buscar el descuento en la base de datos por el código
             const discount = await Discount.findOne({
                 where: {
-                    code: code,
+                    code: coupon,
                     active: true // Asegúrate de que el descuento esté activo
                 }
             });
@@ -75,21 +75,45 @@ const checkoutController = {
             // Verificar si se encontró un descuento válido
             if (discount) {
                 // Aquí puedes realizar el cálculo del descuento y actualizar la cookie del carrito
-                // Por simplicidad, supongamos que el descuento es del 10%
                 const discountPercentage = discount.discount_percentage;
                 const newTotal = calcularNuevoTotal(req.cookies.cart.total, discountPercentage);
 
-                // Aquí debes actualizar la cookie con el nuevo total y el estado del cupón
+                // Obtén el carrito como un objeto JavaScript directamente.
+                let cart = req.cookies.cart;
 
-                // Enviar una respuesta al frontend indicando que el cupón se aplicó correctamente
+                if (!cart.discount) { // Si la cookie aún no tiene la propiedad 'discount', inicialízala como un array vacío.
+                    cart.discount = discountPercentage;
+                }
+
+                // Nuevo total.
+                cart.total = parseFloat(newTotal).toFixed(2);                
+
+                // Desactivar el descuento utilizado
+                await Discount.update({ active: false }, { where: { code: coupon } });
+
+                // Eliminar la cookie existente antes de redefinirla
+                res.clearCookie('cart');
+
+                // Define las opciones para la cookie.
+                const options = {
+                    maxAge: 6 * 60 * 60 * 1000, // Duración de la cookie en milisegundos (6 horas).
+                    httpOnly: true, // La cookie solo será accesible a través del protocolo HTTP (no a través de JavaScript en el navegador).
+                    secure: true, // La cookie solo se enviará a través de HTTPS (para conexiones seguras).
+                    sameSite: 'strict' // Restringe el envío de cookies en las solicitudes cross-origin.
+                };
+
+                // Define la cookie.
+                res.cookie('cart', cart, options);
+
                 res.status(200).json({ success: true, message: 'Cupón aplicado correctamente' });
+
             } else {
                 // Si no se encontró un descuento válido, enviar una respuesta indicando que el cupón es incorrecto
                 res.status(400).json({ success: false, message: 'Cupón incorrecto' });
+
             }
         } catch (error) {
             // Manejar cualquier error que ocurra durante el proceso
-            console.error('Error al aplicar el cupón:', error);
             res.status(500).json({ success: false, message: 'Error al aplicar el cupón' });
         }
     },
@@ -110,7 +134,7 @@ const checkoutController = {
 
 
     }
-    
+
 };
 
 // Esta función calcula el nuevo total con el descuento aplicado

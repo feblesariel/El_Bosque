@@ -151,7 +151,7 @@
                         <!-- Discount cooupon -->
 
                         <div class="row">
-                            <div class="col-sm-12 mb-3">
+                            <div id="discountInput" class="col-sm-12 mb-3">
                                 <div class="input-group">
                                     <input type="text" class="form-control" id="coupon" name="coupon" placeholder="¿Tienes un cupón?" oninput="validateCouponInput()">
                                     <div class="input-group-append">
@@ -159,10 +159,10 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-sm-12 mb-3">
+                            <div id="discountError" class="col-sm-12 mb-3 d-none">
                                 <p class="text-danger">*Cupón incorrecto.</p>
                             </div>
-                            <div class="col-sm-12 mb-3">
+                            <div id="discountOk" class="col-sm-12 mb-3 d-none">
                                 <p class="text-success">*Cupón aplicado.</p>
                             </div>
                         </div>                        

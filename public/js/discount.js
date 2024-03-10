@@ -20,18 +20,19 @@ function applyCoupon() {
         headers: {
             'Content-Type': 'application/json'
         },
-        body: JSON.stringify({ cupon: cuponInput })
+        body: JSON.stringify({ coupon: cuponInput })
     })
     .then(response => {
         if (!response.ok) {
             throw new Error('Ocurrió un error al aplicar el cupón.');
         }
         // El cupón se aplicó correctamente, mostrar mensaje de éxito
-        document.querySelector('.text-success').textContent = 'Cupón aplicado correctamente.';
+        document.getElementById('discountInput').classList.add('d-none');
+        document.getElementById('discountOk').classList.remove('d-none');
     })
     .catch(error => {
         // Mostrar mensaje de error si la consulta falla
         console.error('Error:', error);
-        alert('Ocurrió un error al aplicar el cupón.');
+        document.getElementById('discountError').classList.remove('d-none');
     });
 }
