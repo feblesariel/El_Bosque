@@ -133,6 +133,8 @@
                             <p>Los Detalles</p>
                         </div>
 
+                        <% let subtotal = 0; %>
+
                         <ul class="order-details-form mb-4">
                             <li><span>Producto</span> <span>precio</span></li>
 
@@ -141,9 +143,11 @@
                             <li class="border-0"><span><%= item.name %> x<%=item.quantity %></span><span>$<%= item.subtotal %></span></li>
                             <p><%=item.selectedOptions %></p>
 
+                            <% subtotal += item.subtotal; %>
+
                             <% }) %>
 
-                            <li><span>Subtotal</span> <span>$<%= cart.total %></span></li>
+                            <li><span>Subtotal</span> <span>$<%= parseFloat(subtotal).toFixed(2); %></span></li>
                             <li><span>Envio</span> <span>Free</span></li>
                             <li><span>Total</span> <span>$<%= cart.total %></span></li>
                         </ul>
