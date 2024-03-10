@@ -7,16 +7,14 @@
 
         <!-- Cart Button -->
         <div class="cart-button">
-            <a href="#" id="rightSideCart"><img src="/img/core-img/bag.svg" alt=""> <span><%= cart ? Object.keys(cart).length : 0 %></span></a>
+            <a href="#" id="rightSideCart"><img src="/img/core-img/bag.svg" alt=""> <span><%= cart ? cart.item.length : 0 %></span></a>
         </div>
 
         <div class="cart-content d-flex">
             <!-- Cart List Area -->
             <div class="cart-list">
 
-                <% for (const key in cart) { %>
-                    <% const item = cart[key]; %>
-                    <% total += (parseFloat(item.price) * parseFloat(item.quantity)) %>
+                <% cart.item.forEach(item => { %>
 
                 <!-- Single Cart Item -->
                 <div class="single-cart-item">
@@ -24,15 +22,15 @@
                         <img src="/img/product-img/<%=item.image%>" class="cart-thumb" alt="">
                         <!-- Cart Item Desc -->
                         <div class="cart-item-desc">
-                            <a href="/cart/remove/<%=key%>"><span class="product-remove"><i class="fa fa-close" aria-hidden="true"></i></span></a>
+                            <a href="/cart/remove/<%=item.itemCode%>"><span class="product-remove"><i class="fa fa-close" aria-hidden="true"></i></span></a>
                             <span class="badge">x<%=item.quantity%></span>
                             <h6><%=item.name%></h6>
-                            <p class="price">$<%=item.price * item.quantity %></p>
+                            <p class="price">$<%=item.subtotal%></p>
                         </div>
                     </div>
                 </div>               
                 
-                <% } %>
+                <% }) %>
 
             </div>
 
@@ -41,8 +39,8 @@
 
                 <h2>Resumen</h2>
                 <ul class="summary-table">
-                    <li><span>items:</span> <span><%= cart ? Object.keys(cart).length : 0 %></span></li>
-                    <li><span>total:</span> <span>$<%=total.toFixed(2)%></span></li>
+                    <li><span>items:</span> <span><%= cart ? cart.item.length : 0 %></span></li>
+                    <li><span>total:</span> <span>$<%=cart.total%></span></li>
                 </ul>
                 <span>¡Al realizar tu pedido recibis un cupón del 10% de descuento para tu próxima compra!</span>
                 <div class="checkout-btn mt-100">
@@ -55,7 +53,7 @@
 
         <!-- Cart Button -->
         <div class="cart-button">
-            <a href="#" id="rightSideCart"><img src="/img/core-img/bag.svg" alt=""> <span><%= cart ? Object.keys(cart).length : 0 %></span></a>
+            <a href="#" id="rightSideCart"><img src="/img/core-img/bag.svg" alt=""> <span><%= cart ? cart.item.length : 0 %></span></a>
         </div>
 
         <div class="row justify-content-center align-items-center" style="height: 100vh;">

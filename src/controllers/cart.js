@@ -55,23 +55,33 @@ const cartController = {
 
             product = result;
 
-            let cart = req.cookies.cart || {}; // Si la cookie del carrito existe, obtén su valor; de lo contrario, crea un objeto vacío.
-            let cartLength = Object.keys(cart).length; // Obtengo el largo del array para confeccionar el identificador unico de la cookie.
+            let cart = req.cookies.cart || { total: 0 }; // Si la cookie del carrito existe, obtén su valor; de lo contrario, crea un objeto con un total inicial de 0.
 
-            // Genera un identificador único para el producto en el carrito
-            const cartProductId = generateCartProductId(cartLength);
-
-            if (!cart[cartProductId]) { // Si el producto aún no está en el carrito, agrégalo.
-                cart[cartProductId] = {
+            if (!cart.item) { // Si la cookie aún no tiene la propiedad 'item', inicialízala como un array vacío.
+                cart.item = [];
+            }
+            
+            let cartLength = cart.item.length; // Obtén la longitud del array de items para confeccionar el identificador único de item.
+            
+            // Genera un identificador único para el producto en el carrito.
+            const itemCode = generateCartProductId(cartLength, productId);
+            
+            if (!cart.item.find(item => item.itemCode === itemCode)) { // Verifica si el producto aún no está en el carrito.
+                const subtotal = product.price * quantity; // Calcula el subtotal del nuevo ítem.
+                cart.total += subtotal; // Incrementa el total del carrito con el subtotal del nuevo ítem.
+            
+                cart.item.push({
+                    itemCode: itemCode,
                     product_id: productId,
                     category: product.Category.name,
                     name: product.name,
                     selectedOptions: selectedOptions,
                     quantity: quantity,
                     price: product.price,
-                    image: product.Product_image[0].url
-                };
-            }
+                    image: product.Product_image[0].url,
+                    subtotal: subtotal // Agrega el subtotal al nuevo ítem.
+                });
+            }                 
 
             // Define las opciones para la cookie.
             const options = {
@@ -152,8 +162,8 @@ const cartController = {
 }
 
 // Función para generar un identificador único para el producto en el carrito.
-function generateCartProductId(cartLength) {
-    return cartLength;
+function generateCartProductId(cartLength, productId) {
+    return cartLength + productId;
 }
 
 module.exports = cartController;
