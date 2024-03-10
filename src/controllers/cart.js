@@ -106,21 +106,27 @@ const cartController = {
     remove: function (req, res) {
 
         // Obtengo key del item.
-        const itemId = req.params.id;
+        const itemCode = req.params.id;
     
         if (req.cookies && req.cookies.cart) {
 
-            // Obtén el carrito como un objeto JavaScript directamente
+            // Obtén el carrito como un objeto JavaScript directamente.
             let cart = req.cookies.cart;
-    
-            // Verifica si el elemento existe en el carrito
-            if (cart.hasOwnProperty(itemId)) {
 
-                // Elimina el elemento del carrito
-                delete cart[itemId];
+            // Busca el elemento en el carrito.
+            const itemToRemove = cart.item.find(item => item.itemCode === itemCode);
+    
+            // Verifica si el elemento existe.
+            if (itemToRemove) {
+
+                // Resto del total el item a eliminar.
+                cart.total -= itemToRemove.subtotal;
+
+                // Filtra los elementos que no coinciden con el elemento a eliminar.
+                cart.item = cart.item.filter(item => item.itemCode !== itemCode);
 
                 // Verifica si hay elementos restantes en el carrito
-                if (Object.keys(cart).length > 0) {
+                if (cart.item.length > 0) {
 
                     // Eliminar la cookie existente antes de redefinirla
                     res.clearCookie('cart');
@@ -138,7 +144,7 @@ const cartController = {
 
                 } else {
 
-                    // Si no quedan elementos en el carrito, elimina la cookie
+                    // Si no quedan elementos en el carrito, elimina la cookie.
                     res.clearCookie('cart');
                     
                 }
