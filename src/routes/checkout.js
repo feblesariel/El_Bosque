@@ -12,6 +12,7 @@ const checkoutController = require ("../controllers/checkout")
 
 router.get("/", cartCookieMiddleware , checkoutController.checkout);
 router.post("/procces/" , checkoutController.procces);
+router.post("/discount/" , checkoutController.discount);
 
 
 module.exports = router;

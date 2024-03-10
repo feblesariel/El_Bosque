@@ -58,11 +58,27 @@ const checkoutController = {
 
     },
 
+    discount: function (req, res) {
+
+
+
+
+
+
+
+
+
+
+
+
+    },
+
     procces: function (req, res) {
 
-        console.log(req.body)
 
 
+
+        
 
 
 
