@@ -149,7 +149,7 @@
 
                             <li><span>Subtotal</span> <span>$<%= parseFloat(subtotal).toFixed(2); %></span></li>
                             <li><span>Envio</span> <span>Free</span></li>
-                            <li><span>Total</span> <span>$<%= cart.total %></span></li>
+                            <li><span>Total</span> <span id="totalValue">$<%= cart.total %></span></li>
                         </ul>
 
                         <!-- Discount cooupon -->
@@ -163,11 +163,8 @@
                                     </div>
                                 </div>
                             </div>
-                            <div id="discountError" class="col-sm-12 mb-3 d-none">
-                                <p class="text-danger">*Cupón incorrecto.</p>
-                            </div>
-                            <div id="discountOk" class="col-sm-12 mb-3 d-none">
-                                <p class="text-success">*Cupón aplicado.</p>
+                            <div id="discountMsg" class="col-sm-12 mb-3 d-none">
+                                <p id="discountMsgValue"></p>
                             </div>
                         </div>                        
 

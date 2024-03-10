@@ -105,16 +105,17 @@ const checkoutController = {
                 // Define la cookie.
                 res.cookie('cart', cart, options);
 
-                res.status(200).json({ success: true, message: 'Cupón aplicado correctamente' });
+                // Envio el nuevo valor del total a la llamada.
+                res.status(200).json({ success: true, message: 'Cupón aplicado correctamente.', newTotal: cart.total, discount: discount });
 
             } else {
-                // Si no se encontró un descuento válido, enviar una respuesta indicando que el cupón es incorrecto
-                res.status(400).json({ success: false, message: 'Cupón incorrecto' });
+                // Si no se encontró un descuento válido, enviar una respuesta indicando que el cupón es incorrecto.
+                res.status(400).json({ success: false, message: 'Cupón incorrecto.' });
 
             }
         } catch (error) {
-            // Manejar cualquier error que ocurra durante el proceso
-            res.status(500).json({ success: false, message: 'Error al aplicar el cupón' });
+            // Manejar cualquier error que ocurra durante el proceso.
+            res.status(500).json({ success: false, message: 'Intente mas tarde.' });
         }
     },
 

@@ -26,13 +26,26 @@ function applyCoupon() {
         if (!response.ok) {
             throw new Error('Ocurrió un error al aplicar el cupón.');
         }
-        // El cupón se aplicó correctamente, mostrar mensaje de éxito
-        document.getElementById('discountInput').classList.add('d-none');
-        document.getElementById('discountOk').classList.remove('d-none');
+        // Devuelve la respuesta JSON para el siguiente then
+        return response.json();
+    })    
+    .then(data => {
+        // Actualiza la página con el nuevo valor total
+        document.getElementById('totalValue').innerText = "$" + data.newTotal;
+        // Muestra el mensaje de éxito
+        document.getElementById('discountMsg').classList.remove('d-none');
+        document.getElementById('discountMsgValue').innerText = "¡Cupón aplicado! " + data.discount.description;
+        let cuponInput = document.getElementById('coupon');
+        cuponInput.value = "";
+        cuponInput.focus();
     })
     .catch(error => {
         // Mostrar mensaje de error si la consulta falla
         console.error('Error:', error);
-        document.getElementById('discountError').classList.remove('d-none');
+        document.getElementById('discountMsg').classList.remove('d-none');
+        document.getElementById('discountMsgValue').innerText = "¡El cupón no existe!";
+        let cuponInput = document.getElementById('coupon');
+        cuponInput.value = "";
+        cuponInput.focus();
     });
 }
