@@ -157,9 +157,9 @@
                         <div class="row">
                             <div class="col-sm-12 mb-3">
                                 <div class="input-group">
-                                    <input type="text" class="form-control" id="cupon" name="cupon" placeholder="¿Tenes un cupón?">
+                                    <input type="text" class="form-control" id="cupon" name="cupon" placeholder="¿Tienes un cupón?" oninput="validateCouponInput()">
                                     <div class="input-group-append">
-                                        <button id="cuponBtn" class="btn btn-primary" type="submit"><i class="fa fa-check"></i></button>
+                                        <button id="cuponBtn" class="btn btn-primary" type="submit" disabled><i class="fa fa-check"></i></button>
                                     </div>
                                 </div>
                             </div>
@@ -169,7 +169,7 @@
                             <div class="col-sm-12 mb-3">
                                 <p class="text-success">*Cupón aplicado.</p>
                             </div>
-                        </div>
+                        </div>                        
 
                         <div id="accordion" role="tablist" class="mb-4">
 
