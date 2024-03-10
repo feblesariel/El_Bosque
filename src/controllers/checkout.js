@@ -63,7 +63,7 @@ const checkoutController = {
 
 
 
-
+        console.log(req.body)
 
 
 
@@ -78,7 +78,7 @@ const checkoutController = {
 
 
 
-        
+
 
 
 

@@ -152,14 +152,14 @@
                             <li><span>Total</span> <span>$<%= (subtotal + shipping).toFixed(2) %></span></li>
                         </ul>
 
-                        <!-- Discount cupon -->
+                        <!-- Discount cooupon -->
 
                         <div class="row">
                             <div class="col-sm-12 mb-3">
                                 <div class="input-group">
-                                    <input type="text" class="form-control" id="cupon" name="cupon" placeholder="¿Tienes un cupón?" oninput="validateCouponInput()">
+                                    <input type="text" class="form-control" id="coupon" name="coupon" placeholder="¿Tienes un cupón?" oninput="validateCouponInput()">
                                     <div class="input-group-append">
-                                        <button id="cuponBtn" class="btn btn-primary" type="submit" disabled><i class="fa fa-check"></i></button>
+                                        <button id="couponBtn" class="btn btn-primary" type="submit" disabled onclick="applyCoupon()"><i class="fa fa-check"></i></button>
                                     </div>
                                 </div>
                             </div>
