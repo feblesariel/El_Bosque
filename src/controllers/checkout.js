@@ -106,16 +106,16 @@ const checkoutController = {
                 res.cookie('cart', cart, options);
 
                 // Envio el nuevo valor del total a la llamada.
-                res.status(200).json({ success: true, message: 'Cupón aplicado correctamente.', newTotal: cart.total, discount: discount });
+                res.status(200).json({ success: true, message: 'correct coupon.', newTotal: cart.total, discount: discount });
 
             } else {
                 // Si no se encontró un descuento válido, enviar una respuesta indicando que el cupón es incorrecto.
-                res.status(400).json({ success: false, message: 'Cupón incorrecto.' });
+                res.status(200).json({ success: false, message: 'incorrect coupon.' });
 
             }
         } catch (error) {
             // Manejar cualquier error que ocurra durante el proceso.
-            res.status(500).json({ success: false, message: 'Intente mas tarde.' });
+            res.status(500).json({ success: false, message: 'internal server error.' });
         }
     },
 
