@@ -152,26 +152,24 @@
                             <li><span>Total</span> <span>$<%= (subtotal + shipping).toFixed(2) %></span></li>
                         </ul>
 
-                        <form action="/checkout/discount/" method="POST">
+                        <!-- Discount cupon -->
 
-                            <div class="row">
-                                <div class="col-sm-12 mb-3">
-                                    <div class="input-group">
-                                        <input type="text" class="form-control" name="query" placeholder="¿Tenes un cupón?">
-                                        <div class="input-group-append">
-                                            <button class="btn btn-primary" type="submit"><i class="fa fa-check"></i></button>
-                                        </div>
+                        <div class="row">
+                            <div class="col-sm-12 mb-3">
+                                <div class="input-group">
+                                    <input type="text" class="form-control" id="cupon" name="cupon" placeholder="¿Tenes un cupón?">
+                                    <div class="input-group-append">
+                                        <button id="cuponBtn" class="btn btn-primary" type="submit"><i class="fa fa-check"></i></button>
                                     </div>
                                 </div>
-                                <div class="col-sm-12 mb-3">
-                                    <p class="text-danger">*Cupón incorrecto.</p>
-                                </div>
-                                <div class="col-sm-12 mb-3">
-                                    <p class="text-success">*Cupón aplicado.</p>
-                                </div>
-                            </div>                            
-
-                        </form>
+                            </div>
+                            <div class="col-sm-12 mb-3">
+                                <p class="text-danger">*Cupón incorrecto.</p>
+                            </div>
+                            <div class="col-sm-12 mb-3">
+                                <p class="text-success">*Cupón aplicado.</p>
+                            </div>
+                        </div>
 
                         <div id="accordion" role="tablist" class="mb-4">
 
