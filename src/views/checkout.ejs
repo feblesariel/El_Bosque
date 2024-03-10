@@ -133,23 +133,19 @@
                             <p>Los Detalles</p>
                         </div>
 
-                        <% let subtotal = 0;  let total = 0; let shipping = 0; %>
-
                         <ul class="order-details-form mb-4">
                             <li><span>Producto</span> <span>precio</span></li>
 
-                            <% for (const key in cart) { %>                                
-                                <% const item = cart[key]; %>
-                                <% subtotal += (parseFloat(item.price) * parseFloat(item.quantity)) %>
+                            <% cart.item.forEach(item => { %>
 
-                            <li class="border-0"><span><%= item.name %> x<%=item.quantity %></span><span>$<%= item.price * item.quantity %></span></li>
+                            <li class="border-0"><span><%= item.name %> x<%=item.quantity %></span><span>$<%= item.subtotal %></span></li>
                             <p><%=item.selectedOptions %></p>
 
-                            <% } %>
+                            <% }) %>
 
-                            <li><span>Subtotal</span> <span>$<%= subtotal.toFixed(2) %></span></li>
+                            <li><span>Subtotal</span> <span>$<%= cart.total %></span></li>
                             <li><span>Envio</span> <span>Free</span></li>
-                            <li><span>Total</span> <span>$<%= (subtotal + shipping).toFixed(2) %></span></li>
+                            <li><span>Total</span> <span>$<%= cart.total %></span></li>
                         </ul>
 
                         <!-- Discount cooupon -->

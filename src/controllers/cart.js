@@ -68,7 +68,7 @@ const cartController = {
             
             if (!cart.item.find(item => item.itemCode === itemCode)) { // Verifica si el producto aún no está en el carrito.
                 const subtotal = product.price * quantity; // Calcula el subtotal del nuevo ítem.
-                cart.total += subtotal; // Incrementa el total del carrito con el subtotal del nuevo ítem.
+                cart.total = (parseFloat(cart.total) + parseFloat(subtotal)).toFixed(2); // Incrementa el total del carrito con el subtotal del nuevo ítem.
             
                 cart.item.push({
                     itemCode: itemCode,
@@ -77,9 +77,9 @@ const cartController = {
                     name: product.name,
                     selectedOptions: selectedOptions,
                     quantity: quantity,
-                    price: product.price,
+                    price: parseFloat(product.price).toFixed(2),
                     image: product.Product_image[0].url,
-                    subtotal: subtotal // Agrega el subtotal al nuevo ítem.
+                    subtotal: parseFloat(subtotal).toFixed(2) // Agrega el subtotal al nuevo ítem.
                 });
             }                 
 
