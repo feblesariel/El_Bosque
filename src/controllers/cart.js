@@ -73,13 +73,16 @@ const cartController = {
                 };
             }
 
-            // Define opciones para la cookie
+            // Define las opciones para la cookie.
             const options = {
-                maxAge: 3600000 // Tiempo de vida de la cookie en milisegundos (en este caso, 10 minutos).
+                maxAge: 6 * 60 * 60 * 1000, // Duración de la cookie en milisegundos (6 horas).
+                httpOnly: true, // La cookie solo será accesible a través del protocolo HTTP (no a través de JavaScript en el navegador).
+                secure: true, // La cookie solo se enviará a través de HTTPS (para conexiones seguras).
+                sameSite: 'strict' // Restringe el envío de cookies en las solicitudes cross-origin.
             };
 
-            // Define la cookie.
-            res.cookie('cart', cart , options );
+            // Define la cookie y envíala en la respuesta.
+            res.cookie('cart', cart, options);
 
             res.redirect('/products/shop/?openCart=true');
 
@@ -109,16 +112,19 @@ const cartController = {
                 // Verifica si hay elementos restantes en el carrito
                 if (Object.keys(cart).length > 0) {
 
-                    // Define opciones para la cookie
-                    const options = {
-                        maxAge: 3600000 // Tiempo de vida de la cookie en milisegundos (en este caso, 10 minutos).
-                    };
-
                     // Eliminar la cookie existente antes de redefinirla
                     res.clearCookie('cart');
 
-                    // Define la cookie actualizada.
-                    res.cookie('cart', cart , options );
+                    // Define las opciones para la cookie.
+                    const options = {
+                        maxAge: 6 * 60 * 60 * 1000, // Duración de la cookie en milisegundos (6 horas).
+                        httpOnly: true, // La cookie solo será accesible a través del protocolo HTTP (no a través de JavaScript en el navegador).
+                        secure: true, // La cookie solo se enviará a través de HTTPS (para conexiones seguras).
+                        sameSite: 'strict' // Restringe el envío de cookies en las solicitudes cross-origin.
+                    };
+
+                    // Define la cookie y envíala en la respuesta.
+                    res.cookie('cart', cart, options);
 
                 } else {
 
