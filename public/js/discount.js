@@ -37,6 +37,7 @@ function applyCoupon() {
         document.getElementById('discountMsgValue').innerText = "¡Cupón aplicado! " + data.discount.description;
         let cuponInput = document.getElementById('coupon');
         cuponInput.value = "";
+        validateCouponInput();
         cuponInput.focus();
     })
     .catch(error => {
@@ -46,6 +47,7 @@ function applyCoupon() {
         document.getElementById('discountMsgValue').innerText = "¡El cupón no existe!";
         let cuponInput = document.getElementById('coupon');
         cuponInput.value = "";
+        validateCouponInput();
         cuponInput.focus();
     });
 }
