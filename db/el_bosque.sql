@@ -48,13 +48,12 @@ CREATE TABLE discounts (
 CREATE TABLE orders (
     id INT PRIMARY KEY AUTO_INCREMENT,
     discount_id INT,
-    code INT NOT NULL UNIQUE,
+    code VARCHAR(50) NOT NULL UNIQUE,
     amount DECIMAL(10, 2) NOT NULL,
-    method ENUM('Retiro', 'Envio') NOT NULL,    
-    status ENUM('Procesando', 'Preparando', 'Listo', 'Completado', 'Cancelado') NOT NULL,    
-    scheduled_date TEXT NOT NULL, -- REVISAR --
-    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+    method ENUM('pickup', 'delivery') NOT NULL,    
+    status ENUM('procesando', 'preparando', 'listo', 'completado', 'cancelado') NOT NULL,
+    createdAt TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    updatedAt TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
     FOREIGN KEY (discount_id) REFERENCES discounts(id)
 );
 
@@ -72,6 +71,7 @@ CREATE TABLE order_items (
 CREATE TABLE order_details_delivery (
     id INT PRIMARY KEY AUTO_INCREMENT,
     order_id INT NOT NULL,
+    scheduled_date TEXT NOT NULL,
     name VARCHAR(255) NOT NULL,
     address VARCHAR(255) NOT NULL,
     city VARCHAR(100) NOT NULL,

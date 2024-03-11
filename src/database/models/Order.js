@@ -10,7 +10,7 @@ module.exports = (sequelize, DataTypes) => {
             type: DataTypes.INTEGER
         },
         code: {
-            type: DataTypes.INTEGER,
+            type: DataTypes.STRING(50),
             allowNull: false,
             unique: true
         },
@@ -19,15 +19,11 @@ module.exports = (sequelize, DataTypes) => {
             allowNull: false
         },
         method: {
-            type: DataTypes.ENUM('Retiro', 'Envio'),
+            type: DataTypes.ENUM('pickup', 'delivery'),
             allowNull: false
         },
         status: {
-            type: DataTypes.ENUM('Procesando', 'Preparando', 'Listo', 'Completado', 'Cancelado'),
-            allowNull: false
-        },
-        scheduled_date: {
-            type: DataTypes.TEXT,
+            type: DataTypes.ENUM('procesando', 'preparando', 'listo', 'completado', 'cancelado'),
             allowNull: false
         }
     };

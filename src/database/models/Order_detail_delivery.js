@@ -10,6 +10,10 @@ module.exports = (sequelize, DataTypes) => {
             type: DataTypes.INTEGER,
             allowNull: false
         },
+        scheduled_date: {
+            type: DataTypes.TEXT,
+            allowNull: false
+        },
         name: {
             type: DataTypes.STRING(255),
             allowNull: false

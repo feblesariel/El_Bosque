@@ -83,7 +83,7 @@ const checkoutController = {
                 let cart = req.cookies.cart;
 
                 if (!cart.discount) { // Si la cookie aún no tiene la propiedad 'discount', inicialízala como un array vacío.
-                    cart.discount = [{id: discountId}];
+                    cart.discount = {id: discountId};
                 }
 
                 // Nuevo total.
@@ -121,8 +121,14 @@ const checkoutController = {
     },
 
     procces: function (req, res) {
+
+        // Obtener la cookie
+        const cart = req.cookies.cart;
         // Obtener los datos del formulario del cuerpo de la solicitud
         const { orderType, payMethod } = req.body;
+        // Obtener fecha en milisegundos para generar el codigo unico
+        const currentDate = new Date();
+        const milliseconds = currentDate.getTime();
 
         // Determinar el tipo de pedido y el método de pago
         switch (orderType) {
@@ -131,19 +137,54 @@ const checkoutController = {
                 if (payMethod === "transfer") {
                     // Procesamiento para recolección y transferencia
 
+                    Order.create({
+                        discount_id: cart.discount ? cart.discount.id : null,
+                        code: milliseconds,
+                        amount: cart.total,
+                        method: orderType,
+                        status: "procesando"
+                      }).then((newOrder) => {
 
+                        cart.item.forEach(item => {
+                            Order_item.create({
+                                order_id: newOrder.id,
+                                product_id: item.product_id,
+                                product_options: item.selectedOptions,
+                                quantity: item.quantity,
+                                subtotal_amount: parseFloat(item.price) * parseFloat(item.quantity)
+                            }).then(() => {    
+                            }).catch((error) => {
+                              console.error('Error al crear la imagen del producto:', error);
+                            });                            
+                        });
 
+                        Order_detail_pickup.create({
+                            order_id: newOrder.id,
+                            name: req.body.name,
+                            phone: req.body.tel,
+                            email: req.body.email,
+                            note: req.body.note
+                        }).then(() => {    
+                        }).catch((error) => {
+                          console.error('Error al crear la imagen del producto:', error);
+                        });
 
+                        // Eliminar la cookie
+                        res.clearCookie('cart');
 
+                        res.redirect("/");
 
-
-
+                      }).catch((error) => {
+                        console.error('Error al crear el producto:', error);
+                      });
 
 
                 } else {
                     // Procesamiento para recolección y otro método de pago
                 }
                 break;
+
+
             // Caso: entrega a domicilio
             case "delivery":
                 if (payMethod === "transfer") {
