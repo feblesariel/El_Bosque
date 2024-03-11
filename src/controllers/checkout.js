@@ -16,7 +16,7 @@ const Payment = db.Payment;
 const Product_image = db.Product_image;
 const Product_option = db.Product_option;
 const Product = db.Product;
-const Suscriber = db.Suscriber;
+const Subscriber = db.Subscriber;
 
 // ************ Controllers ************
 
@@ -129,6 +129,23 @@ const checkoutController = {
         // Obtener fecha en milisegundos para generar el codigo unico
         const currentDate = new Date();
         const milliseconds = currentDate.getTime();
+
+        if (req.body.newsletter) {
+
+            const email = req.body.email;
+        
+            Subscriber.findOrCreate({
+                where: { email: email },
+                defaults: { email: email }
+            })
+            .then(() => {
+            })
+            .catch(error => {
+                console.error('Error al agregar el suscriptor:', error);
+                res.status(500).send('Error al crear el suscriptor');
+            });
+
+        }
 
         // Determinar el tipo de pedido y el método de pago
         switch (orderType) {
