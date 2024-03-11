@@ -119,12 +119,32 @@ const checkoutController = {
         }
     },
 
-
     procces: function (req, res) {
+        // Obtener los datos del formulario del cuerpo de la solicitud
+        const { orderType, payMethod } = req.body;
 
-        console.log(req.body);
-
-
+        // Determinar el tipo de pedido y el método de pago
+        switch (orderType) {
+            // Caso: recolección en persona
+            case "pickup":
+                if (payMethod === "transfer") {
+                    // Procesamiento para recolección y transferencia
+                } else {
+                    // Procesamiento para recolección y otro método de pago
+                }
+                break;
+            // Caso: entrega a domicilio
+            case "delivery":
+                if (payMethod === "transfer") {
+                    // Procesamiento para entrega y transferencia
+                } else {
+                    // Procesamiento para entrega y otro método de pago
+                }
+                break;
+            // Caso: tipo de pedido desconocido
+            default:
+                // Manejar un tipo de pedido desconocido
+        }
     }
 
 };
