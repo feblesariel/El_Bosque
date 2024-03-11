@@ -76,13 +76,14 @@ const checkoutController = {
             if (discount) {
                 // Aquí puedes realizar el cálculo del descuento y actualizar la cookie del carrito
                 const discountPercentage = discount.discount_percentage;
+                const discountId = discount.id;
                 const newTotal = calcularNuevoTotal(req.cookies.cart.total, discountPercentage);
 
                 // Obtén el carrito como un objeto JavaScript directamente.
                 let cart = req.cookies.cart;
 
                 if (!cart.discount) { // Si la cookie aún no tiene la propiedad 'discount', inicialízala como un array vacío.
-                    cart.discount = discountPercentage;
+                    cart.discount = [{id: discountId}];
                 }
 
                 // Nuevo total.
@@ -129,6 +130,16 @@ const checkoutController = {
             case "pickup":
                 if (payMethod === "transfer") {
                     // Procesamiento para recolección y transferencia
+
+
+
+
+
+
+
+
+
+
                 } else {
                     // Procesamiento para recolección y otro método de pago
                 }
