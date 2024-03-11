@@ -134,9 +134,10 @@ const checkoutController = {
         switch (orderType) {
             // Caso: recolección en persona
             case "pickup":
-                if (payMethod === "transfer") {
-                    // Procesamiento para recolección y transferencia
 
+                if (payMethod === "transfer") {
+
+                    // Procesamiento para recolección y transferencia
                     Order.create({
                         discount_id: cart.discount ? cart.discount.id : null,
                         code: milliseconds,
@@ -152,9 +153,12 @@ const checkoutController = {
                                 product_options: item.selectedOptions,
                                 quantity: item.quantity,
                                 subtotal_amount: parseFloat(item.price) * parseFloat(item.quantity)
-                            }).then(() => {    
+                            }).then((item) => {
+
+                                return Product.increment('sold_count', { by: item.quantity, where: { id: item.product_id } });
+
                             }).catch((error) => {
-                              console.error('Error al crear la imagen del producto:', error);
+                              console.error('Error al crear Order_item:', error);
                             });                            
                         });
 
@@ -166,7 +170,17 @@ const checkoutController = {
                             note: req.body.note
                         }).then(() => {    
                         }).catch((error) => {
-                          console.error('Error al crear la imagen del producto:', error);
+                          console.error('Error al crear Order_detail_pickup:', error);
+                        });
+
+                        Payment.create({
+                            order_id: newOrder.id,
+                            amount: cart.total,
+                            status: "pendiente",
+                            payment_method: payMethod
+                        }).then(() => {    
+                        }).catch((error) => {
+                          console.error('Error al crear Payment:', error);
                         });
 
                         // Eliminar la cookie
@@ -175,15 +189,15 @@ const checkoutController = {
                         res.redirect("/");
 
                       }).catch((error) => {
-                        console.error('Error al crear el producto:', error);
+                        console.error('Error al crear Order:', error);
                       });
 
 
                 } else {
+                    
                     // Procesamiento para recolección y otro método de pago
                 }
                 break;
-
 
             // Caso: entrega a domicilio
             case "delivery":

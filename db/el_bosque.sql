@@ -96,11 +96,11 @@ CREATE TABLE payments (
     id INT PRIMARY KEY AUTO_INCREMENT,
     order_id INT NOT NULL,
     amount DECIMAL(10, 2) NOT NULL,
-    status ENUM('Pendiente', 'Completado', 'Cancelado') NOT NULL,
+    status ENUM('pendiente', 'completado', 'cancelado') NOT NULL,
     payment_method ENUM('transfer', 'mercado_pago') NOT NULL,
     transaction_id VARCHAR(255),
-    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+    createdAt TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    updatedAt TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
     FOREIGN KEY (order_id) REFERENCES orders(id) ON DELETE CASCADE
 );
 
