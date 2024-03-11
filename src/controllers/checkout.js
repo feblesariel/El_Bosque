@@ -122,16 +122,7 @@ const checkoutController = {
 
     procces: function (req, res) {
 
-
-
-
-
-
-
-
-
-
-
+        console.log(req.body);
 
 
     }

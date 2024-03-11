@@ -21,8 +21,6 @@
 
 <body>
 
-    <% let payMethod = "transfer" %>
-
     <!-- ##### Header Area Start ##### -->
     <%-include("./partials/header.ejs")%>
     <!-- ##### Right Side Cart Area ##### -->
@@ -74,7 +72,11 @@
                                 <div class="col-12 mb-3">
                                     <label for="note">Nota</label>
                                     <textarea class="form-control" id="note" name="note"></textarea>
-                                </div>                                
+                                </div>
+                                
+                                <!-- Campo oculto metodo de pago -->
+                                <input type="hidden" id="payMethodInput" name="payMethod" value="transfer">
+
                                 <div class="col-12 mb-3">
                                     <label for="orderType">¿Retiro o envío? <span>*</span></label>
                                     <select class="w-100" id="orderType" name="orderType" onchange="toggleDeliveryZone()">
@@ -117,7 +119,7 @@
 
                             </div>
 
-                            <button id="btnFormSend" name="method" value="<%=payMethod%>" type="submit" class="d-none"></button>
+                            <button id="btnFormSend" type="submit" class="d-none"></button>
 
                         </form>
 
@@ -213,7 +215,8 @@
     <!-- Pay Method -->
     <script>
         function setPaymentMethod(method) {
-            payMethod = method;
+            // Actualizar el valor del campo oculto
+            document.getElementById('payMethodInput').value = method;
         }        
     </script>
 
