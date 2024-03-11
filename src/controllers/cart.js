@@ -55,7 +55,7 @@ const cartController = {
 
             product = result;
 
-            let cart = req.cookies.cart || { total: 0 }; // Si la cookie del carrito existe, obtén su valor; de lo contrario, crea un objeto con un total inicial de 0.
+            let cart = req.cookies.cart || { total: "0" }; // Si la cookie del carrito existe, obtén su valor; de lo contrario, crea un objeto con un total inicial de 0.
 
             if (!cart.item) { // Si la cookie aún no tiene la propiedad 'item', inicialízala como un array vacío.
                 cart.item = [];
@@ -67,7 +67,7 @@ const cartController = {
             const itemCode = generateCartProductId(cartLength, productId);
             
             if (!cart.item.find(item => item.itemCode === itemCode)) { // Verifica si el producto aún no está en el carrito.
-                const subtotal = product.price * quantity; // Calcula el subtotal del nuevo ítem.
+                const subtotal = (parseFloat(product.price) * parseFloat(quantity)).toFixed(2); // Calcula el subtotal del nuevo ítem.
                 cart.total = (parseFloat(cart.total) + parseFloat(subtotal)).toFixed(2); // Incrementa el total del carrito con el subtotal del nuevo ítem.
             
                 cart.item.push({
@@ -77,9 +77,9 @@ const cartController = {
                     name: product.name,
                     selectedOptions: selectedOptions,
                     quantity: quantity,
-                    price: parseFloat(product.price).toFixed(2),
+                    price: product.price,
                     image: product.Product_image[0].url,
-                    subtotal: parseFloat(subtotal).toFixed(2) // Agrega el subtotal al nuevo ítem.
+                    subtotal: subtotal
                 });
             }                 
 
@@ -120,7 +120,7 @@ const cartController = {
             if (itemToRemove) {
 
                 // Resto del total el item a eliminar.
-                cart.total -= itemToRemove.subtotal;
+                cart.total = (parseFloat(cart.total) - parseFloat(itemToRemove.subtotal)).toFixed(2);
 
                 // Filtra los elementos que no coinciden con el elemento a eliminar.
                 cart.item = cart.item.filter(item => item.itemCode !== itemCode);
