@@ -136,7 +136,6 @@ const checkoutController = {
             case "pickup":
 
                 if (payMethod === "transfer") {
-
                     // Procesamiento para recolección y transferencia
                     Order.create({
                         discount_id: cart.discount ? cart.discount.id : null,
@@ -144,60 +143,58 @@ const checkoutController = {
                         amount: cart.total,
                         method: orderType,
                         status: "procesando"
-                      }).then((newOrder) => {
-
-                        cart.item.forEach(item => {
-                            Order_item.create({
+                    }).then((newOrder) => {
+                        // Creación de elementos de pedido
+                        Promise.all(cart.item.map(item => {
+                            return Order_item.create({
                                 order_id: newOrder.id,
                                 product_id: item.product_id,
                                 product_options: item.selectedOptions,
                                 quantity: item.quantity,
                                 subtotal_amount: parseFloat(item.price) * parseFloat(item.quantity)
                             }).then((item) => {
-
+                                // Incremento del contador de productos vendidos
                                 return Product.increment('sold_count', { by: item.quantity, where: { id: item.product_id } });
-
-                            }).catch((error) => {
-                              console.error('Error al crear Order_item:', error);
-                            });                            
-                        });
-
-                        Order_detail_pickup.create({
-                            order_id: newOrder.id,
-                            name: req.body.name,
-                            phone: req.body.tel,
-                            email: req.body.email,
-                            note: req.body.note
-                        }).then(() => {    
+                            });
+                        })).then(() => {
+                            // Creación de detalles de recolección
+                            return Order_detail_pickup.create({
+                                order_id: newOrder.id,
+                                name: req.body.name,
+                                phone: req.body.tel,
+                                email: req.body.email,
+                                note: req.body.note
+                            });
+                        }).then(() => {
+                            // Creación de registro de pago
+                            return Payment.create({
+                                order_id: newOrder.id,
+                                amount: cart.total,
+                                status: "pendiente",
+                                payment_method: payMethod
+                            });
+                        }).then(() => {
+                            // Eliminar la cookie y redirigir al usuario
+                            res.clearCookie('cart');
+                            res.redirect("/");
                         }).catch((error) => {
-                          console.error('Error al crear Order_detail_pickup:', error);
+                            console.error('Error en el procesamiento de la orden:', error);
+                            // Aquí podrías agregar lógica adicional de manejo de errores si es necesario
+                            res.status(500).send('Error en el procesamiento de la orden');
                         });
-
-                        Payment.create({
-                            order_id: newOrder.id,
-                            amount: cart.total,
-                            status: "pendiente",
-                            payment_method: payMethod
-                        }).then(() => {    
-                        }).catch((error) => {
-                          console.error('Error al crear Payment:', error);
-                        });
-
-                        // Eliminar la cookie
-                        res.clearCookie('cart');
-
-                        res.redirect("/");
-
-                      }).catch((error) => {
-                        console.error('Error al crear Order:', error);
-                      });
-
+                    }).catch((error) => {
+                        console.error('Error al crear la orden:', error);
+                        // Aquí podrías agregar lógica adicional de manejo de errores si es necesario
+                        res.status(500).send('Error al crear la orden');
+                    });
 
                 } else {
-                    
+
                     // Procesamiento para recolección y otro método de pago
+                    // Aquí puedes agregar lógica adicional según el método de pago
                 }
                 break;
+            
 
             // Caso: entrega a domicilio
             case "delivery":
