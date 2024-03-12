@@ -47,20 +47,20 @@ const checkoutController = {
     discount: async function (req, res) {
 
         try {
-            // Obtener el código del cupón del cuerpo de la solicitud
+            // Obtener el código del cupón del cuerpo de la solicitud.
             const { coupon } = req.body;
 
-            // Buscar el descuento en la base de datos por el código
+            // Buscar el descuento en la base de datos por el código.
             const discount = await Discount.findOne({
                 where: {
                     code: coupon,
-                    active: true // Asegúrate de que el descuento esté activo
+                    active: true // Asegúrate de que el descuento esté activo.
                 }
             });
 
-            // Verificar si se encontró un descuento válido
+            // Verificar si se encontró un descuento válido.
             if (discount) {
-                // Aquí puedes realizar el cálculo del descuento y actualizar la cookie del carrito
+                // Aquí puedes realizar el cálculo del descuento y actualizar la cookie del carrito.
                 const discountPercentage = discount.discount_percentage;
                 const discountId = discount.id;
                 const newTotal = calcularNuevoTotal(req.cookies.cart.total, discountPercentage);
@@ -75,10 +75,10 @@ const checkoutController = {
                 // Nuevo total.
                 cart.total = parseFloat(newTotal).toFixed(2);                
 
-                // Desactivar el descuento utilizado
+                // Desactivar el descuento utilizado.
                 await Discount.update({ active: false }, { where: { code: coupon } });
 
-                // Eliminar la cookie existente antes de redefinirla
+                // Eliminar la cookie existente antes de redefinirla.
                 res.clearCookie('cart');
 
                 // Define las opciones para la cookie.
@@ -274,9 +274,9 @@ const checkoutController = {
 
 };
 
-// Esta función calcula el nuevo total con el descuento aplicado
+// Esta función calcula el nuevo total con el descuento aplicado.
 function calcularNuevoTotal(totalActual, descuento) {
-    // Aquí puedes implementar la lógica para calcular el nuevo total con el descuento aplicado
+    // Aquí puedes implementar la lógica para calcular el nuevo total con el descuento aplicado.
     return totalActual - (totalActual * (descuento / 100));
 }
 

@@ -123,10 +123,10 @@ const cartController = {
             // Filtra los elementos que no coinciden con el elemento a eliminar.
             cart.item = cart.item.filter(item => item.itemCode !== itemCode);
 
-            // Verifica si hay elementos restantes en el carrito
+            // Verifica si hay elementos restantes en el carrito.
             if (cart.item.length > 0) {
 
-                // Eliminar la cookie existente antes de redefinirla
+                // Eliminar la cookie existente antes de redefinirla.
                 res.clearCookie('cart');
 
                 // Define las opciones para la cookie.
