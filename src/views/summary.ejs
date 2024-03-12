@@ -40,7 +40,7 @@
     </div>
     <!-- ##### Breadcumb Area End ##### -->
 
-    <!-- ##### Checkout Area Start ##### -->
+    <!-- ##### Summary Area Start ##### -->
     <div class="checkout_area section-padding-80">
         <div class="container">
             <div class="row">
@@ -49,22 +49,55 @@
 
                     <div class="checkout_details_area mt-50 clearfix">
 
-                        <% if (summary.method = "transfer") { %>
-                        <h3>¡Gracias! Tu pedido ha sido recibido.</h3>
-                        <p>Para que confirmemos tu pedido adjuntanos el comprobante de la transferencia a <span class="font-weight-bold">info@elbosque.com</span> o a nuestro WhatsApp.</p>
-                        <div class="card-body bg-light">
-                            <p>Datos bancarios:<br>CBU: 0170016940000006891567<br>Alias: Pipasteleria<br>Banco: BBVA<br>MP ALIAS: Pipasteleria.mp<br>MP CVU: 0000003100021369072550</p>
+                        <% if (summary && summary.method === "transfer") { %>
+                        <h3>¡Gracias! Tu pedido ha sido recibido 😊</h3>
+                        <p>Para que podamos confirmarlo y comenzar a prepararlo, por favor envíanos el comprobante de la transferencia a <span class="font-weight-bold">info@elbosque.com</span> o a nuestro WhatsApp 📧📱.</p>
+                        <div class="my-5">
+                            <ul>
+                                <li>CBU: 0170016940000006891567</li>
+                                <li>Alias: Pipasteleria</li>
+                                <li>Banco: BBVA</li>
+                                <li>MP ALIAS: Pipasteleria.mp</li>
+                                <li>MP CVU: 0000003100021369072550</li>
+                            </ul>
                         </div>
-                        <a href="/" class="btn essence-btn">ir al inicio</a>
+                        
+                        <a href="/" class="btn essence-btn mt-3">Ir al Inicio</a>
                         <% } %>
 
                     </div>                    
-                    
+                        
                 </div>
 
                 <div class="col-12 col-md-6 col-lg-5 ml-lg-auto">
 
                     <div class="order-details-confirmation">
+
+                        <div class="cart-page-heading">
+                            <h5>Tu Orden</h5>
+                            <p>Los Detalles</p>
+                        </div>
+
+                        <% let subtotal = 0; %>
+
+                        <ul class="order-details-form mb-4">
+                            <li><span>Producto</span> <span>Precio</span></li>
+
+                            <% summary.items.forEach(item => { %>
+
+                            <li class="border-0"><span><%= item.name %> x <%= item.quantity %></span><span>$<%= item.price %></span></li>
+                            <p><%= item.selectedOptions %></p>
+
+                            <% subtotal += parseFloat(item.subtotal); %>
+
+                            <% }) %>
+
+                            <li><span>Subtotal</span> <span>$<%= subtotal %></span></li>
+                            <li><span>Método de Entrega</span> <span><%= summary.order.method === 'pickup' ? 'Retiro' : summary.order.method === 'delivery' ? 'Delivery' : '' %></span></li>
+                            <li><span>Forma de Pago</span> <span><%= summary.method === 'transfer' ? 'Transferencia' : '' %></span></li>                            
+                            <li class="border-0"><span>Total</span> <span id="totalValue">$<%= summary.order.amount %></span></li>
+                        </ul>
+
                     </div>
                     
                 </div>
@@ -72,7 +105,8 @@
             </div>
         </div>
     </div>
-    <!-- ##### Checkout Area End ##### -->
+    <!-- ##### Summary Area End ##### -->
+
 
     <!-- ##### Footer Area Start ##### -->
     <%-include("./partials/footer.ejs")%>    
