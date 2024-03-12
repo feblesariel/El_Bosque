@@ -125,7 +125,7 @@ const checkoutController = {
         // Obtener la cookie
         const cart = req.cookies.cart;
         // Obtener los datos del formulario del cuerpo de la solicitud
-        const { orderType, payMethod, email, name, tel, note, newsletter } = req.body;
+        const { orderType, payMethod, email, name, tel, note, newsletter, postcode, city, address, date } = req.body;
         // Obtener fecha en milisegundos para generar el codigo unico
         const milliseconds = Date.now();
     
@@ -158,7 +158,7 @@ const checkoutController = {
     
                     if (payMethod === "transfer") {
                         // Procesamiento para recolección y transferencia
-                        processPickupOrder();
+                        processOrder();
                     } else {
                         // Procesamiento para recolección y otro método de pago
                         // Aquí puedes agregar lógica adicional según el método de pago
@@ -170,6 +170,7 @@ const checkoutController = {
                 case "delivery":
                     if (payMethod === "transfer") {
                         // Procesamiento para entrega y transferencia
+                        processOrder();
                     } else {
                         // Procesamiento para entrega y otro método de pago
                     }
@@ -181,8 +182,8 @@ const checkoutController = {
             }
         }
     
-        // Función para procesar la orden de recolección
-        function processPickupOrder() {
+        // Función para procesar la orden
+        function processOrder() {
             // Crear la orden
             Order.create({
                 discount_id: cart.discount ? cart.discount.id : null,
@@ -204,14 +205,33 @@ const checkoutController = {
                         return Product.increment('sold_count', { by: item.quantity, where: { id: item.product_id } });
                     });
                 })).then(() => {
-                    // Crear detalles de recolección
-                    return Order_detail_pickup.create({
+
+                    let pickupDetails = {
                         order_id: newOrder.id,
                         name: name,
                         phone: tel,
                         email: email,
                         note: note
-                    });
+                    };
+
+                    if (orderType === "pickup") {
+                        // Crear detalles de recolección
+                        return Order_detail_pickup.create(pickupDetails);
+
+                    } else if (orderType === "delivery") {
+
+                        // Crear detalles de delivery
+                        let deliveryDetails = {
+                            ...pickupDetails,
+                            scheduled_date: date,
+                            address: address,
+                            city: city,
+                            postal_code: postcode
+                        };
+
+                        return Order_detail_delivery.create(deliveryDetails);
+                    }
+
                 }).then(() => {
                     // Crear registro de pago
                     return Payment.create({
@@ -224,6 +244,7 @@ const checkoutController = {
                     // Eliminar la cookie y redirigir al usuario
                     res.clearCookie('cart');
                     res.redirect("/");
+                    
                 }).catch((error) => {
                     console.error('Error en el procesamiento de la orden:', error);
                     res.status(500).send('Error en el procesamiento de la orden');
