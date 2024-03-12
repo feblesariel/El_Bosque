@@ -107,62 +107,55 @@ const cartController = {
 
         // Obtengo key del item.
         const itemCode = req.params.id;
-    
-        if (req.cookies && req.cookies.cart) {
 
-            // Obtén el carrito como un objeto JavaScript directamente.
-            let cart = req.cookies.cart;
+        // Obtén el carrito como un objeto JavaScript directamente.
+        let cart = req.cookies.cart;
 
-            // Busca el elemento en el carrito.
-            const itemToRemove = cart.item.find(item => item.itemCode === itemCode);
-    
-            // Verifica si el elemento existe.
-            if (itemToRemove) {
+        // Busca el elemento en el carrito.
+        const itemToRemove = cart.item.find(item => item.itemCode === itemCode);
 
-                // Resto del total el item a eliminar.
-                cart.total = (parseFloat(cart.total) - parseFloat(itemToRemove.subtotal)).toFixed(2);
+        // Verifica si el elemento existe.
+        if (itemToRemove) {
 
-                // Filtra los elementos que no coinciden con el elemento a eliminar.
-                cart.item = cart.item.filter(item => item.itemCode !== itemCode);
+            // Resto del total el item a eliminar.
+            cart.total = (parseFloat(cart.total) - parseFloat(itemToRemove.subtotal)).toFixed(2);
 
-                // Verifica si hay elementos restantes en el carrito
-                if (cart.item.length > 0) {
+            // Filtra los elementos que no coinciden con el elemento a eliminar.
+            cart.item = cart.item.filter(item => item.itemCode !== itemCode);
 
-                    // Eliminar la cookie existente antes de redefinirla
-                    res.clearCookie('cart');
+            // Verifica si hay elementos restantes en el carrito
+            if (cart.item.length > 0) {
 
-                    // Define las opciones para la cookie.
-                    const options = {
-                        maxAge: 6 * 60 * 60 * 1000, // Duración de la cookie en milisegundos (6 horas).
-                        httpOnly: true, // La cookie solo será accesible a través del protocolo HTTP (no a través de JavaScript en el navegador).
-                        secure: true, // La cookie solo se enviará a través de HTTPS (para conexiones seguras).
-                        sameSite: 'strict' // Restringe el envío de cookies en las solicitudes cross-origin.
-                    };
+                // Eliminar la cookie existente antes de redefinirla
+                res.clearCookie('cart');
 
-                    // Define la cookie y envíala en la respuesta.
-                    res.cookie('cart', cart, options);
+                // Define las opciones para la cookie.
+                const options = {
+                    maxAge: 6 * 60 * 60 * 1000, // Duración de la cookie en milisegundos (6 horas).
+                    httpOnly: true, // La cookie solo será accesible a través del protocolo HTTP (no a través de JavaScript en el navegador).
+                    secure: true, // La cookie solo se enviará a través de HTTPS (para conexiones seguras).
+                    sameSite: 'strict' // Restringe el envío de cookies en las solicitudes cross-origin.
+                };
 
-                } else {
-
-                    // Si no quedan elementos en el carrito, elimina la cookie.
-                    res.clearCookie('cart');
-                    
-                }
-    
-                // Redirige a la página de origen.
-                res.redirect("/products/shop/");
+                // Define la cookie y envíala en la respuesta.
+                res.cookie('cart', cart, options);
 
             } else {
 
-                //No se encontro el item en la cookie.
-                res.redirect("/");
+                // Si no quedan elementos en el carrito, elimina la cookie.
+                res.clearCookie('cart');
+                
             }
+
+            // Redirige a la página de origen.
+            res.redirect("/products/shop/");
 
         } else {
 
-            //No se encontro la cookie.
+            //No se encontro el item en la cookie.
             res.redirect("/");
         }
+
     }
 
 }
