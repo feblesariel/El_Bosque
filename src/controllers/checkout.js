@@ -228,7 +228,7 @@ const checkoutController = {
                     res.clearCookie('cart');
                     // Define las opciones para la cookie.
                     const options = {
-                        //maxAge: 10 * 60 * 1000, // Duración de la cookie en milisegundos (10 minutos).
+                        maxAge: 1 * 60 * 60 * 1000, // Duración de la cookie en milisegundos (1 hora).
                         httpOnly: true, // La cookie solo será accesible a través del protocolo HTTP (no a través de JavaScript en el navegador).
                         secure: true, // La cookie solo se enviará a través de HTTPS (para conexiones seguras).
                         sameSite: 'strict' // Restringe el envío de cookies en las solicitudes cross-origin.
