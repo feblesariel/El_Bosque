@@ -108,24 +108,24 @@ const checkoutController = {
 
     procces: function (req, res) {
 
-        // Obtener la cookie
+        // Obtener la cookie.
         const cart = req.cookies.cart;
-        // Obtener los datos del formulario del cuerpo de la solicitud
+        // Obtener los datos del formulario del cuerpo de la solicitud.
         const { orderType, payMethod, email, name, tel, note, newsletter, postcode, city, address, date } = req.body;
-        // Obtener fecha en milisegundos para generar el codigo unico
+        // Obtener fecha en milisegundos para generar el codigo unico.
         const milliseconds = Date.now();
-        // Creo variable para lamacenar datos para enviar al front
-        let resume = req.cookies.resume || { order: {}, items: [] }; // Si la cookie resumen existe, obtén su valor; de lo contrario, lo crea con sus parametros.
+        // Creo variable para lamacenar datos para enviar al front.
+        let resume = req.cookies.resume || { method: payMethod, order: {}, items: cart.item, client: { name: name, tel: tel, email: email}};
 
-        // Validar si el usuario desea suscribirse al boletín
+        // Validar si el usuario desea suscribirse al boletín.
         if (newsletter && email) {
-            // Crear o encontrar al suscriptor
+            // Crear o encontrar al suscriptor.
             Subscriber.findOrCreate({
                 where: { email: email },
                 defaults: { email: email }
             })
             .then(() => {
-                // Continuar con el procesamiento de la orden después de manejar la suscripción
+                // Continuar con el procesamiento de la orden después de manejar la suscripción.
                 continueOrderProcessing();
             })
             .catch(error => {
@@ -133,44 +133,44 @@ const checkoutController = {
                 res.status(500).send('Error al crear el suscriptor');
             });
         } else {
-            // Continuar con el procesamiento de la orden sin suscripción
+            // Continuar con el procesamiento de la orden sin suscripción.
             continueOrderProcessing();
         }
     
-        // Función para continuar con el procesamiento de la orden
+        // Función para continuar con el procesamiento de la orden.
         function continueOrderProcessing() {
-            // Determinar el tipo de pedido y el método de pago
+            // Determinar el tipo de pedido y el método de pago.
             switch (orderType) {
-                // Caso: recolección en persona
+                // Caso: recolección en persona.
                 case "pickup":    
                     if (payMethod === "transfer") {
-                        // Procesamiento para recolección y transferencia
+                        // Procesamiento para recolección y transferencia.
                         processOrder();
                     } else {
-                        // Procesamiento para recolección y otro método de pago
-                        // Aquí puedes agregar lógica adicional según el método de pago
-                        // Por ejemplo, redirigir al usuario a una página de pago
+                        // Procesamiento para recolección y otro método de pago.
+                        // Aquí puedes agregar lógica adicional según el método de pago.
+                        // Por ejemplo, redirigir al usuario a una página de pago.
                     }
                     break;    
-                // Caso: entrega a domicilio
+                // Caso: entrega a domicilio.
                 case "delivery":
                     if (payMethod === "transfer") {
-                        // Procesamiento para entrega y transferencia
+                        // Procesamiento para entrega y transferencia.
                         processOrder();
                     } else {
-                        // Procesamiento para entrega y otro método de pago
+                        // Procesamiento para entrega y otro método de pago.
                     }
                     break;
-                // Caso: tipo de pedido desconocido
+                // Caso: tipo de pedido desconocido.
                 default:
-                    // Manejar un tipo de pedido desconocido
+                    // Manejar un tipo de pedido desconocido.
                     res.status(400).send('Tipo de pedido desconocido');
             }
         }
     
-        // Función para procesar la orden
+        // Función para procesar la orden.
         function processOrder() {
-            // Crear la orden
+            // Crear la orden.
             Order.create({
                 discount_id: cart.discount ? cart.discount.id : null,
                 code: milliseconds,
@@ -178,9 +178,9 @@ const checkoutController = {
                 method: orderType,
                 status: "procesando"
             }).then((newOrder) => {
-                // Guardo valor de la orden para enviar al front
+                // Guardo valor de la orden para enviar al front.
                 resume.order = newOrder;
-                // Crear elementos de pedido y actualizar el contador de productos vendidos
+                // Crear elementos de pedido y actualizar el contador de productos vendidos.
                 Promise.all(cart.item.map(item => {
                     return Order_item.create({
                         order_id: newOrder.id,
@@ -188,10 +188,8 @@ const checkoutController = {
                         product_options: item.selectedOptions,
                         quantity: item.quantity,
                         subtotal_amount: parseFloat(item.price) * parseFloat(item.quantity)                        
-                    }).then((result) => {
-                        // Guardo valor de los items para enviar al front
-                        resume.items.push(result);
-                        // Incrementar el contador de productos vendidos
+                    }).then(() => {
+                        // Incrementar el contador de productos vendidos.
                         return Product.increment('sold_count', { by: item.quantity, where: { id: item.product_id } });
                     });
 
@@ -204,10 +202,10 @@ const checkoutController = {
                         note: note
                     };
                     if (orderType === "pickup") {
-                        // Crear detalles de recolección
+                        // Crear detalles de recolección.
                         return Order_detail_pickup.create(pickupDetails);
                     } else if (orderType === "delivery") {
-                        // Crear detalles de delivery
+                        // Crear detalles de delivery.
                         let deliveryDetails = {
                             ...pickupDetails,
                             scheduled_date: date,
@@ -226,7 +224,7 @@ const checkoutController = {
                         payment_method: payMethod
                     });
                 }).then(() => {
-                    // Eliminar la cookie y redirigir al usuario
+                    // Eliminar la cookie y redirigir al usuario.
                     res.clearCookie('cart');
                     // Define las opciones para la cookie.
                     const options = {
