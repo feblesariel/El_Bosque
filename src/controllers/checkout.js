@@ -114,7 +114,9 @@ const checkoutController = {
         const { orderType, payMethod, email, name, tel, note, newsletter, postcode, city, address, date } = req.body;
         // Obtener fecha en milisegundos para generar el codigo unico
         const milliseconds = Date.now();
-    
+        // Creo variable para lamacenar datos para enviar al front
+        let resume = req.cookies.resume || { order: {}, items: [] }; // Si la cookie resumen existe, obtén su valor; de lo contrario, lo crea con sus parametros.
+
         // Validar si el usuario desea suscribirse al boletín
         if (newsletter && email) {
             // Crear o encontrar al suscriptor
@@ -140,8 +142,7 @@ const checkoutController = {
             // Determinar el tipo de pedido y el método de pago
             switch (orderType) {
                 // Caso: recolección en persona
-                case "pickup":
-    
+                case "pickup":    
                     if (payMethod === "transfer") {
                         // Procesamiento para recolección y transferencia
                         processOrder();
@@ -150,8 +151,7 @@ const checkoutController = {
                         // Aquí puedes agregar lógica adicional según el método de pago
                         // Por ejemplo, redirigir al usuario a una página de pago
                     }
-                    break;
-    
+                    break;    
                 // Caso: entrega a domicilio
                 case "delivery":
                     if (payMethod === "transfer") {
@@ -178,6 +178,8 @@ const checkoutController = {
                 method: orderType,
                 status: "procesando"
             }).then((newOrder) => {
+                // Guardo valor de la orden para enviar al front
+                resume.order = newOrder;
                 // Crear elementos de pedido y actualizar el contador de productos vendidos
                 Promise.all(cart.item.map(item => {
                     return Order_item.create({
@@ -185,13 +187,15 @@ const checkoutController = {
                         product_id: item.product_id,
                         product_options: item.selectedOptions,
                         quantity: item.quantity,
-                        subtotal_amount: parseFloat(item.price) * parseFloat(item.quantity)
-                    }).then(() => {
+                        subtotal_amount: parseFloat(item.price) * parseFloat(item.quantity)                        
+                    }).then((result) => {
+                        // Guardo valor de los items para enviar al front
+                        resume.items.push(result);
                         // Incrementar el contador de productos vendidos
                         return Product.increment('sold_count', { by: item.quantity, where: { id: item.product_id } });
                     });
-                })).then(() => {
 
+                })).then(() => {
                     let pickupDetails = {
                         order_id: newOrder.id,
                         name: name,
@@ -199,13 +203,10 @@ const checkoutController = {
                         email: email,
                         note: note
                     };
-
                     if (orderType === "pickup") {
                         // Crear detalles de recolección
                         return Order_detail_pickup.create(pickupDetails);
-
                     } else if (orderType === "delivery") {
-
                         // Crear detalles de delivery
                         let deliveryDetails = {
                             ...pickupDetails,
@@ -214,10 +215,8 @@ const checkoutController = {
                             city: city,
                             postal_code: postcode
                         };
-
                         return Order_detail_delivery.create(deliveryDetails);
                     }
-
                 }).then(() => {
                     // Crear registro de pago
                     return Payment.create({
@@ -229,8 +228,16 @@ const checkoutController = {
                 }).then(() => {
                     // Eliminar la cookie y redirigir al usuario
                     res.clearCookie('cart');
+                    // Define las opciones para la cookie.
+                    const options = {
+                        maxAge: 10 * 60 * 1000, // Duración de la cookie en milisegundos (10 minutos).
+                        httpOnly: true, // La cookie solo será accesible a través del protocolo HTTP (no a través de JavaScript en el navegador).
+                        secure: true, // La cookie solo se enviará a través de HTTPS (para conexiones seguras).
+                        sameSite: 'strict' // Restringe el envío de cookies en las solicitudes cross-origin.
+                    };
+                    // Define la cookie y envíala en la respuesta.
+                    res.cookie('resume', resume, options);
                     res.redirect("/checkout/resume/");
-
                 }).catch((error) => {
                     console.error('Error en el procesamiento de la orden:', error);
                     res.status(500).send('Error en el procesamiento de la orden');
