@@ -24,6 +24,11 @@ const cartController = {
 
     add: function (req, res) {
 
+        // Verifico si existe la cookie summary y la borro.
+        if (req.cookies && req.cookies.summary) {
+            res.clearCookie('summary');
+        }        
+
         // Variables.
         let selectedOptions = "";
         let product = "";

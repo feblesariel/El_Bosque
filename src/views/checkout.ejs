@@ -161,7 +161,7 @@
                                 <div class="input-group">
                                     <input type="text" class="form-control" id="coupon" name="coupon" placeholder="¿Tenes un cupón?" oninput="validateCouponInput()">
                                     <div class="input-group-append">
-                                        <button id="couponBtn" class="btn btn-primary" type="submit" disabled onclick="applyCoupon()"><i class="fa fa-check"></i></button>
+                                        <button id="couponBtn" class="btn btn-primary" type="submit" disabled onclick="applyCoupon()">APLICAR</button>
                                     </div>
                                 </div>
                             </div>
@@ -170,33 +170,19 @@
                             </div>
                         </div>                        
 
-                        <div id="accordion" role="tablist" class="mb-4">
+                        <div class="mb-5">
 
-                            <div class="card">
-                                <div class="card-header" role="tab" id="headingOne">
-                                    <h6 class="mb-0">
-                                        <a class="text-dark" data-toggle="collapse" href="#collapseOne" aria-expanded="false" aria-controls="collapseOne" onclick="setPaymentMethod('mercado_pago')"><i class="fa fa-credit-card mr-3"></i>mercado pago <img style="width: 75px;" src="/img/bg-img/mercadopago.png" alt=""></a>
-                                    </h6>
-                                </div>
-
-                                <div id="collapseOne" class="collapse" role="tabpanel" aria-labelledby="headingOne" data-parent="#accordion">
-                                    <div class="card-body">
-                                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin pharetra tempor so dales. Phasellus sagittis auctor gravida. Integ er bibendum sodales arcu id te mpus. Ut consectetur lacus.</p>
-                                    </div>
-                                </div>
+                            <div class="custom-control custom-checkbox my-3">
+                                <input type="checkbox" class="custom-control-input" id="mercadoPagoCheckbox" name="paymentMethod" value="mercado_pago" onclick="handleCheckbox(this)"> 
+                                <label class="custom-control-label" for="mercadoPagoCheckbox">Mercado Pago <i class="fa fa-credit-card"></i>
+                                </label>                                                                               
                             </div>
-                            <div class="card">
-                                <div class="card-header" role="tab" id="headingTwo">
-                                    <h6 class="mb-0">
-                                        <a class="collapsed text-dark" data-toggle="collapse" href="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo" onclick="setPaymentMethod('transfer')"><i class="fa fa-university mr-3"></i>transferencia bancaria</a>
-                                    </h6>
-                                </div>
-                                <div id="collapseTwo" class="collapse show" role="tabpanel" aria-labelledby="headingTwo" data-parent="#accordion">
-                                    <div class="card-body bg-light">
-                                        <p>Datos bancarios:<br>CBU: 0170016940000006891567<br>Alias: Pipasteleria<br>Banco: BBVA<br>MP ALIAS: Pipasteleria.mp<br>MP CVU: 0000003100021369072550</p>
-                                    </div>
-                                </div>
-                            </div>
+                            
+                            <div class="custom-control custom-checkbox my-3">
+                                <input type="checkbox" class="custom-control-input" id="transferenciaCheckbox" name="paymentMethod" value="transfer" onclick="handleCheckbox(this)" checked> 
+                                <label class="custom-control-label" for="transferenciaCheckbox">Transferencia Bancaria <i class="fa fa-university"></i>
+                                </label>                                                                               
+                            </div>                            
 
                         </div>
 
@@ -212,12 +198,19 @@
     <!-- ##### Footer Area Start ##### -->
     <%-include("./partials/footer.ejs")%>
 
-    <!-- Pay Method -->
+    <!-- Pay Method Handle-->
     <script>
-        function setPaymentMethod(method) {
-            // Actualizar el valor del campo oculto
-            document.getElementById('payMethodInput').value = method;
-        }        
+        function handleCheckbox(checkbox) {
+            // Deseleccionar el otro checkbox si este está seleccionado
+            var checkboxes = document.querySelectorAll('input[name="paymentMethod"]');
+            checkboxes.forEach(function (cb) {
+                if (cb !== checkbox && cb.checked) {
+                    cb.checked = false;
+                }
+            });
+
+            document.getElementById('payMethodInput').value = checkbox.value;
+        }
     </script>
 
     <!-- Send Form js -->
