@@ -115,7 +115,7 @@ const checkoutController = {
         // Obtener fecha en milisegundos para generar el codigo unico.
         const milliseconds = Date.now();
         // Creo variable para lamacenar datos para enviar al front.
-        let resume = req.cookies.resume || { method: payMethod, order: {}, items: cart.item, client: { name: name, tel: tel, email: email}};
+        let summary = req.cookies.summary || { method: payMethod, order: {}, items: cart.item, client: { name: name, tel: tel, email: email}};
 
         // Validar si el usuario desea suscribirse al boletín.
         if (newsletter && email) {
@@ -179,7 +179,7 @@ const checkoutController = {
                 status: "procesando"
             }).then((newOrder) => {
                 // Guardo valor de la orden para enviar al front.
-                resume.order = newOrder;
+                summary.order = newOrder;
                 // Crear elementos de pedido y actualizar el contador de productos vendidos.
                 Promise.all(cart.item.map(item => {
                     return Order_item.create({
@@ -234,8 +234,8 @@ const checkoutController = {
                         sameSite: 'strict' // Restringe el envío de cookies en las solicitudes cross-origin.
                     };
                     // Define la cookie y envíala en la respuesta.
-                    res.cookie('resume', resume, options);
-                    res.redirect("/checkout/resume/");
+                    res.cookie('summary', summary, options);
+                    res.redirect("/checkout/summary/");
                 }).catch((error) => {
                     console.error('Error en el procesamiento de la orden:', error);
                     res.status(500).send('Error en el procesamiento de la orden');
@@ -247,10 +247,10 @@ const checkoutController = {
         }
     },
 
-    resume: function (req, res) {
+    summary: function (req, res) {
 
-        // Obtén el carrito como un objeto JavaScript directamente.
-        const resume = req.cookies.resume;
+        // Obtén el summary como un objeto JavaScript directamente.
+        const summary = req.cookies.summary;
 
         const getCategories = Category.findAll({
             order: [
@@ -263,7 +263,7 @@ const checkoutController = {
         Promise.all([getCategories])
             .then(([Categories]) => {
 
-                res.render('resume', { Categories, cart, resume})
+                res.render('summary', { Categories, cart, summary})
 
             })
             .catch(error => {

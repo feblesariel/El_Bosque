@@ -3,7 +3,7 @@
 const express = require ("express");
 const router = express.Router();
 const cartCookieMiddleware = require("../middlewares/cart-cookie");
-const resumeCookieMiddleware = require("../middlewares/resume-cookie");
+const summaryCookieMiddleware = require("../middlewares/summary-cookie");
 
 // ************ Controller Require ************
 
@@ -14,7 +14,7 @@ const checkoutController = require ("../controllers/checkout")
 router.get("/", cartCookieMiddleware , checkoutController.checkout);
 router.post("/procces/" , checkoutController.procces);
 router.post("/discount/" , checkoutController.discount);
-router.get("/resume/" , resumeCookieMiddleware, checkoutController.resume);
+router.get("/summary/" , summaryCookieMiddleware, checkoutController.summary);
 
 
 module.exports = router;
