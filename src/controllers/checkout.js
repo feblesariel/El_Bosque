@@ -30,26 +30,12 @@ const checkoutController = {
             ]
         });
 
-        const getProducts = Product.findAll({
-            where: {
-                available: true
-            },
-            include: [
-                {
-                    association: 'Category'
-                },
-                {
-                    association: 'Product_image'
-                }
-            ]
-        });
-
         const cart = req.cookies.cart;
 
-        Promise.all([getCategories, getProducts])
-            .then(([Categories, Products]) => {
+        Promise.all([getCategories])
+            .then(([Categories]) => {
 
-                res.render('checkout', { Categories, Products, cart})
+                res.render('checkout', { Categories, cart})
 
             })
             .catch(error => {
@@ -243,7 +229,7 @@ const checkoutController = {
                 }).then(() => {
                     // Eliminar la cookie y redirigir al usuario
                     res.clearCookie('cart');
-                    res.redirect("/");
+                    res.redirect("/checkout/resume/");
 
                 }).catch((error) => {
                     console.error('Error en el procesamiento de la orden:', error);
@@ -254,7 +240,29 @@ const checkoutController = {
                 res.status(500).send('Error al crear la orden');
             });
         }
-    }    
+    },
+
+    resume: function (req, res) {
+
+        const getCategories = Category.findAll({
+            order: [
+                ['name', 'ASC']
+            ]
+        });
+
+        const cart = req.cookies.cart;
+
+        Promise.all([getCategories])
+            .then(([Categories]) => {
+
+                res.render('resume', { Categories, cart})
+
+            })
+            .catch(error => {
+                console.error('Error:', error);
+            });
+
+    }
 
 };
 
