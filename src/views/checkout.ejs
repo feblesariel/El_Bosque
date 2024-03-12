@@ -145,11 +145,11 @@
                             <li class="border-0"><span><%= item.name %> x<%=item.quantity %></span><span>$<%= item.price %></span></li>
                             <p><%=item.selectedOptions %></p>
 
-                            <% subtotal += item.subtotal; %>
+                            <% subtotal += parseFloat(item.subtotal); %>
 
                             <% }) %>
 
-                            <li><span>Subtotal</span> <span>$<%= parseFloat(subtotal).toFixed(2); %></span></li>
+                            <li><span>Subtotal</span> <span>$<%=subtotal; %></span></li>
                             <li><span>Envio</span> <span>Free</span></li>
                             <li><span>Total</span> <span id="totalValue">$<%= cart.total %></span></li>
                         </ul>
