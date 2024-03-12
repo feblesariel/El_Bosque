@@ -251,33 +251,26 @@ const checkoutController = {
 
     resume: function (req, res) {
 
-        if (req.cookies && req.cookies.resume) {
+        // Obtén el carrito como un objeto JavaScript directamente.
+        const resume = req.cookies.resume;
 
-            // Obtén el carrito como un objeto JavaScript directamente.
-            const resume = req.cookies.resume;
+        const getCategories = Category.findAll({
+            order: [
+                ['name', 'ASC']
+            ]
+        });
 
-            const getCategories = Category.findAll({
-                order: [
-                    ['name', 'ASC']
-                ]
+        const cart = req.cookies.cart;
+
+        Promise.all([getCategories])
+            .then(([Categories]) => {
+
+                res.render('resume', { Categories, cart, resume})
+
+            })
+            .catch(error => {
+                console.error('Error:', error);
             });
-
-            const cart = req.cookies.cart;
-
-            Promise.all([getCategories])
-                .then(([Categories]) => {
-
-                    res.render('resume', { Categories, cart, resume})
-
-                })
-                .catch(error => {
-                    console.error('Error:', error);
-                });
-
-        } else {
-            //No se encontro la cookie.
-            res.redirect("/");
-        }
 
     }
 
