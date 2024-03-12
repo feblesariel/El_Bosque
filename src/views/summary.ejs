@@ -50,21 +50,23 @@
                     <div class="checkout_details_area mt-50 clearfix">
 
                         <% if (summary && summary.method === "transfer") { %>
-                        <h3 class="mb-3">Tu pedido ha sido recibido 😊</h3>
-                        <p>Para que podamos confirmarlo y comenzar a prepararlo, por favor envíanos el comprobante de la transferencia a <span class="font-weight-bold">info@elbosque.com</span> o a nuestro WhatsApp 📧📱.</p>
-                        <p>Recuerda que con el número de tu orden <span class="font-weight-bold"><%=summary.order.code %></span>, podrás rastrear el estado de tu pedido en nuestra sección "Tu Pedido". 📦🔍</p>
-                        <p>Además, aquí te dejamos nuestros datos bancarios para que puedas completar tu transferencia con facilidad:</p>
-                        <div class="my-4" style="color: #787878; font-size: 14px; line-height: 1.65; font-weight: 400;">
-                            <ul>
-                                <li>CBU: 0170016940000006891567</li>
-                                <li>Alias: Pipasteleria</li>
-                                <li>Banco: BBVA</li>
-                                <li>MP ALIAS: Pipasteleria.mp</li>
-                                <li>MP CVU: 0000003100021369072550</li>
-                            </ul>
-                        </div>
-                        
-                        <a href="/" class="btn essence-btn mt-4">Ir al Inicio</a>
+                            <h3 class="mb-3">Tu pedido ha sido recibido 😊</h3>
+                            <div class="text-justify">
+                                <p>Para que podamos confirmarlo y comenzar a prepararlo, por favor envíanos el comprobante de la transferencia a <span class="font-weight-bold">info@elbosque.com</span> o a nuestro WhatsApp 📧📱.</p>
+                                <p>Recuerda que con el número de tu orden <span class="font-weight-bold"><%=summary.order.code %></span>, podrás rastrear el estado de tu pedido en nuestra sección "Tu Pedido". 📦🔍</p>
+                                <p>Además, aquí te dejamos nuestros datos bancarios para que puedas completar tu transferencia con facilidad:</p>
+                            </div>
+                            <div class="my-4" style="color: #787878; font-size: 14px; line-height: 1.65; font-weight: 400;">
+                                <ul>
+                                    <li>CBU: 0170016940000006891567</li>
+                                    <li>Alias: Pipasteleria</li>
+                                    <li>Banco: BBVA</li>
+                                    <li>MP ALIAS: Pipasteleria.mp</li>
+                                    <li>MP CVU: 0000003100021369072550</li>
+                                </ul>
+                            </div>
+                            
+                            <a href="/" class="btn essence-btn mt-4">Ir al Inicio</a>
                         <% } %>
 
                     </div>                    
