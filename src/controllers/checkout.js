@@ -200,7 +200,7 @@ const checkoutController = {
                         product_options: item.selectedOptions,
                         quantity: item.quantity,
                         subtotal_amount: parseFloat(item.price) * parseFloat(item.quantity)
-                    }).then((createdItem) => {
+                    }).then(() => {
                         // Incrementar el contador de productos vendidos
                         return Product.increment('sold_count', { by: item.quantity, where: { id: item.product_id } });
                     });
@@ -244,7 +244,7 @@ const checkoutController = {
                     // Eliminar la cookie y redirigir al usuario
                     res.clearCookie('cart');
                     res.redirect("/");
-                    
+
                 }).catch((error) => {
                     console.error('Error en el procesamiento de la orden:', error);
                     res.status(500).send('Error en el procesamiento de la orden');
