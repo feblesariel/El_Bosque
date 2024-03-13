@@ -2,13 +2,13 @@
 
 const nodemailer = require('nodemailer');
 
-// Configura el transporte utilizando SMTP
+// Configura el transporte SMTP
 let transporter = nodemailer.createTransport({
-    host: 'smtp.hostinger.com', // Cambia esto por el servidor SMTP de tu dominio en Hostinger.
-    port: 465, // Puerto SMTP estándar para envío de correo electrónico.
-    secure: true, // Si el servidor requiere una conexión segura (TLS), establecer en true.
+    host: 'smtp.hostinger.com',
+    port: 465,
+    secure: true, // Usa TLS
     auth: {
-        user: 'info@bawebstudio.com', // Cambia esto por tu dirección de correo electrónico completa.
+        user: 'info@bawebstudio.com', // Cambia esto por tu dirección de correo electrónico.
         pass: 'Chupala123*' // Cambia esto por tu contraseña de correo electrónico.
     }
 });
@@ -248,19 +248,19 @@ const checkoutController = {
                     };
                     // Define la cookie.
                     res.cookie('summary', summary, options);
-                    // Envía el correo electrónico de confirmación.
+                    // Define las opciones del correo electrónico
                     let mailOptions = {
-                        to: email,
-                        subject: 'El Bosque - Confirmación de compra',
-                        html: '<p>Tu compra ha sido confirmada. ¡Gracias por comprar con nosotros!</p>'
-                    };                    
+                        from: 'info@bawebstudio.com', // Dirección de correo electrónico del remitente.
+                        to: email, // Dirección de correo electrónico del destinatario.
+                        subject: 'EL Bosque - Confirmacion de compra', // Asunto del correo electrónico.
+                        text: 'Contenido del Correo Electrónico en Texto Plano' // Contenido del correo electrónico en texto plano.
+                    };
+                    // Envía el correo electrónico
                     transporter.sendMail(mailOptions, (error, info) => {
                         if (error) {
-                            console.error('Error al enviar el correo electrónico:', error);
-                            res.status(500).json({ success: false, message: 'Error al enviar el correo electrónico' });
+                            console.log('Error al enviar el correo electrónico:', error);
                         } else {
                             console.log('Correo electrónico enviado:', info.response);
-                            res.status(200).json({ success: true, message: 'Correo electrónico enviado correctamente' });
                         }
                     });
                     res.redirect("/checkout/summary/");
