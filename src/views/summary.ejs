@@ -52,11 +52,10 @@
                         <% if (summary && summary.method === "transfer") { %>
                             <h3 class="mb-3">Tu pedido ha sido recibido 😊</h3>
                             <div class="text-justify">
-                                <p>Para que podamos confirmarlo y comenzar a prepararlo, por favor envíanos el comprobante de la transferencia a <span class="font-weight-bold">info@elbosque.com</span> o a nuestro WhatsApp 📧📱.</p>
-                                <p>Recuerda que con el número de tu orden <span class="font-weight-bold"><%=summary.order.code %></span>, podrás rastrear el estado de tu pedido en nuestra sección "Tu Pedido". 📦🔍</p>
-                                <p>Además, aquí te dejamos nuestros datos bancarios para que puedas completar tu transferencia con facilidad:</p>
+                                <p>Para que podamos confirmarlo y comenzar a prepararlo, por favor envíanos el comprobante de la transferencia a nuestra dirección de correo electrónico <span class="font-weight-bold">info@elbosque.com</span> o a través de nuestro número de WhatsApp.</p>
+                                <p>Te recordamos tambien que tu número de orden es <span class="font-weight-bold">#<%=summary.order.code%></span>, el cual te permitirá rastrear el estado de tu pedido en nuestra sección 'Tu Pedido'.</p>
                             </div>
-                            <div class="my-4" style="color: #787878; font-size: 14px; line-height: 1.65; font-weight: 400;">
+                            <div class="my-5 font-weight-bold" style="color: #787878; font-size: 14px; line-height: 1.65;">
                                 <ul>
                                     <li>CBU: 0170016940000006891567</li>
                                     <li>Alias: Pipasteleria</li>
@@ -66,7 +65,7 @@
                                 </ul>
                             </div>
                             
-                            <a href="/" class="btn essence-btn mt-4">Ir al Inicio</a>
+                            <a href="/" class="btn essence-btn mt-3">Ir al Inicio</a>
                         <% } %>
 
                     </div>                    
