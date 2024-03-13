@@ -41,6 +41,9 @@ const indexController = {
                 {
                     association: 'Product_image'
                 }
+            ],
+            order: [
+                ['sold_count', 'DESC']
             ]
         });
 
