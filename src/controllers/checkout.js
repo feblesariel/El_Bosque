@@ -1,8 +1,8 @@
 // ************ Requires ************
 
 const nodemailer = require('nodemailer');
-const ejs = require('ejs');
-const fs = require('fs');
+const ejs = require('ejs'); // Para renderizar el template email.
+const fs = require('fs'); // Para traer el template email.
 
 // Leer el archivo de la plantilla de correo electrónico.
 const emailTemplate = fs.readFileSync('./src/views/templates/email-client-transfer.ejs', 'utf8');
@@ -257,9 +257,9 @@ const checkoutController = {
                     const compiledTemplate = ejs.render(emailTemplate, {summary});
                     // Define las opciones del correo electrónico para el cliente.                    
                     let clientMailOptions = {
-                        from: process.env.SMTP_EMAIL, // Dirección de correo electrónico del remitente.
+                        from: process.env.SMTP_EMAIL, // Dirección de correo electrónico del remitente. // CAMBIAR EL FROM POR EL DEL SERVIDOR.
                         to: email, // Dirección de correo electrónico del destinatario (cliente).
-                        subject: 'Confirmacion de compra', // Asunto del correo electrónico.
+                        subject: 'El Bosque Energetico - Recibimos tu pedido.', // Asunto del correo electrónico.
                         html: compiledTemplate // Contenido del correo electrónico en texto plano.
                     };
                     // Envía el correo electrónico al cliente
