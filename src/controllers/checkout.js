@@ -248,21 +248,36 @@ const checkoutController = {
                     };
                     // Define la cookie.
                     res.cookie('summary', summary, options);
-                    // Define las opciones del correo electrónico.
-                    let mailOptions = {
+                    // Define las opciones del correo electrónico para el cliente.
+                    let clientMailOptions = {
                         from: process.env.SMTP_EMAIL, // Dirección de correo electrónico del remitente.
-                        to: email, // Dirección de correo electrónico del destinatario.
+                        to: email, // Dirección de correo electrónico del destinatario (cliente).
                         subject: 'Confirmacion de compra', // Asunto del correo electrónico.
-                        text: 'Contenido del Correo Electrónico en Texto Plano' // Contenido del correo electrónico en texto plano.
+                        text: 'Contenido del Correo Electrónico en Texto Plano para el cliente' // Contenido del correo electrónico en texto plano.
                     };
-                    // Envía el correo electrónico
-                    transporter.sendMail(mailOptions, (error, info) => {
+                    // Envía el correo electrónico al cliente
+                    transporter.sendMail(clientMailOptions, (error, info) => {
                         if (error) {
-                            console.log('Error al enviar el correo electrónico:', error);
+                            console.log('Error al enviar el correo electrónico al cliente:', error);
                         } else {
-                            console.log('Correo electrónico enviado:', info.response);
+                            console.log('Correo electrónico enviado al cliente:', info.response);
                         }
                     });
+                    // Define las opciones del correo electrónico para el propietario.
+                    let ownerMailOptions = {
+                        from: process.env.SMTP_EMAIL, // Dirección de correo electrónico del remitente.
+                        to: email, // Dirección de correo electrónico del propietario.
+                        subject: 'Nueva compra realizada', // Asunto del correo electrónico.
+                        text: 'Contenido del Correo Electrónico en Texto Plano para el propietario' // Contenido del correo electrónico en texto plano.
+                    };
+                    // Envía el correo electrónico al propietario
+                    transporter.sendMail(ownerMailOptions, (error, info) => {
+                        if (error) {
+                            console.log('Error al enviar el correo electrónico al propietario:', error);
+                        } else {
+                            console.log('Correo electrónico enviado al propietario:', info.response);
+                        }
+                    });                    
                     res.redirect("/checkout/summary/");
                 }).catch((error) => {
                     console.error('Error en el procesamiento de la orden:', error);
