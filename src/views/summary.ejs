@@ -95,7 +95,7 @@
 
                             <% }) %>
 
-                            <li><span>Subtotal</span> <span>$<%= subtotal %></span></li>
+                            <li><span>Subtotal</span> <span>$<%= (subtotal).toFixed(2) %></span></li>
                             <li><span>Método de Entrega</span> <span><%= summary.order.method === 'pickup' ? 'Retiro' : summary.order.method === 'delivery' ? 'Delivery' : '' %></span></li>
                             <li><span>Forma de Pago</span> <span>Transferencia</span></li>                            
                             <li class="border-0"><span>Total</span> <span id="totalValue">$<%= summary.order.amount %></span></li>

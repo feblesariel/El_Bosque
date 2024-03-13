@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Confirmación de Pedido</title>
+    <style>
+        ul,
+        ol {
+            margin: 0;
+        }
+
+        ul li,
+        ol li {
+            list-style: none;
+        }
+    </style>
+</head>
+
+<body>
+
+        <h1>Hola <%= summary.client.name%>!</h1>
+
+        <p>Gracias por enviarnos tu pedido, el mismo estará confirmado una vez que hayamos recibido el comprobante de la transferencia. Lo puedes enviar por email o WhatsApp.</p>
+
+        <ul>
+            <li>CBU: 0170016940000006891567</li>
+            <li>Alias: Pipasteleria</li>
+            <li>Banco: BBVA</li>
+            <li>MP ALIAS: Pipasteleria.mp</li>
+            <li>MP CVU: 0000003100021369072550</li>
+        </ul>
+
+        <p>Tu Orden <b>#<%=summary.order.code%></b></p>
+
+        <% let subtotal=0; %>
+
+            <ul>                
+                <% summary.items.forEach(item=> { %>
+                    <li>Nombre: <%= item.name %></li>
+                    <li>Precio: $<%= item.price %></li>
+                    <li>Cantidad: <%= item.quantity %></li>
+                    <li>Opciones: <%= item.selectedOptions %></li>
+                    <br>
+                <% subtotal +=parseFloat(item.subtotal); %>
+                <% }) %>
+                <li>Subtotal: $<%= (subtotal).toFixed(2) %></li>
+                <li>Método de Entrega: <%= summary.order.method==='pickup' ? 'Retiro' : summary.order.method==='delivery' ? 'Delivery' : '' %></li>
+                <li>Forma de Pago: Transferencia</li>
+                <br>
+                <li><b>Total: $<%= summary.order.amount %></b></li>
+
+            </ul>
+
+</body>
+
+</html>

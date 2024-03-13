@@ -1,6 +1,11 @@
 // ************ Requires ************
 
 const nodemailer = require('nodemailer');
+const ejs = require('ejs');
+const fs = require('fs');
+
+// Leer el archivo de la plantilla de correo electrónico.
+const emailTemplate = fs.readFileSync('./src/views/templates/email-client-transfer.ejs', 'utf8');
 
 // Configura el transporte SMTP
 let transporter = nodemailer.createTransport({
@@ -248,12 +253,14 @@ const checkoutController = {
                     };
                     // Define la cookie.
                     res.cookie('summary', summary, options);
-                    // Define las opciones del correo electrónico para el cliente.
+                    // Compilar la plantilla con los datos específicos
+                    const compiledTemplate = ejs.render(emailTemplate, {summary});
+                    // Define las opciones del correo electrónico para el cliente.                    
                     let clientMailOptions = {
                         from: process.env.SMTP_EMAIL, // Dirección de correo electrónico del remitente.
                         to: email, // Dirección de correo electrónico del destinatario (cliente).
                         subject: 'Confirmacion de compra', // Asunto del correo electrónico.
-                        text: 'Contenido del Correo Electrónico en Texto Plano para el cliente' // Contenido del correo electrónico en texto plano.
+                        html: compiledTemplate // Contenido del correo electrónico en texto plano.
                     };
                     // Envía el correo electrónico al cliente
                     transporter.sendMail(clientMailOptions, (error, info) => {
