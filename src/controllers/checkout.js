@@ -8,8 +8,8 @@ let transporter = nodemailer.createTransport({
     port: 465,
     secure: true, // Usa TLS
     auth: {
-        user: 'info@bawebstudio.com', // Cambia esto por tu dirección de correo electrónico.
-        pass: 'Chupala123*' // Cambia esto por tu contraseña de correo electrónico.
+        user: process.env.SMTP_EMAIL,
+        pass: process.env.SMTP_PASSWORD
     }
 });
 
@@ -248,11 +248,11 @@ const checkoutController = {
                     };
                     // Define la cookie.
                     res.cookie('summary', summary, options);
-                    // Define las opciones del correo electrónico
+                    // Define las opciones del correo electrónico.
                     let mailOptions = {
-                        from: 'info@bawebstudio.com', // Dirección de correo electrónico del remitente.
+                        from: process.env.SMTP_EMAIL, // Dirección de correo electrónico del remitente.
                         to: email, // Dirección de correo electrónico del destinatario.
-                        subject: 'EL Bosque - Confirmacion de compra', // Asunto del correo electrónico.
+                        subject: 'Confirmacion de compra', // Asunto del correo electrónico.
                         text: 'Contenido del Correo Electrónico en Texto Plano' // Contenido del correo electrónico en texto plano.
                     };
                     // Envía el correo electrónico

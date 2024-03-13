@@ -1,6 +1,7 @@
 // ************ Require's ************
 
 const express = require('express');
+require('dotenv').config(); // Para poder usar variables de entorno.
 const session = require("express-session");
 const path = require('path');
 const methodOverride = require('method-override'); // Para poder usar los métodos PUT y DELETE.
