@@ -149,7 +149,7 @@
 
                             <% }) %>
 
-                            <li><span>Subtotal</span> <span>$<%=subtotal; %></span></li>
+                            <li><span>Subtotal</span> <span>$<%= (subtotal).toFixed(2) %></span></li>
                             <li><span>Envio</span> <span>Free</span></li>
                             <li><span>Total</span> <span id="totalValue">$<%= cart.total %></span></li>
                         </ul>

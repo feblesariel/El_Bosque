@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Confirmación de Pedido</title>
+    <style>
+        ul,
+        ol {
+            margin: 0;
+        }
+
+        ul li,
+        ol li {
+            list-style: none;
+        }
+    </style>
+</head>
+
+<body>
+
+    <h1>Ingreso un nuevo pedido!</h1>
+
+    <p>Detalles del cliente:</p>
+
+    <ul>
+        <li>Nombre: <%= summary.client.name %></li>
+        <li>Email: $<%= summary.client.email  %></li>
+        <li>Telefono: <%= summary.client.tel  %></li>
+    </ul>
+
+    <p>Orden <b>#<%=summary.order.code%></b></p>
+
+    <% let subtotal=0; %>
+
+    <ul>                
+        <% summary.items.forEach(item=> { %>
+            <li>Nombre: <%= item.name %></li>
+            <li>Precio: $<%= item.price %></li>
+            <li>Cantidad: <%= item.quantity %></li>
+            <li>Opciones: <%= item.selectedOptions %></li>
+            <br>
+        <% subtotal +=parseFloat(item.subtotal); %>
+        <% }) %>
+        <li>Subtotal: $<%= (subtotal).toFixed(2) %></li>
+        <li>Método de Entrega: <%= summary.order.method==='pickup' ? 'Retiro' : summary.order.method==='delivery' ? 'Delivery' : '' %></li>
+        <li>Forma de Pago: Transferencia</li>
+        <br>
+        <li><b>Total: $<%= summary.order.amount %></b></li>
+    </ul>
+
+</body>
+
+</html>
