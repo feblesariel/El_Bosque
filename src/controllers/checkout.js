@@ -253,7 +253,7 @@ const checkoutController = {
                     };
                     // Define la cookie.
                     res.cookie('summary', summary, options);
-                    // Compilar la plantilla con los datos específicos
+                    // Renderiza el template email y envia los datos.
                     const compiledTemplate = ejs.render(emailTemplate, {summary});
                     // Define las opciones del correo electrónico para el cliente.                    
                     let clientMailOptions = {
