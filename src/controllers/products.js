@@ -109,7 +109,8 @@ const productsController = {
     
         const getAllProducts = Product.findAll({
         where: {
-        [Op.and]: whereClause[Op.and]
+        [Op.and]: whereClause[Op.and],
+        available: true
         },
         order: orderOption,
                limit,
@@ -145,8 +146,6 @@ const productsController = {
         });
 
     }
-
-
 
 }
 
