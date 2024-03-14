@@ -24,14 +24,14 @@ CREATE TABLE product_options (
     option_type ENUM('Tamaño', 'Bizcochuelo', 'Relleno 1', 'Relleno 2', 'Cobertura', 'Decoración') NOT NULL,
     option_value VARCHAR(255) NOT NULL,
     description TEXT NOT NULL,
-    price DECIMAL(10, 2) DEFAULT 0,
+    price DECIMAL(10, 2) DEFAULT 0, -- BORRAR
     FOREIGN KEY (id_product) REFERENCES products(id) ON DELETE CASCADE
 );
 
 CREATE TABLE product_images (
     id INT PRIMARY KEY AUTO_INCREMENT,
     product_id INT NOT NULL,
-    url TEXT NOT NULL,    
+    url TEXT NOT NULL, -- REVISAR
     FOREIGN KEY (product_id) REFERENCES products(id) ON DELETE CASCADE,
     INDEX (product_id),
     INDEX (url(255)) -- Increase URL index length if needed
@@ -40,7 +40,7 @@ CREATE TABLE product_images (
 CREATE TABLE discounts (
     id INT PRIMARY KEY AUTO_INCREMENT,
     code VARCHAR(50) NOT NULL UNIQUE,
-    description TEXT NOT NULL,
+    description TEXT NOT NULL, -- BORRAR
     discount_percentage INT NOT NULL,
     active BOOLEAN NOT NULL DEFAULT TRUE
 );
@@ -51,7 +51,7 @@ CREATE TABLE orders (
     code VARCHAR(50) NOT NULL UNIQUE,
     amount DECIMAL(10, 2) NOT NULL,
     method ENUM('pickup', 'delivery') NOT NULL,    
-    status ENUM('procesando', 'preparando', 'listo', 'completado', 'cancelado') NOT NULL,
+    status ENUM('procesando', 'preparando', 'listo', 'completado', 'cancelado') NOT NULL, -- REVISAR
     createdAt TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     updatedAt TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
     FOREIGN KEY (discount_id) REFERENCES discounts(id)
@@ -61,7 +61,7 @@ CREATE TABLE order_items (
     id INT PRIMARY KEY AUTO_INCREMENT,
     order_id INT NOT NULL,
     product_id INT NOT NULL,
-    product_options TEXT NOT NULL, -- REVISAR --
+    product_options TEXT NOT NULL,
     quantity INT NOT NULL DEFAULT 1,
     subtotal_amount DECIMAL(10, 2) NOT NULL,
     FOREIGN KEY (order_id) REFERENCES orders(id) ON DELETE CASCADE,
