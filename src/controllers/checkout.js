@@ -130,7 +130,7 @@ const checkoutController = {
         // Obtener la cookie.
         const cart = req.cookies.cart;
         // Obtener los datos del formulario del cuerpo de la solicitud.
-        const { orderType, payMethod, email, name, tel, note, newsletter, postcode, city, address, date } = req.body;
+        const { orderType, payMethod, email, name, tel, note, newsletter, postcode, city, address } = req.body;
         // Obtener fecha en milisegundos para generar el codigo unico.
         const milliseconds = Date.now();
         // Creo variable para lamacenar datos para enviar al front.
@@ -227,7 +227,6 @@ const checkoutController = {
                         // Crear detalles de delivery.
                         let deliveryDetails = {
                             ...pickupDetails,
-                            scheduled_date: date,
                             address: address,
                             city: city,
                             postal_code: postcode

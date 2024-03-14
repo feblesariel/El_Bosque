@@ -50,7 +50,7 @@
                     <div class="checkout_details_area mt-50 clearfix">
 
                         <div class="cart-page-heading mb-30">
-                            <h5>Dirección de facturación</h5>
+                            <h5>Detalles de facturación</h5>
                         </div>
 
                         <form id="checkoutForm" action="/checkout/procces/" method="POST">
@@ -100,17 +100,13 @@
                                 <div class="col-12 mb-3">
                                     <label for="address">direccion <span>*</span></label>
                                     <input type="text" class="form-control" id="address" name="address" autocomplete="address">
-                                </div>
-                                <div class="col-12 mb-3">
-                                    <label for="date">¿Cuándo lo quieres recibir? <span>*</span></label>
-                                    <input type="date" class="form-control" id="date" name="date" min="" max="">
-                                </div>                                                        
+                                </div>                                                   
 
                             </div>
 
                             <div class="row">
 
-                                <div class="col-12 mt-5">
+                                <div class="col-12 mt-3">
                                     <div class="custom-control custom-checkbox d-block">
                                         <input type="checkbox" class="custom-control-input" id="newsletter" name="newsletter" checked> 
                                         <label class="custom-control-label" for="newsletter">suscribite y participa de sorteos</label>                                                                               
@@ -222,20 +218,7 @@
             // Enviar el formulario
             boton.click();
         });
-    </script>
-    
-    <!-- Calendar js -->
-    <script>
-        // Obtener la fecha actual
-        var hoy = new Date();
-        // Sumar 3 días a la fecha actual
-        hoy.setDate(hoy.getDate() + 3);    
-        // Formatear la fecha mínima permitida (la fecha actual + 3 días)
-        var minDateString = hoy.toISOString().split('T')[0];    
-        // Asignar el valor mínimo al campo de fecha
-        document.getElementById('date').setAttribute('min', minDateString);
-    </script>
-    
+    </script>    
 
     <!-- jQuery (Necessary for All JavaScript Plugins) -->
     <script src="/js/jquery/jquery-2.2.4.min.js"></script>

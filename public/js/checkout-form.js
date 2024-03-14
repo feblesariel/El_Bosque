@@ -7,7 +7,7 @@ function checkFormCompletion() {
     if (orderType === "pickup") {
         formFields = document.querySelectorAll('#name, #tel, #email');
     } else {
-        formFields = document.querySelectorAll('#name, #tel, #email, #postcode, #city, #address, #date');
+        formFields = document.querySelectorAll('#name, #tel, #email, #postcode, #city, #address');
     }
 
     // Verificar si todos los campos están completos
@@ -45,7 +45,7 @@ function toggleDeliveryZone() {
 
 document.addEventListener('DOMContentLoaded', () => {
     // Agregar un event listener a cada campo de entrada para verificar si está completo
-    const formFields = document.querySelectorAll('#name, #tel, #email, #postcode, #city, #address, #date');
+    const formFields = document.querySelectorAll('#name, #tel, #email, #postcode, #city, #address');
     formFields.forEach(field => {
         field.addEventListener('input', () => {
             const isFormCompleted = checkFormCompletion();
