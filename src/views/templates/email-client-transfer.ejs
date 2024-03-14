@@ -49,6 +49,9 @@
         <li>Subtotal: $<%= (subtotal).toFixed(2) %></li>
         <li>Método de Entrega: <%= summary.order.method==='pickup' ? 'Retiro' : summary.order.method==='delivery' ? 'Delivery' : '' %></li>
         <li>Forma de Pago: Transferencia</li>
+        <% if (summary.discount) { %>
+        <li>Descuento: <%=summary.discount %>%</li>
+        <% } %>
         <br>
         <li><b>Total: $<%= summary.order.amount %></b></li>
     </ul>
