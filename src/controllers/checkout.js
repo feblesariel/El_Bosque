@@ -87,7 +87,7 @@ const checkoutController = {
                 // Obtén el carrito como un objeto JavaScript directamente.
                 let cart = req.cookies.cart;
 
-                if (!cart.discount) { // Si la cookie aún no tiene la propiedad 'discount', inicialízala como un array vacío.
+                if (!cart.discount) { // Si la cookie aún no tiene la propiedad 'discount', inicialízalarla.
                     cart.discount = {id: discountId, percentage: discountPercentage};
                 }
 
@@ -135,6 +135,11 @@ const checkoutController = {
         const milliseconds = Date.now();
         // Creo variable para lamacenar datos para enviar al front.
         let summary = req.cookies.summary || { method: payMethod, order: {}, items: cart.item, client: { name: name, tel: tel, email: email}};
+
+        // Crea discount en summary si cart.discount existe.
+        if (cart.discount) {
+            summary.discount = cart.discount.percentage;
+        }
 
         // Validar si el usuario desea suscribirse al boletín.
         if (newsletter && email) {
