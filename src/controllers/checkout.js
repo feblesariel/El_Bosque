@@ -88,7 +88,7 @@ const checkoutController = {
                 let cart = req.cookies.cart;
 
                 if (!cart.discount) { // Si la cookie aún no tiene la propiedad 'discount', inicialízala como un array vacío.
-                    cart.discount = {id: discountId};
+                    cart.discount = {id: discountId, percentage: discountPercentage};
                 }
 
                 // Nuevo total.

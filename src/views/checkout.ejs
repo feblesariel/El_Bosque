@@ -147,6 +147,13 @@
 
                             <li><span>Subtotal</span> <span>$<%= (subtotal).toFixed(2) %></span></li>
                             <li><span>Envio</span> <span>Free</span></li>
+                            <!-- Luego de aplicar el cupon muestro la info en la orden -->
+                            <!-- Este campo es temporal asincronico luego de apretar el boton -->
+                            <li id="discountOrderInfoTemporal" class="d-none"><span>Descuento</span> <span></span></li>
+                            <!-- Este es definitivo si existe cart.discount -->
+                            <% if (cart.discount) { %>
+                            <li <% if (!cart.discount) { %>class="d-none"<% } %>><span>Descuento</span> <span><%=cart.discount.percentage%>%</span></li>
+                            <% } %>
                             <li><span>Total</span> <span id="totalValue">$<%= cart.total %></span></li>
                         </ul>
 
