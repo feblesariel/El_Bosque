@@ -127,6 +127,10 @@ const checkoutController = {
 
     procces: function (req, res) {
 
+        // Si no existe la cookie cart se envia al home.
+        if (!req.cookies.cart) {
+            res.redirect("/");
+        };
         // Obtener la cookie.
         const cart = req.cookies.cart;
         // Obtener los datos del formulario del cuerpo de la solicitud.
