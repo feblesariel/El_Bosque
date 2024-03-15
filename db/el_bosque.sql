@@ -68,9 +68,16 @@ CREATE TABLE order_items (
     FOREIGN KEY (product_id) REFERENCES products(id)
 );
 
+CREATE TABLE delivery (
+    id INT PRIMARY KEY AUTO_INCREMENT,
+    price DECIMAL(10, 2) NOT NULL,
+    name VARCHAR(30) NOT NULL
+);
+
 CREATE TABLE order_details_delivery (
     id INT PRIMARY KEY AUTO_INCREMENT,
     order_id INT NOT NULL,
+    delivery_id INT NOT NULL,
     name VARCHAR(255) NOT NULL,
     address VARCHAR(255) NOT NULL,
     city VARCHAR(100) NOT NULL,
@@ -78,7 +85,8 @@ CREATE TABLE order_details_delivery (
     phone VARCHAR(20) NOT NULL,
     email VARCHAR(255) NOT NULL,
     note TEXT,
-    FOREIGN KEY (order_id) REFERENCES orders(id) ON DELETE CASCADE
+    FOREIGN KEY (order_id) REFERENCES orders(id) ON DELETE CASCADE,
+    FOREIGN KEY (delivery_id) REFERENCES delivery(id) ON DELETE CASCADE
 );
 
 CREATE TABLE order_details_pickup (
@@ -112,6 +120,8 @@ CREATE TABLE subscribers (
 -- Poblar tablas
 
 INSERT INTO categories (name) VALUES ('Categoria 1'), ('Categoria 2'), ('Categoria 3');
+
+INSERT INTO delivery (price, name) VALUES (350 ,'envio amba');
 
 INSERT INTO products (category_id, name, price, description) VALUES
     (1, 'Producto 1', 499.99, '3 capas de bizcochuelo y 1 de relleno firme a elección (no cremas, seleccionar ambos rellenos iguales, en caso de elegir distintos se hará con el primero). Los bizcochuelos son humedecidos con almíbar y las tortas cubiertas de buttercream. Se mantienen en heladera. Se entrega en base de carton con blonda y caja cerrada.\n\nTamaño chica rinde 6 porciones.\n\nTamaño chica rinde 10 porciones.'),

@@ -10,6 +10,10 @@ module.exports = (sequelize, DataTypes) => {
             type: DataTypes.INTEGER,
             allowNull: false
         },
+        delivery_id: {
+            type: DataTypes.INTEGER,
+            allowNull: false
+        },
         name: {
             type: DataTypes.STRING(255),
             allowNull: false
@@ -51,6 +55,12 @@ module.exports = (sequelize, DataTypes) => {
         Order_detail_delivery.belongsTo(models.Order, {
             as: 'Order',
             foreignKey: 'order_id',
+            onDelete: 'CASCADE'
+        });
+
+        Order_detail_delivery.belongsTo(models.Delivery, {
+            as: 'Delivery',
+            foreignKey: 'delivery_id',
             onDelete: 'CASCADE'
         });
     };

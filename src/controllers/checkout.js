@@ -26,6 +26,7 @@ const sequelize = db.sequelize;
 const { Op } = require("sequelize");
 
 const Category = db.Category;
+const Delivery = db.Delivery;
 const Discount = db.Discount;
 const Order_detail_delivery = db.Order_detail_delivery;
 const Order_detail_pickup = db.Order_detail_pickup;
@@ -49,12 +50,16 @@ const checkoutController = {
             ]
         });
 
+        const getDelivery = Delivery.findOne({
+            where: {id: 1}
+        });
+
         const cart = req.cookies.cart;
 
-        Promise.all([getCategories])
-            .then(([Categories]) => {
+        Promise.all([getCategories, getDelivery])
+            .then(([Categories, Delivery]) => {
 
-                res.render('checkout', { Categories, cart})
+                res.render('checkout', { Categories, Delivery, cart})
 
             })
             .catch(error => {
