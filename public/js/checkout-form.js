@@ -44,6 +44,10 @@ function toggleDeliveryZone() {
         deliveryZone.classList.remove('d-none'); // Mostrar el área de envío
         deliveryMethod.classList.remove('d-none'); // Mostrar el área de envío
         pickuoMethod.classList.add('d-none'); // Ocultar el área de envío
+
+        deliveryMethod.querySelector('span:nth-child(1)').innerText = delivery.name;
+        deliveryMethod.querySelector('span:nth-child(2)').innerText = "$" + delivery.price;
+
     } else {
         deliveryZone.classList.add('d-none'); // Ocultar el área de envío
         deliveryMethod.classList.add('d-none'); // Ocultar el área de envío
