@@ -32,26 +32,53 @@ function toggleDeliveryZone() {
     var deliveryZone = document.getElementById('deliveryZone');
 
     // Obtener los li del DOM
-    var pickuoMethod = document.getElementById('pickuoMethod');
-    var deliveryMethod = document.getElementById('deliveryMethod');
+    var pickupDeliveryMethod = document.getElementById('pickupDeliveryMethod');
 
-    // Obtener mediente dataset el delivery
+    // Obtener mediante dataset el delivery
     var deliveryData = document.getElementById('orderType').dataset.delivery;
     var delivery = JSON.parse(deliveryData);
+
+    // Obtener mediante dataset el cart
+    var cartData = document.getElementById('orderType').dataset.cart;
+    var cart = JSON.parse(cartData);
+
+    var totalValue = document.getElementById('totalValue');
+    var currentTotal = parseFloat(totalValue.innerText.replace('$', ''));
+
+    // Verificar si el costo de envío ya ha sido sumado anteriormente
+    var alreadyAddedDeliveryCost = totalValue.dataset.deliveryAdded === 'true';
 
     // Si la opción seleccionada es "Envío a domicilio", mostrar el área de envío; de lo contrario, ocultarla
     if (orderType === 'delivery') {
         deliveryZone.classList.remove('d-none'); // Mostrar el área de envío
-        deliveryMethod.classList.remove('d-none'); // Mostrar el área de envío
-        pickuoMethod.classList.add('d-none'); // Ocultar el área de envío
+        pickupDeliveryMethod.querySelector('span:nth-child(1)').innerText = delivery.name;
+        pickupDeliveryMethod.querySelector('span:nth-child(2)').innerText = "$" + delivery.price;
 
-        deliveryMethod.querySelector('span:nth-child(1)').innerText = delivery.name;
-        deliveryMethod.querySelector('span:nth-child(2)').innerText = "$" + delivery.price;
+        // Restar el costo de envío anteriormente añadido si existe
+        if (alreadyAddedDeliveryCost) {
+            currentTotal -= parseFloat(delivery.price);
+        }
 
+        // Sumar el costo de envío al total
+        var newTotal = currentTotal + parseFloat(delivery.price);
+        totalValue.innerText = '$' + newTotal.toFixed(2);
+
+        // Actualizar el atributo de datos para indicar que se ha añadido el costo de envío
+        totalValue.dataset.deliveryAdded = 'true';
     } else {
         deliveryZone.classList.add('d-none'); // Ocultar el área de envío
-        deliveryMethod.classList.add('d-none'); // Ocultar el área de envío
-        pickuoMethod.classList.remove('d-none'); // Mostrar el área de envío
+
+        pickupDeliveryMethod.querySelector('span:nth-child(1)').innerText = "Método de Entrega";
+        pickupDeliveryMethod.querySelector('span:nth-child(2)').innerText = "Retiro";
+
+        // Restar el costo de envío del total si fue añadido previamente
+        if (alreadyAddedDeliveryCost) {
+            currentTotal -= parseFloat(delivery.price);
+            totalValue.innerText = '$' + currentTotal.toFixed(2);
+
+            // Actualizar el atributo de datos para indicar que se ha eliminado el costo de envío
+            totalValue.dataset.deliveryAdded = 'false';
+        }
     }
 
     // Verificar el estado inicial del formulario
