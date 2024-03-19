@@ -143,7 +143,7 @@
                             <% cart.item.forEach(item => { %>
 
                             <li class="border-0"><span><%= item.name %> x<%=item.quantity %></span><span>$<%= item.price %></span></li>
-                            <p><%=item.selectedOptions %></p>
+                            <p style="font-size: 12px;"><%=item.selectedOptions %></p>
 
                             <% subtotal += parseFloat(item.subtotal); %>
 
@@ -168,9 +168,9 @@
                         <div class="row">
                             <div id="discountInput" class="col-sm-12 my-3">
                                 <div class="input-group">
-                                    <input type="text" class="form-control" id="coupon" name="coupon" placeholder="¿Tenes un cupón?" oninput="validateCouponInput()">
+                                    <input type="text" class="form-control" id="coupon" name="coupon" style="font-size: 12px;" placeholder="¿Tenes un cupón?" oninput="validateCouponInput()">
                                     <div class="input-group-append">
-                                        <button id="couponBtn" class="btn btn-primary" type="submit" disabled onclick="applyCoupon()">APLICAR</button>
+                                        <button id="couponBtn" class="btn btn-primary" type="submit" style="font-size: 12px;"  disabled onclick="applyCoupon()">APLICAR</button>
                                     </div>
                                 </div>
                             </div>

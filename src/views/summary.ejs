@@ -89,7 +89,7 @@
                             <% summary.items.forEach(item => { %>
 
                             <li class="border-0"><span><%= item.name %> x<%= item.quantity %></span><span>$<%= item.price %></span></li>
-                            <p><%= item.selectedOptions %></p>
+                            <p style="font-size: 12px;"><%= item.selectedOptions %></p>
 
                             <% subtotal += parseFloat(item.subtotal); %>
 
