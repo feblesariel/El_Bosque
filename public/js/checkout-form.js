@@ -31,11 +31,23 @@ function toggleDeliveryZone() {
     // Obtener el elemento del área de envío a domicilio
     var deliveryZone = document.getElementById('deliveryZone');
 
+    // Obtener los li del DOM
+    var pickuoMethod = document.getElementById('pickuoMethod');
+    var deliveryMethod = document.getElementById('deliveryMethod');
+
+    // Obtener mediente dataset el delivery
+    var deliveryData = document.getElementById('orderType').dataset.delivery;
+    var delivery = JSON.parse(deliveryData);
+
     // Si la opción seleccionada es "Envío a domicilio", mostrar el área de envío; de lo contrario, ocultarla
     if (orderType === 'delivery') {
         deliveryZone.classList.remove('d-none'); // Mostrar el área de envío
+        deliveryMethod.classList.remove('d-none'); // Mostrar el área de envío
+        pickuoMethod.classList.add('d-none'); // Ocultar el área de envío
     } else {
         deliveryZone.classList.add('d-none'); // Ocultar el área de envío
+        deliveryMethod.classList.add('d-none'); // Ocultar el área de envío
+        pickuoMethod.classList.remove('d-none'); // Mostrar el área de envío
     }
 
     // Verificar el estado inicial del formulario

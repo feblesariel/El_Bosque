@@ -79,7 +79,7 @@
 
                                 <div class="col-12 mb-3">
                                     <label for="orderType">¿Retiro o envío? <span>*</span></label>
-                                    <select class="w-100" id="orderType" name="orderType" onchange="toggleDeliveryZone()">
+                                    <select class="w-100" id="orderType" name="orderType" data-delivery="<%= JSON.stringify(Delivery) %>" onchange="toggleDeliveryZone()">
                                         <option value="pickup">Retiro</option>
                                         <option value="delivery">Envío a domicilio</option>
                                     </select>
@@ -150,7 +150,11 @@
                             <% }) %>
 
                             <li><span>Subtotal</span> <span>$<%= (subtotal).toFixed(2) %></span></li>
-                            <li><span>Método de Entrega</span> <span>Retiro</span></li>
+
+                            <li id="pickuoMethod"><span>Método de Entrega</span> <span>Retiro</span></li>
+
+                            <li id="deliveryMethod" class="d-none"><span>Envio</span> <span>$100</span></li>
+
                             <!-- Luego de aplicar el cupon muestro la info en la orden -->
                             <!-- Este campo es temporal asincronico luego de apretar el boton -->
                             <li id="discountOrderInfoTemporal" class="d-none"><span>Descuento</span> <span></span></li>
