@@ -79,7 +79,7 @@
 
                                 <div class="col-12 mb-3">
                                     <label for="orderType">¿Retiro o envío? <span>*</span></label>
-                                    <select class="w-100" id="orderType" name="orderType" data-cart="<%= JSON.stringify(cart) %>"  data-delivery="<%= JSON.stringify(Delivery) %>" onchange="toggleDeliveryZone()">
+                                    <select class="w-100" id="orderType" name="orderType" onchange="toggleDeliveryZone()">
                                         <option value="pickup">Retiro</option>
                                         <option value="delivery">Envío a domicilio</option>
                                     </select>
