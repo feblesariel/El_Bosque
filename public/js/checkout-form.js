@@ -56,8 +56,6 @@ function toggleDeliveryZone() {
     })    
     .then(data => {
 
-        console.log(data)
-
         if (data.success && (orderType === "delivery")) {
 
             totalValue.innerText = "$" + data.newTotal;
