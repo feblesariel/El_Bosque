@@ -36,7 +36,7 @@ function applyCoupon() {
             document.getElementById('totalValue').innerText = "$" + data.newTotal;
             // Muestra el mensaje de éxito.
             document.getElementById('discountMsg').classList.remove('d-none');
-            document.getElementById('discountMsgValue').innerText = "¡Cupón aplicado!";
+            document.getElementById('discountMsgValue').innerText = data.message;
             // Muestro el descuento en el resumen.
             let discountOrderInfo = document.getElementById('discountOrderInfoTemporal');
             discountOrderInfo.classList.remove('d-none');
@@ -48,7 +48,7 @@ function applyCoupon() {
             cuponInput.focus();
         } else {
             document.getElementById('discountMsg').classList.remove('d-none');
-            document.getElementById('discountMsgValue').innerText = "¡El cupón no existe!";
+            document.getElementById('discountMsgValue').innerText = data.message;
             let cuponInput = document.getElementById('coupon');
             cuponInput.value = "";
             validateCouponInput();
