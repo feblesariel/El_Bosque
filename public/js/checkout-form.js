@@ -45,7 +45,7 @@ function toggleDeliveryZone() {
         headers: {
             'Content-Type': 'application/json'
         },
-        body: JSON.stringify({ orderType: orderType }) // Incluir el carrito actualizado en el cuerpo de la solicitud
+        body: JSON.stringify({ orderType: orderType })
     })
     .then(response => {
         if (!response.ok) {
