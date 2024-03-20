@@ -79,7 +79,7 @@
 
                                 <div class="col-12 mb-3">
                                     <label for="orderType">¿Retiro o envío? <span>*</span></label>
-                                    <select class="w-100" id="orderType" name="orderType" onchange="toggleDeliveryZone()">
+                                    <select class="w-100" id="orderType" name="orderType" onchange="checkSelectedOption(this)">
                                         <option value="pickup">Retiro</option>
                                         <option value="delivery">Envío a domicilio</option>
                                     </select>
@@ -207,10 +207,24 @@
     <!-- ##### Footer Area Start ##### -->
     <%-include("./partials/footer.ejs")%>
 
+    <!-- Option Select Cntrol -->
+
+    <script>    
+        function checkSelectedOption(selectElement) {
+            var currentSelected = selectElement.dataset.selected;
+            var newSelected = selectElement.value;
+            if (currentSelected !== newSelected) {
+                // Llamo al la funcion del script js externo.
+                toggleDeliveryZone();
+                selectElement.dataset.selected = newSelected;
+            }
+        }
+    </script>
+
     <!-- Pay Method Handle-->
     <script>
         function handleCheckbox(checkbox) {
-            // Deseleccionar el otro checkbox si este está seleccionado
+            // Deseleccionar el otro checkbox si este está seleccionado.
             var checkboxes = document.querySelectorAll('input[name="paymentMethod"]');
             checkboxes.forEach(function (cb) {
                 if (cb !== checkbox && cb.checked) {
@@ -224,11 +238,11 @@
 
     <!-- Send Form js -->
     <script>
-        // Agregar un event listener al botón de enviar
+        // Agregar un event listener al botón de enviar.
         document.getElementById('btnSendOut').addEventListener('click', function() {
-            // Obtener el formulario
+            // Obtener el formulario.
             const boton = document.getElementById('btnFormSend');
-            // Enviar el formulario
+            // Enviar el formulario.
             boton.click();
         });
     </script>    
