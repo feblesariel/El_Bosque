@@ -307,23 +307,28 @@ const checkoutController = {
         // Obtener fecha en milisegundos para generar el codigo unico.
         const milliseconds = Date.now();
         // Creo variable para lamacenar datos para enviar al front.
-        let summary = req.cookies.summary || { method: payMethod, order: {}, items: cart.item, client: { name: name, tel: tel, email: email}};
+        let summary = req.cookies.summary || { method: payMethod, order: {}, items: cart.item, client: { name: name, tel: tel, email: email, zipcode: postcode, city: city, address: address}};
 
         // Crea discount en summary si cart.discount existe.
         if (cart.discount) {
             summary.discount = cart.discount.percentage;
         }
 
-        obtenerDelivery();
+        // Si el metodo de envio es delivery ingreso los datos del envio en la cookie summary.
+        if (cart.deliveryMethod.type === "delivery") {
 
-        async function obtenerDelivery() {
-            try {
-                summary.delivery = await Delivery.findOne({
-                    where: { id: 1 }
-                });
-            } catch (error) {
-                // Manejar errores aquí
+            obtenerDelivery();
+
+            async function obtenerDelivery() {
+                try {
+                    summary.delivery = await Delivery.findOne({
+                        where: { id: 1 }
+                    });
+                } catch (error) {
+                    // Manejar errores aquí
+                }
             }
+
         }
 
         // Validar si el usuario desea suscribirse al boletín.

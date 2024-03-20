@@ -47,7 +47,12 @@
         <% subtotal +=parseFloat(item.subtotal); %>
         <% }) %>
         <li>Subtotal: $<%= (subtotal).toFixed(2) %></li>
-        <li>Método de Entrega: <%= summary.order.method==='pickup' ? 'Retiro' : summary.order.method==='delivery' ? 'Delivery' : '' %></li>
+        <% if (summary.order.method === 'pickup') { %>
+        <li>Método de Entrega: Retiro</li>
+        <% } else if (summary.order.method === 'delivery') { %>
+        <li style="text-transform: capitalize;"><%=summary.delivery.name %>: $<%=summary.delivery.price%></li>
+        <li>Lugar de entrega: (CP: <%=summary.client.zipcode%>, Ciudad: <%=summary.client.city%>, Dirección: <%=summary.client.address%>)</li>
+        <% } %>
         <li>Forma de Pago: Transferencia</li>
         <% if (summary.discount) { %>
         <li>Descuento: <%=summary.discount %>%</li>
