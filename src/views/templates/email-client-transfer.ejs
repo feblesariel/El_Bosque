@@ -42,15 +42,19 @@
             <li>Nombre: <%= item.name %></li>
             <li>Precio: $<%= item.price %></li>
             <li>Cantidad: <%= item.quantity %></li>
-            <li>Opciones: <%= item.selectedOptions %></li>
+            <li>Opciones: (<%= item.selectedOptions %>)</li>
             <br>
         <% subtotal +=parseFloat(item.subtotal); %>
         <% }) %>
+        <% if (summary.client.note !== "") { %>
+            <li>Nota: (<%=summary.client.note%>)</li>
+            <br>
+        <% } %>
         <li>Subtotal: $<%= (subtotal).toFixed(2) %></li>
         <% if (summary.order.method === 'pickup') { %>
         <li>Método de Entrega: Retiro</li>
         <% } else if (summary.order.method === 'delivery') { %>
-        <li style="text-transform: capitalize;"><%=summary.delivery.name %>: $<%=summary.delivery.price%></li>
+        <li><%=summary.delivery.name %>: $<%=summary.delivery.price%></li>
         <li>Lugar de entrega: (CP: <%=summary.client.zipcode%>, Ciudad: <%=summary.client.city%>, Dirección: <%=summary.client.address%>)</li>
         <% } %>
         <li>Forma de Pago: Transferencia</li>
