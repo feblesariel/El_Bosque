@@ -68,6 +68,112 @@ const checkoutController = {
 
     },
 
+    method: async function (req, res) {
+
+        try {
+
+            let { orderType, cart } = req.body;
+
+            const delivery = await Delivery.findOne({
+                where: {id: 1}
+            });
+
+            if (orderType === "delivery") {
+
+                if (!cart.deliveryMethod) { // Si la cookie aún no tiene la propiedad 'deliveryMethod', inicialízalarla.
+
+                    const newTotal = parseFloat(cart.total) + parseFloat(delivery.price);
+
+                    cart.deliveryMethod = {type: orderType};
+
+                    cart.total = parseFloat(newTotal).toFixed(2);
+
+                    // Eliminar la cookie existente antes de redefinirla.
+                    res.clearCookie('cart');
+
+                    // Define las opciones para la cookie.
+                    const options = {
+                        maxAge: 6 * 60 * 60 * 1000, // Duración de la cookie en milisegundos (6 horas).
+                        httpOnly: true, // La cookie solo será accesible a través del protocolo HTTP (no a través de JavaScript en el navegador).
+                        secure: true, // La cookie solo se enviará a través de HTTPS (para conexiones seguras).
+                        sameSite: 'strict' // Restringe el envío de cookies en las solicitudes cross-origin.
+                    };
+
+                    // Define la cookie.
+                    res.cookie('cart', cart, options);
+
+                    // Envio el nuevo valor del total y el delivery a la llamada.
+                    res.status(200).json({ success: true, message: 'correct change.', newTotal: cart.total, delivery: delivery });
+
+                } else {
+
+                    const newTotal = parseFloat(cart.total) - parseFloat(delivery.price);
+
+                    cart.deliveryMethod = {type: orderType};
+
+                    cart.total = (newTotal).toFixed(2);
+
+                    // Eliminar la cookie existente antes de redefinirla.
+                    res.clearCookie('cart');
+
+                    // Define las opciones para la cookie.
+                    const options = {
+                        maxAge: 6 * 60 * 60 * 1000, // Duración de la cookie en milisegundos (6 horas).
+                        httpOnly: true, // La cookie solo será accesible a través del protocolo HTTP (no a través de JavaScript en el navegador).
+                        secure: true, // La cookie solo se enviará a través de HTTPS (para conexiones seguras).
+                        sameSite: 'strict' // Restringe el envío de cookies en las solicitudes cross-origin.
+                    };
+
+                    // Define la cookie.
+                    res.cookie('cart', cart, options);   
+                    
+                    // Envio el nuevo valor del total y el delivery a la llamada.
+                    res.status(200).json({ success: false, message: 'incorrect change.', newTotal: cart.total, delivery: delivery });
+
+                }
+
+
+            } else if (orderType === "pickup") {                
+
+                if (cart.deliveryMethod) { // Si la cookie aún no tiene la propiedad 'deliveryMethod', inicialízalarla.
+
+                    const newTotal = parseFloat(cart.total) - parseFloat(delivery.price);
+
+                    cart.deliveryMethod = {type: orderType};
+
+                    cart.total = (newTotal).toFixed(2);
+
+                    // Eliminar la cookie existente antes de redefinirla.
+                    res.clearCookie('cart');
+
+                    // Define las opciones para la cookie.
+                    const options = {
+                        maxAge: 6 * 60 * 60 * 1000, // Duración de la cookie en milisegundos (6 horas).
+                        httpOnly: true, // La cookie solo será accesible a través del protocolo HTTP (no a través de JavaScript en el navegador).
+                        secure: true, // La cookie solo se enviará a través de HTTPS (para conexiones seguras).
+                        sameSite: 'strict' // Restringe el envío de cookies en las solicitudes cross-origin.
+                    };
+
+                    // Define la cookie.
+                    res.cookie('cart', cart, options);   
+                    
+                    // Envio el nuevo valor del total y el delivery a la llamada.
+                    res.status(200).json({ success: true, message: 'correct change.', newTotal: cart.total, delivery: delivery });
+
+                } else {
+
+                    res.status(200).json({ success: false, message: 'incorrect change.', newTotal: cart.total, delivery: delivery });
+
+                }
+
+            }
+
+        } catch (error) {
+            // Manejar cualquier error que ocurra durante el proceso.
+            res.status(500).json({ success: false, message: 'internal server error.' });
+        }
+    },
+
     discount: async function (req, res) {
 
         try {
