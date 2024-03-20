@@ -84,6 +84,7 @@
                         <% let subtotal = 0; %>
 
                         <ul class="order-details-form mb-4">
+
                             <li><span>Producto</span> <span>Precio</span></li>
 
                             <% summary.items.forEach(item => { %>
@@ -96,12 +97,27 @@
                             <% }) %>
 
                             <li><span>Subtotal</span> <span>$<%= (subtotal).toFixed(2) %></span></li>
-                            <li><span>Método de Entrega</span> <span><%= summary.order.method === 'pickup' ? 'Retiro' : summary.order.method === 'delivery' ? 'Delivery' : '' %></span></li>
+
+                            <% if (summary.order.method === 'pickup') { %>
+
+                            <li><span>Método de Entrega</span> <span>Retiro</span></li>
+
+                            <% } else if (summary.order.method === 'delivery') { %>
+
+                            <li><span><%=summary.delivery.name %></span> <span>$<%=summary.delivery.price%></span></li>
+
+                            <% } %>
+                            
                             <li><span>Forma de Pago</span> <span>Transferencia</span></li>       
+
                             <% if (summary.discount) { %>
+
                                 <li><span>Descuento</span> <span><%=summary.discount%>%</span></li>
-                            <% } %>                     
+
+                            <% } %>
+
                             <li class="border-0"><span>Total</span> <span id="totalValue">$<%= summary.order.amount %></span></li>
+                            
                         </ul>
 
                     </div>

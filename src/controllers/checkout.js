@@ -314,6 +314,18 @@ const checkoutController = {
             summary.discount = cart.discount.percentage;
         }
 
+        obtenerDelivery();
+
+        async function obtenerDelivery() {
+            try {
+                summary.delivery = await Delivery.findOne({
+                    where: { id: 1 }
+                });
+            } catch (error) {
+                // Manejar errores aquí
+            }
+        }
+
         // Validar si el usuario desea suscribirse al boletín.
         if (newsletter && email) {
             // Crear o encontrar al suscriptor.

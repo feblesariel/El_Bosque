@@ -11,10 +11,6 @@ module.exports = (sequelize, DataTypes) => {
             allowNull: false,
             unique: true
         },
-        description: {
-            type: DataTypes.TEXT,
-            allowNull: false
-        },
         discount_percentage: {
             type: DataTypes.INTEGER,
             allowNull: false
