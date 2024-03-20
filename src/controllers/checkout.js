@@ -103,7 +103,7 @@ const checkoutController = {
 
                     }            
 
-                    cart.deliveryMethod = {type: orderType};
+                    cart.deliveryMethod = {type: orderType, id: delivery.id};
 
                     cart.total = parseFloat(newTotal).toFixed(2);
 
@@ -143,7 +143,7 @@ const checkoutController = {
 
                     }
 
-                    cart.deliveryMethod = {type: orderType};
+                    cart.deliveryMethod = {type: orderType, id: delivery.id};
 
                     cart.total = (newTotal).toFixed(2);
 
@@ -188,7 +188,7 @@ const checkoutController = {
 
                     }
 
-                    cart.deliveryMethod = {type: orderType};
+                    cart.deliveryMethod = {type: orderType, id: delivery.id};
 
                     cart.total = (newTotal).toFixed(2);
 
@@ -398,7 +398,8 @@ const checkoutController = {
                             ...pickupDetails,
                             address: address,
                             city: city,
-                            postal_code: postcode
+                            postal_code: postcode,
+                            delivery_id: cart.deliveryMethod.id
                         };
                         return Order_detail_delivery.create(deliveryDetails);
                     }
