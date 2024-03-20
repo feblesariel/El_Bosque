@@ -72,11 +72,13 @@ const checkoutController = {
 
         try {
 
-            let { orderType, cart } = req.body;
+            const { orderType } = req.body;
 
             const delivery = await Delivery.findOne({
                 where: {id: 1}
             });
+
+            let cart = req.cookies.cart;
 
             if (orderType === "delivery") {
 
@@ -107,7 +109,7 @@ const checkoutController = {
 
                 } else {
 
-                    const newTotal = parseFloat(cart.total) - parseFloat(delivery.price);
+                    const newTotal = parseFloat(cart.total) + parseFloat(delivery.price);
 
                     cart.deliveryMethod = {type: orderType};
 
@@ -128,7 +130,7 @@ const checkoutController = {
                     res.cookie('cart', cart, options);   
                     
                     // Envio el nuevo valor del total y el delivery a la llamada.
-                    res.status(200).json({ success: false, message: 'incorrect change.', newTotal: cart.total, delivery: delivery });
+                    res.status(200).json({ success: true, message: 'incorrect change.', newTotal: cart.total, delivery: delivery});
 
                 }
 
@@ -158,11 +160,11 @@ const checkoutController = {
                     res.cookie('cart', cart, options);   
                     
                     // Envio el nuevo valor del total y el delivery a la llamada.
-                    res.status(200).json({ success: true, message: 'correct change.', newTotal: cart.total, delivery: delivery });
+                    res.status(200).json({ success: true, message: 'correct change.', newTotal: cart.total });
 
                 } else {
 
-                    res.status(200).json({ success: false, message: 'incorrect change.', newTotal: cart.total, delivery: delivery });
+                    res.status(200).json({ success: true, message: 'incorrect change.', newTotal: cart.total });
 
                 }
 

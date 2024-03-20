@@ -39,16 +39,13 @@ function toggleDeliveryZone() {
     // Obtener span del total
     var totalValue = document.getElementById('totalValue');
 
-    var cartData = document.getElementById('orderType').dataset.cart;
-    var cart = JSON.parse(cartData);
-
     // Realizar la consulta asincrónica usando fetch.
     fetch('/checkout/method/', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'
         },
-        body: JSON.stringify({ orderType: orderType, cart: cart }) // Incluir el carrito actualizado en el cuerpo de la solicitud
+        body: JSON.stringify({ orderType: orderType }) // Incluir el carrito actualizado en el cuerpo de la solicitud
     })
     .then(response => {
         if (!response.ok) {
@@ -59,6 +56,8 @@ function toggleDeliveryZone() {
     })    
     .then(data => {
 
+        console.log(data)
+
         if (data.success && (orderType === "delivery")) {
 
             totalValue.innerText = "$" + data.newTotal;
@@ -66,7 +65,7 @@ function toggleDeliveryZone() {
             pickupDeliveryMethod.querySelector('span:nth-child(1)').innerText = data.delivery.name;
             pickupDeliveryMethod.querySelector('span:nth-child(2)').innerText = "$" + data.delivery.price;
 
-        } else if (!data.success && (orderType === "pickup")) {
+        } else if (data.success && (orderType === "pickup")) {
 
             deliveryZone.classList.add('d-none'); // Ocultar el área de envío
             pickupDeliveryMethod.querySelector('span:nth-child(1)').innerText = "Método de Entrega";
