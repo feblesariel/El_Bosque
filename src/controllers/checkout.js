@@ -80,11 +80,28 @@ const checkoutController = {
 
             let cart = req.cookies.cart;
 
+            let newTotal = 0;
+
             if (orderType === "delivery") {
 
                 if (!cart.deliveryMethod) { // Si la cookie aún no tiene la propiedad 'deliveryMethod', inicialízalarla.
 
-                    const newTotal = parseFloat(cart.total) + parseFloat(delivery.price);
+                    if (cart.discount) {
+
+                        // Calcular el total sin el descuento
+                        let totalWithoutDiscount = parseFloat(cart.total) / (1 - parseFloat(cart.discount.percentage) / 100);
+
+                        // Sumarle el costo del envío al total sin el descuento
+                        newTotal = totalWithoutDiscount + parseFloat(delivery.price);
+
+                        // Aplicar el descuento nuevamente al nuevo total, teniendo en cuenta el costo del envío
+                        newTotal = newTotal * (1 - parseFloat(cart.discount.percentage) / 100);
+
+                    } else {
+
+                        newTotal = parseFloat(cart.total) + parseFloat(delivery.price);
+
+                    }            
 
                     cart.deliveryMethod = {type: orderType};
 
@@ -109,7 +126,22 @@ const checkoutController = {
 
                 } else {
 
-                    const newTotal = parseFloat(cart.total) + parseFloat(delivery.price);
+                    if (cart.discount) {
+
+                        // Calcular el total sin el descuento
+                        let totalWithoutDiscount = parseFloat(cart.total) / (1 - parseFloat(cart.discount.percentage) / 100);
+
+                        // Sumarle el costo del envío al total sin el descuento
+                        newTotal = totalWithoutDiscount + parseFloat(delivery.price);
+
+                        // Aplicar el descuento nuevamente al nuevo total, teniendo en cuenta el costo del envío
+                        newTotal = newTotal * (1 - parseFloat(cart.discount.percentage) / 100);
+
+                    } else {
+
+                        newTotal = parseFloat(cart.total) + parseFloat(delivery.price);
+
+                    }
 
                     cart.deliveryMethod = {type: orderType};
 
@@ -139,7 +171,22 @@ const checkoutController = {
 
                 if (cart.deliveryMethod) { // Si la cookie aún no tiene la propiedad 'deliveryMethod', inicialízalarla.
 
-                    const newTotal = parseFloat(cart.total) - parseFloat(delivery.price);
+                    if (cart.discount) {
+
+                        // Calcular el total sin el descuento
+                        let totalWithoutDiscount = parseFloat(cart.total) / (1 - parseFloat(cart.discount.percentage) / 100);
+
+                        // Sumarle el costo del envío al total sin el descuento
+                        newTotal = totalWithoutDiscount - parseFloat(delivery.price);
+
+                        // Aplicar el descuento nuevamente al nuevo total, teniendo en cuenta el costo del envío
+                        newTotal = newTotal * (1 - parseFloat(cart.discount.percentage) / 100);
+
+                    } else {
+
+                        newTotal = parseFloat(cart.total) - parseFloat(delivery.price);
+
+                    }
 
                     cart.deliveryMethod = {type: orderType};
 
