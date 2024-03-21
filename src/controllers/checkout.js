@@ -325,7 +325,7 @@ const checkoutController = {
                         where: { id: 1 }
                     });
                 } catch (error) {
-                    // Manejar errores aquí
+                    console.error('Error al obtener los datos de entrega:', error);
                 }
             }
 
