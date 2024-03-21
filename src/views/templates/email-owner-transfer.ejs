@@ -53,7 +53,7 @@
             <li>Método de Entrega: Retiro</li>
             <% } else if (summary.order.method === 'delivery') { %>
             <li><%=summary.delivery.name %>: $<%=summary.delivery.price%></li>
-            <li>Lugar de entrega: (CP: <%=summary.client.zipcode%>, Ciudad: <%=summary.client.city%>, Dirección: <%=summary.client.address%>)</li>
+            <li>Lugar de entrega: (CP: <%=summary.client.postcode%>, Ciudad: <%=summary.client.city%>, Dirección: <%=summary.client.address%>)</li>
             <% } %>
         <li>Forma de Pago: Transferencia</li>
         <% if (summary.discount) { %>
