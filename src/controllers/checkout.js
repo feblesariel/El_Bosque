@@ -319,7 +319,7 @@ const checkoutController = {
 
         // Crea discount en summary si cart.discount existe.
         if (cart.discount) {
-            summary.discount = cart.discount.percentage;
+            summary.discount = cart.discount;
         }
 
         // Si el metodo de envio es delivery ingreso los datos del envio en la cookie summary.
