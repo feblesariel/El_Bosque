@@ -3,6 +3,14 @@
 const nodemailer = require('nodemailer');
 const ejs = require('ejs'); // Para renderizar el template email.
 const fs = require('fs'); // Para traer el template email.
+const mercadopago = require("mercadopago"); // Importo MP.
+
+// ************ Config ************
+
+// Mercado Pago.
+mercadopago.configure({
+	access_token: process.env.ACCESS_TOKEN
+});
 
 // Leer el archivo de la plantilla de correo electrónico.
 const emailClientTemplate = fs.readFileSync('./src/views/templates/email-client-transfer.ejs', 'utf8');
@@ -19,7 +27,7 @@ let transporter = nodemailer.createTransport({
     }
 });
 
-//--- Database
+// ************ Database ************
 
 const db = require('../database/models/index.js');
 const sequelize = db.sequelize;
@@ -303,10 +311,10 @@ const checkoutController = {
         // Obtener la cookie.
         const cart = req.cookies.cart;
         // Obtener los datos del formulario del cuerpo de la solicitud.
-        const { orderType, payMethod, email, name, tel, note, newsletter, postcode, city, address } = req.body;
+        const {orderType, payMethod, name, tel, email, note, postcode, city, address, newsletter} = req.body;
         // Obtener fecha en milisegundos para generar el codigo unico.
         const milliseconds = Date.now();
-        // Creo variable para lamacenar datos para enviar al front.
+        // Creo variable para almacenar datos para enviar al front.
         let summary = req.cookies.summary || { method: payMethod, order: {}, items: cart.item, client: { name: name, tel: tel, email: email, note: note, zipcode: postcode, city: city, address: address}};
 
         // Crea discount en summary si cart.discount existe.
@@ -358,21 +366,42 @@ const checkoutController = {
                 // Caso: recolección en persona.
                 case "pickup":    
                     if (payMethod === "transfer") {
-                        // Procesamiento para recolección y transferencia.
+                        // Procesamiento para retiro y transferencia.
                         processOrder();
                     } else {
-                        // Procesamiento para recolección y otro método de pago.
-                        // Aquí puedes agregar lógica adicional según el método de pago.
-                        // Por ejemplo, redirigir al usuario a una página de pago.
+                        // Procesamiento para retiro y mercado pago.
+                        let preference = {
+                            items: [
+                                {
+                                    title: "El Bosque Energetico",
+                                    unit_price: parseFloat(cart.total),
+                                    quantity: 1,
+                                }
+                            ],
+                            back_urls: {
+                                "success": "http://localhost:3000/",
+                                "failure": "http://localhost:3000/",
+                                "pending": "http://localhost:3000/"
+                            },
+                            auto_return: "approved",
+                        };
+                    
+                        mercadopago.preferences.create(preference)
+                            .then(function (response) {
+                                res.redirect(response.body.init_point);
+                            }).catch(function (error) {
+                                console.log(error);
+                            });
+
                     }
                     break;    
                 // Caso: entrega a domicilio.
                 case "delivery":
                     if (payMethod === "transfer") {
-                        // Procesamiento para entrega y transferencia.
+                        // Procesamiento para delivery y transferencia.
                         processOrder();
                     } else {
-                        // Procesamiento para entrega y otro método de pago.
+                        // Procesamiento para delivery y mercado pago.
                     }
                     break;
                 // Caso: tipo de pedido desconocido.
@@ -406,7 +435,6 @@ const checkoutController = {
                         // Incrementar el contador de productos vendidos.
                         return Product.increment('sold_count', { by: item.quantity, where: { id: item.product_id } });
                     });
-
                 })).then(() => {
                     let pickupDetails = {
                         order_id: newOrder.id,
@@ -416,7 +444,7 @@ const checkoutController = {
                         note: note
                     };
                     if (orderType === "pickup") {
-                        // Crear detalles de recolección.
+                        // Crear detalles de retiro.
                         return Order_detail_pickup.create(pickupDetails);
                     } else if (orderType === "delivery") {
                         // Crear detalles de delivery.
