@@ -368,31 +368,9 @@ const checkoutController = {
                     if (payMethod === "transfer") {
                         // Procesamiento para retiro y transferencia.
                         processOrder();
-                    } else {
+                    } else if (payMethod === "mercado_pago") {
                         // Procesamiento para retiro y mercado pago.
-                        let preference = {
-                            items: [
-                                {
-                                    title: "El Bosque Energetico",
-                                    unit_price: parseFloat(cart.total),
-                                    quantity: 1,
-                                }
-                            ],
-                            back_urls: {
-                                "success": "http://localhost:3000/",
-                                "failure": "http://localhost:3000/",
-                                "pending": "http://localhost:3000/"
-                            },
-                            auto_return: "approved",
-                        };
-                    
-                        mercadopago.preferences.create(preference)
-                            .then(function (response) {
-                                res.redirect(response.body.init_point);
-                            }).catch(function (error) {
-                                console.log(error);
-                            });
-
+                        processOrderMp();
                     }
                     break;    
                 // Caso: entrega a domicilio.
@@ -400,8 +378,9 @@ const checkoutController = {
                     if (payMethod === "transfer") {
                         // Procesamiento para delivery y transferencia.
                         processOrder();
-                    } else {
-                        // Procesamiento para delivery y mercado pago.
+                    } else if (payMethod === "mercado_pago") {
+                        // Procesamiento para retiro y mercado pago.
+                        processOrderMp();
                     }
                     break;
                 // Caso: tipo de pedido desconocido.
@@ -410,6 +389,34 @@ const checkoutController = {
                     res.status(400).send('Tipo de pedido desconocido');
             }
         }
+
+        // Función para procesar la orden.
+        function processOrderMp() {
+
+            let preference = {
+                items: [
+                    {
+                        title: "El Bosque Energetico",
+                        unit_price: parseFloat(cart.total),
+                        quantity: 1,
+                    }
+                ],
+                back_urls: {
+                    "success": "http://localhost:3000/",
+                    "failure": "http://localhost:3000/",
+                    "pending": "http://localhost:3000/"
+                },
+                auto_return: "approved",
+            };
+        
+            mercadopago.preferences.create(preference)
+                .then(function (response) {
+                    res.redirect(response.body.init_point);
+                }).catch(function (error) {
+                    console.log(error);
+                });
+
+        };
     
         // Función para procesar la orden.
         function processOrder() {
@@ -520,7 +527,7 @@ const checkoutController = {
                 console.error('Error al crear la orden:', error);
                 res.status(500).send('Error al crear la orden');
             });
-        }
+        };
     },
 
     summary: function (req, res) {
