@@ -50,7 +50,7 @@ CREATE TABLE orders (
     code VARCHAR(50) NOT NULL UNIQUE,
     amount DECIMAL(10, 2) NOT NULL,
     method ENUM('pickup', 'delivery') NOT NULL,    
-    status ENUM('procesando', 'preparando', 'listo', 'completado', 'cancelado') NOT NULL, -- REVISAR
+    status ENUM('procesando', 'confirmado', 'terminado', 'cancelado') NOT NULL,
     createdAt TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     updatedAt TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
     FOREIGN KEY (discount_id) REFERENCES discounts(id)

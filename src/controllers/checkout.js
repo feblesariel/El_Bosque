@@ -303,7 +303,7 @@ const checkoutController = {
         // Obtener fecha en milisegundos para generar el codigo unico.
         const milliseconds = Date.now();
         // Creo variable para almacenar datos para enviar al front.
-        let summary = req.cookies.summary || { orderType: orderType, payMethod: payMethod, order: {}, items: cart.item, client: { name: name, tel: tel, email: email, note: note, postcode: postcode, city: city, address: address}};
+        let summary = req.cookies.summary || { total: cart.total, orderType: orderType, payMethod: payMethod, order: {}, items: cart.item, client: { name: name, tel: tel, email: email, note: note, postcode: postcode, city: city, address: address}};
 
         // Crea discount en summary si cart.discount existe.
         if (cart.discount) {
@@ -536,12 +536,88 @@ const checkoutController = {
 
         // Si la transaccion esta aprobada borro la cookie cart.
         if (status === "approved") {
-            res.clearCookie('cart');                        
+            res.clearCookie('cart');
         }
+        
+
+        // --------------------------------
 
 
+        // Crear la orden.
+        Order.create({
+            discount_id: summary.discount ? summary.discount.id : null,
+            code: milliseconds,
+            amount: summary.total,
+            method: summary.orderType,
+            status: status === "approved" ? "confirmado" : "procesando"
+        }).then((newOrder) => {
+            // Guardo valor de la orden para enviar al front.
+            summary.order = newOrder;
+            // Crear elementos de pedido y actualizar el contador de productos vendidos.
+            Promise.all(summary.items.map(item => {
+                return Order_item.create({
+                    order_id: newOrder.id,
+                    product_id: item.product_id,
+                    product_options: item.selectedOptions,
+                    quantity: item.quantity,
+                    subtotal_amount: parseFloat(item.price) * parseFloat(item.quantity)                        
+                }).then(() => {
+                    // Incrementar el contador de productos vendidos.
+                    return Product.increment('sold_count', { by: item.quantity, where: { id: item.product_id } });
+                });
+            })).then(() => {
+                let pickupDetails = {
+                    order_id: newOrder.id,
+                    name: summary.client.name,
+                    phone: summary.client.tel,
+                    email: summary.client.email,
+                    note: summary.client.note
+                };
+                if (summary.orderType === "pickup") {
+                    // Crear detalles de retiro.
+                    return Order_detail_pickup.create(pickupDetails);
+                } else if (summary.orderType === "delivery") {
+                    // Crear detalles de delivery.
+                    let deliveryDetails = {
+                        ...pickupDetails,
+                        address: summary.client.address,
+                        city: summary.client.city,
+                        postal_code: summary.client.postcode,
+                        delivery_id: summary.delivery.id
+                    };
+                    return Order_detail_delivery.create(deliveryDetails);
+                }
+            }).then(() => {
+                // Crear registro de pago
+                return Payment.create({
+                    order_id: newOrder.id,
+                    amount: summary.total,
+                    status: status === "approved" ? "completado" : "pendiente",
+                    payment_method: summary.payMethod,
+                    transaction_id: payment_id
+                });
+            }).then(() => {
+                // Eliminar la cookie y redirigir al usuario.
+                res.clearCookie('summary');
+                // Define las opciones para la cookie.
+                const options = {
+                    maxAge: 1 * 60 * 60 * 1000, // Duración de la cookie en milisegundos (1 hora).
+                };
+                // Define la cookie.
+                res.cookie('summary', summary, options);
 
+                // ACA VA EL CORREO PARA ENVIAR A CLIENTE Y OWNER
+                
+                res.redirect("/checkout/summary/");
 
+            }).catch((error) => {
+                console.error('Error en el procesamiento de la orden:', error);
+                res.status(500).send('Error en el procesamiento de la orden');
+            });
+        }).catch((error) => {
+            console.error('Error al crear la orden:', error);
+            res.status(500).send('Error al crear la orden');
+        });
 
     },
 
