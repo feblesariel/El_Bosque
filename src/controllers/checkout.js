@@ -398,8 +398,8 @@ const checkoutController = {
                 ],
                 back_urls: {
                     "success": "http://localhost:3000/checkout/feedback/",
-                    "failure": "http://localhost:3000/checkout/feedback/",
-                    "pending": "http://localhost:3000/checkout/feedback/"
+                    "failure": "http://localhost:3000/checkout/",
+                    "pending": "http://localhost:3000/checkout/"
                 },
                 auto_return: "approved",
             };
