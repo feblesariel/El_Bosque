@@ -526,10 +526,22 @@ const checkoutController = {
 
         // Obtén el summary como un objeto JavaScript directamente.
         const summary = req.cookies.summary;
+        // Obtener los datos que vienen de mp.
+        const {payment_id, status} = req.query;
+        // Obtener fecha en milisegundos para generar el codigo unico.
+        const milliseconds = Date.now();
 
-        console.log(summary);
+        // Guardo los datos de mp en la cookie.
+        summary.mp = {status: status, payment: payment_id}
 
-        res.redirect("/");
+        // Si la transaccion esta aprobada borro la cookie cart.
+        if (status === "approved") {
+            res.clearCookie('cart');                        
+        }
+
+
+
+
 
     },
 
