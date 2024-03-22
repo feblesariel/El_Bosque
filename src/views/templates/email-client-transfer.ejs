@@ -21,7 +21,9 @@
 
 <body>
 
-    <h1>Hola <%= summary.client.name%>!</h1>
+    <% if (summary && summary.payMethod === "transfer") { %>
+
+    <h1>Hola <%= summary.client.name%>! Tu pedido ha sido recibido.</h1>
 
     <p>Gracias por enviarnos tu pedido, el mismo estará confirmado una vez que hayamos recibido el comprobante de la transferencia. Lo puedes enviar por email o WhatsApp.</p>
 
@@ -32,6 +34,14 @@
         <li>MP ALIAS: Pipasteleria.mp</li>
         <li>MP CVU: 0000003100021369072550</li>
     </ul>
+
+    <% } else if (summary && summary.payMethod === "mercado_pago") { %>
+    
+    <h1>Hola <%= summary.client.name%>! Tu pedido ha sido confirmado.</h1>
+    
+    <p>Agradecemos tu compra en El Bosque Energético. Ya estamos trabajando para hacer tu pedido con mucho amor. Si tienes alguna pregunta, no dudes en contactarnos a nuestro correo electrónico o a través de nuestro número de WhatsApp.</p>
+
+    <% } %>
 
     <p>Tu Orden <b>#<%=summary.order.code%></b></p>
 

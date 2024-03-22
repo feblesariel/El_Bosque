@@ -31,7 +31,7 @@
         <li>Telefono: <%= summary.client.tel  %></li>
     </ul>
 
-    <p>Orden <b>#<%=summary.order.code%></b></p>
+    <p>Orden Estado: <%=summary.order.status%><b>#<%=summary.order.code%></b></p>
 
     <% let subtotal=0; %>
 
@@ -55,7 +55,11 @@
             <li><%=summary.delivery.name %>: $<%=summary.delivery.price%></li>
             <li>Lugar de entrega: (CP: <%=summary.client.postcode%>, Ciudad: <%=summary.client.city%>, Dirección: <%=summary.client.address%>)</li>
             <% } %>
-        <li>Forma de Pago: Transferencia</li>
+        <% if (summary.payMethod === 'transfer') { %>
+            <li>Forma de Pago: Transferencia</li>
+        <% } else if (summary.payMethod === 'mercado_pago') { %>
+            <li>Forma de Pago: Mercado Pago</li>
+            <% } %>
         <% if (summary.discount) { %>
             <li>Descuento: <%=summary.discount.percentage %>%</li>
             <% } %>
