@@ -534,14 +534,15 @@ const checkoutController = {
         // Guardo los datos de mp en la cookie.
         summary.mp = {status: status, payment: payment_id}
 
-        // Si la transaccion esta aprobada borro la cookie cart.
+        // Si la transaccion esta aprobada borro la cookie cart sino vuelvo al checkout.
         if (status === "approved") {
             res.clearCookie('cart');
-        }
-        
+        } else {
+            res.clearCookie('summary');
+            res.redirect("/checkout/");
+        }        
 
         // --------------------------------
-
 
         // Crear la orden.
         Order.create({
@@ -549,7 +550,7 @@ const checkoutController = {
             code: milliseconds,
             amount: summary.total,
             method: summary.orderType,
-            status: status === "approved" ? "confirmado" : "procesando"
+            status: "confirmado"
         }).then((newOrder) => {
             // Guardo valor de la orden para enviar al front.
             summary.order = newOrder;
@@ -592,7 +593,7 @@ const checkoutController = {
                 return Payment.create({
                     order_id: newOrder.id,
                     amount: summary.total,
-                    status: status === "approved" ? "completado" : "pendiente",
+                    status: "completado",
                     payment_method: summary.payMethod,
                     transaction_id: payment_id
                 });
