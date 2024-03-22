@@ -120,10 +120,7 @@ const checkoutController = {
 
                     // Define las opciones para la cookie.
                     const options = {
-                        maxAge: 6 * 60 * 60 * 1000, // Duración de la cookie en milisegundos (6 horas).
-                        httpOnly: true, // La cookie solo será accesible a través del protocolo HTTP (no a través de JavaScript en el navegador).
-                        secure: true, // La cookie solo se enviará a través de HTTPS (para conexiones seguras).
-                        sameSite: 'strict' // Restringe el envío de cookies en las solicitudes cross-origin.
+                        maxAge: 12 * 60 * 60 * 1000, // Duración de la cookie en milisegundos (12 horas).
                     };
 
                     // Define la cookie.
@@ -160,10 +157,7 @@ const checkoutController = {
 
                     // Define las opciones para la cookie.
                     const options = {
-                        maxAge: 6 * 60 * 60 * 1000, // Duración de la cookie en milisegundos (6 horas).
-                        httpOnly: true, // La cookie solo será accesible a través del protocolo HTTP (no a través de JavaScript en el navegador).
-                        secure: true, // La cookie solo se enviará a través de HTTPS (para conexiones seguras).
-                        sameSite: 'strict' // Restringe el envío de cookies en las solicitudes cross-origin.
+                        maxAge: 12 * 60 * 60 * 1000, // Duración de la cookie en milisegundos (12 horas).
                     };
 
                     // Define la cookie.
@@ -205,10 +199,7 @@ const checkoutController = {
 
                     // Define las opciones para la cookie.
                     const options = {
-                        maxAge: 6 * 60 * 60 * 1000, // Duración de la cookie en milisegundos (6 horas).
-                        httpOnly: true, // La cookie solo será accesible a través del protocolo HTTP (no a través de JavaScript en el navegador).
-                        secure: true, // La cookie solo se enviará a través de HTTPS (para conexiones seguras).
-                        sameSite: 'strict' // Restringe el envío de cookies en las solicitudes cross-origin.
+                        maxAge: 12 * 60 * 60 * 1000, // Duración de la cookie en milisegundos (12 horas).
                     };
 
                     // Define la cookie.
@@ -271,10 +262,7 @@ const checkoutController = {
 
                     // Define las opciones para la cookie.
                     const options = {
-                        maxAge: 6 * 60 * 60 * 1000, // Duración de la cookie en milisegundos (6 horas).
-                        httpOnly: true, // La cookie solo será accesible a través del protocolo HTTP (no a través de JavaScript en el navegador).
-                        secure: true, // La cookie solo se enviará a través de HTTPS (para conexiones seguras).
-                        sameSite: 'strict' // Restringe el envío de cookies en las solicitudes cross-origin.
+                        maxAge: 12 * 60 * 60 * 1000, // Duración de la cookie en milisegundos (12 horas).
                     };
 
                     // Define la cookie.
@@ -393,6 +381,13 @@ const checkoutController = {
         // Función para procesar la orden.
         function processOrderMp() {
 
+            // Define las opciones para la cookie.
+            const options = {
+                maxAge: 1 * 60 * 60 * 1000, // Duración de la cookie en milisegundos (1 hora).
+            };
+            // Define la cookie.
+            res.cookie('summary', summary, options);
+
             let preference = {
                 items: [
                     {
@@ -478,9 +473,6 @@ const checkoutController = {
                     // Define las opciones para la cookie.
                     const options = {
                         maxAge: 1 * 60 * 60 * 1000, // Duración de la cookie en milisegundos (1 hora).
-                        httpOnly: true, // La cookie solo será accesible a través del protocolo HTTP (no a través de JavaScript en el navegador).
-                        secure: true, // La cookie solo se enviará a través de HTTPS (para conexiones seguras).
-                        sameSite: 'strict' // Restringe el envío de cookies en las solicitudes cross-origin.
                     };
                     // Define la cookie.
                     res.cookie('summary', summary, options);
@@ -532,14 +524,12 @@ const checkoutController = {
 
     feedback: function (req, res) {
 
+        // Obtén el summary como un objeto JavaScript directamente.
+        const summary = req.cookies.summary;
 
+        console.log(summary);
 
-
-
-
-
-        
-
+        res.redirect("/");
 
     },
 

@@ -90,10 +90,7 @@ const cartController = {
 
             // Define las opciones para la cookie.
             const options = {
-                maxAge: 6 * 60 * 60 * 1000, // Duración de la cookie en milisegundos (6 horas).
-                httpOnly: true, // La cookie solo será accesible a través del protocolo HTTP (no a través de JavaScript en el navegador).
-                secure: true, // La cookie solo se enviará a través de HTTPS (para conexiones seguras).
-                sameSite: 'strict' // Restringe el envío de cookies en las solicitudes cross-origin.
+                maxAge: 12 * 60 * 60 * 1000, // Duración de la cookie en milisegundos (12 horas).
             };
 
             // Define la cookie y envíala en la respuesta.
@@ -136,10 +133,7 @@ const cartController = {
 
                 // Define las opciones para la cookie.
                 const options = {
-                    maxAge: 6 * 60 * 60 * 1000, // Duración de la cookie en milisegundos (6 horas).
-                    httpOnly: true, // La cookie solo será accesible a través del protocolo HTTP (no a través de JavaScript en el navegador).
-                    secure: true, // La cookie solo se enviará a través de HTTPS (para conexiones seguras).
-                    sameSite: 'strict' // Restringe el envío de cookies en las solicitudes cross-origin.
+                    maxAge: 12 * 60 * 60 * 1000, // Duración de la cookie en milisegundos (12 horas).
                 };
 
                 // Define la cookie y envíala en la respuesta.
