@@ -13,8 +13,8 @@ mercadopago.configure({
 });
 
 // Leer el archivo de la plantilla de correo electrónico.
-const emailClientTemplate = fs.readFileSync('./src/views/templates/email-client-transfer.ejs', 'utf8');
-const emailOwnerTemplate = fs.readFileSync('./src/views/templates/email-owner-transfer.ejs', 'utf8');
+const emailClientTemplate = fs.readFileSync('./src/views/templates/email-client.ejs', 'utf8');
+const emailOwnerTemplate = fs.readFileSync('./src/views/templates/email-owner.ejs', 'utf8');
 
 // Configura el transporte SMTP
 let transporter = nodemailer.createTransport({
@@ -540,9 +540,7 @@ const checkoutController = {
         } else {
             res.clearCookie('summary');
             res.redirect("/checkout/");
-        }        
-
-        // --------------------------------
+        }
 
         // Crear la orden.
         Order.create({
@@ -607,7 +605,40 @@ const checkoutController = {
                 // Define la cookie.
                 res.cookie('summary', summary, options);
 
-                // ACA VA EL CORREO PARA ENVIAR A CLIENTE Y OWNER
+                // Renderiza el template email y envia los datos.
+                const renderClientTemplate = ejs.render(emailClientTemplate, {summary});
+                // Define las opciones del correo electrónico para el cliente.                    
+                let clientMailOptions = {
+                    from: process.env.SMTP_EMAIL, // Dirección de correo electrónico del remitente. // CAMBIAR EL FROM POR EL DEL SERVIDOR.
+                    to: summary.client.email, // Dirección de correo electrónico del destinatario (cliente).
+                    subject: 'El Bosque Energetico - Confirmamos tu pedido.', // Asunto del correo electrónico.
+                    html: renderClientTemplate // Contenido del correo electrónico en texto plano.
+                };
+                // Envía el correo electrónico al cliente.
+                transporter.sendMail(clientMailOptions, (error, info) => {
+                    if (error) {
+                        console.log('Error al enviar el correo electrónico al cliente:', error);
+                    } else {
+                        console.log('Correo electrónico enviado al cliente:', info.response);
+                    }
+                });
+                // Renderiza el template email y envia los datos.
+                const renderOwnerTemplate = ejs.render(emailOwnerTemplate, {summary});
+                // Define las opciones del correo electrónico para el propietario.
+                let ownerMailOptions = {
+                    from: process.env.SMTP_EMAIL, // Dirección de correo electrónico del remitente.
+                    to: summary.client.email, // Dirección de correo electrónico del propietario.
+                    subject: 'El Bosque Energetico - Ingreso un pedido.', // Asunto del correo electrónico.
+                    html: renderOwnerTemplate// Contenido del correo electrónico en texto plano.
+                };
+                // Envía el correo electrónico al propietario
+                transporter.sendMail(ownerMailOptions, (error, info) => {
+                    if (error) {
+                        console.log('Error al enviar el correo electrónico al propietario:', error);
+                    } else {
+                        console.log('Correo electrónico enviado al propietario:', info.response);
+                    }
+                });
                 
                 res.redirect("/checkout/summary/");
 
