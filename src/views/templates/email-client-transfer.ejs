@@ -57,9 +57,13 @@
         <li><%=summary.delivery.name %>: $<%=summary.delivery.price%></li>
         <li>Lugar de entrega: (CP: <%=summary.client.postcode%>, Ciudad: <%=summary.client.city%>, Dirección: <%=summary.client.address%>)</li>
         <% } %>
+        <% if (summary.payMethod === 'transfer') { %>
         <li>Forma de Pago: Transferencia</li>
+        <% } else if (summary.payMethod === 'mercado_pago') { %>
+        <li>Forma de Pago: Mercado Pago</li>
+        <% } %>
         <% if (summary.discount) { %>
-        <li>Descuento: <%=summary.discount %>%</li>
+        <li>Descuento: <%=summary.discount.percentage %>%</li>
         <% } %>
         <br>
         <li><b>Total: $<%= summary.order.amount %></b></li>

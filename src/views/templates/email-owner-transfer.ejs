@@ -57,7 +57,7 @@
             <% } %>
         <li>Forma de Pago: Transferencia</li>
         <% if (summary.discount) { %>
-            <li>Descuento: <%=summary.discount %>%</li>
+            <li>Descuento: <%=summary.discount.percentage %>%</li>
             <% } %>
         <br>
         <li><b>Total: $<%= summary.order.amount %></b></li>

@@ -107,8 +107,16 @@
                             <li><span><%=summary.delivery.name %></span> <span>$<%=summary.delivery.price%></span></li>
 
                             <% } %>
-                            
-                            <li><span>Forma de Pago</span> <span>Transferencia</span></li>       
+
+                            <% if (summary.payMethod === 'transfer') { %>
+
+                            <li><span>Forma de Pago</span> <span>Transferencia</span></li> 
+
+                            <% } else if (summary.payMethod === 'mercado_pago') { %>
+
+                                <li><span>Forma de Pago</span> <span>Mercado Pago</span></li> 
+
+                            <% } %>
 
                             <% if (summary.discount) { %>
 
