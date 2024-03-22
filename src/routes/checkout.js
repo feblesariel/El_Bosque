@@ -16,6 +16,7 @@ router.post("/procces/" , checkoutController.procces);
 router.post("/discount/" , checkoutController.discount);
 router.post("/method/" , checkoutController.method);
 router.get("/summary/" , summaryCookieMiddleware, checkoutController.summary);
+router.get("/feedback/" , checkoutController.feedback);
 
 
 module.exports = router;

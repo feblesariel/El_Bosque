@@ -402,9 +402,9 @@ const checkoutController = {
                     }
                 ],
                 back_urls: {
-                    "success": "http://localhost:3000/",
-                    "failure": "http://localhost:3000/",
-                    "pending": "http://localhost:3000/"
+                    "success": "http://localhost:3000/checkout/feedback/",
+                    "failure": "http://localhost:3000/checkout/feedback/",
+                    "pending": "http://localhost:3000/checkout/feedback/"
                 },
                 auto_return: "approved",
             };
@@ -528,6 +528,19 @@ const checkoutController = {
                 res.status(500).send('Error al crear la orden');
             });
         };
+    },
+
+    feedback: function (req, res) {
+
+
+
+
+
+
+
+        
+
+
     },
 
     summary: function (req, res) {
