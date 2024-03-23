@@ -80,8 +80,8 @@
                                 <div class="col-12 mb-3">
                                     <label for="orderType">¿Retiro o envío? <span>*</span></label>
                                     <select class="w-100" id="orderType" name="orderType" onchange="checkSelectedOption(this)">
-                                        <option value="pickup">Retiro</option>
-                                        <option value="delivery">Envío a domicilio</option>
+                                        <option value="pickup" <% if (!cart.deliveryMethod || cart.deliveryMethod === "pickup") { %> selected <% } %>>Retiro</option>
+                                        <option value="delivery" <% if (cart.deliveryMethod && cart.deliveryMethod === "delivery") { %> selected <% } %>>Envío a domicilio</option>
                                     </select>
                                 </div>
 
@@ -208,14 +208,23 @@
     <%-include("./partials/footer.ejs")%>
 
     <!-- Option Select Cntrol -->
-    <script>    
+    <script>
+        // Verificar y establecer el estado seleccionado al cargar la página
+        document.addEventListener("DOMContentLoaded", function() {
+            var orderTypeSelect = document.getElementById('orderType');
+            var selectedOrderType = localStorage.getItem('selectedOrderType');
+            if (selectedOrderType) {
+                orderTypeSelect.value = selectedOrderType;
+            }
+        });
+    
         function checkSelectedOption(selectElement) {
-            var currentSelected = selectElement.dataset.selected;
             var newSelected = selectElement.value;
-            if (currentSelected !== newSelected) {
-                // Llamo al la funcion del script js externo.
+            var selectedOrderType = localStorage.getItem('selectedOrderType');
+            if (selectedOrderType !== newSelected) {
+                // Llamar a la función del script externo
                 toggleDeliveryZone();
-                selectElement.dataset.selected = newSelected;
+                localStorage.setItem('selectedOrderType', newSelected);
             }
         }
     </script>
