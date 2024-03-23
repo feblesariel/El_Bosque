@@ -29,13 +29,10 @@ function toggleDeliveryZone() {
 
     // Obtener el valor seleccionado en el select
     var orderType = document.getElementById('orderType').value;
-
     // Obtener el elemento del área de envío a domicilio
     var deliveryZone = document.getElementById('deliveryZone');
-
     // Obtener el li del tipo de envio
     var pickupDeliveryMethod = document.getElementById('pickupDeliveryMethod');
-
     // Obtener span del total
     var totalValue = document.getElementById('totalValue');
 
@@ -83,7 +80,19 @@ function toggleDeliveryZone() {
 }
 
 document.addEventListener('DOMContentLoaded', () => {
-    // Agregar un event listener a cada campo de entrada para verificar si está completo
+
+    // Valido al cargar la pagina el select de ratiro o delivery.
+    var orderType = document.getElementById('orderType').value;
+    var deliveryZone = document.getElementById('deliveryZone');
+
+    // Si el value es delivery muestro delivery zone.
+    if (orderType === "delivery") {
+        deliveryZone.classList.remove('d-none'); // Mostrar el área de envío.
+    } else if (orderType === "pickup") {
+        deliveryZone.classList.add('d-none'); // Ocultar el área de envío.
+    }
+
+    // Agregar un event listener a cada campo de entrada para verificar si está completo.
     const formFields = document.querySelectorAll('#name, #tel, #email, #postcode, #city, #address');
     formFields.forEach(field => {
         field.addEventListener('input', () => {
