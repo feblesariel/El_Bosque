@@ -151,7 +151,9 @@
 
                             <li><span>Subtotal</span> <span>$<%= (subtotal).toFixed(2) %></span></li>
 
-                            <li id="pickupDeliveryMethod"><span>Método de Entrega</span> <span>Retiro</span></li>
+                            <li id="pickupMethodLi"><span>Método de Entrega</span> <span>Retiro</span></li>
+
+                            <li id="DeliveryMethodLi"><span><%= Delivery.name %></span> <span><%= Delivery.price %></span></li>
 
                             <!-- Luego de aplicar el cupon muestro la info en la orden -->
                             <!-- Este campo es temporal asincronico luego de apretar el boton -->
@@ -209,21 +211,45 @@
 
     <!-- Option Select Cntrol -->
     <script>
-        // Verificar y establecer el estado seleccionado al cargar la página
+        // Verificar y establecer el estado seleccionado al cargar la página.
         document.addEventListener("DOMContentLoaded", function() {
+            // Capturo el select.
             var orderTypeSelect = document.getElementById('orderType');
+            // Capturo los LI del metodo de entrega.
+            var pickupMethodLi = document.getElementById('pickupMethodLi');
+            var DeliveryMethodLi = document.getElementById('DeliveryMethodLi');
+            // Pregunto que value tiene y muestro elemento correspondiente.
+            if (orderTypeSelect.value === "pickup") {
+                DeliveryMethodLi.classList.add("d-none");
+            } else {
+                pickupMethodLi.classList.add("d-none");
+            }   
+            // Obtengo local storage.         
             var selectedOrderType = localStorage.getItem('selectedOrderType');
             if (selectedOrderType) {
                 orderTypeSelect.value = selectedOrderType;
             }
         });
-    
+        // Verificar y establecer el estado seleccionado al cambiar el metodo de entrega.
         function checkSelectedOption(selectElement) {
+            // Capturo los LI del metodo de entrega.
+            var pickupMethodLi = document.getElementById('pickupMethodLi');
+            var DeliveryMethodLi = document.getElementById('DeliveryMethodLi');
+            // Pregunto que value tiene y muestro elemento correspondiente.
+            if (selectElement.value === "pickup") {
+                DeliveryMethodLi.classList.add("d-none");
+                pickupMethodLi.classList.remove("d-none");
+            } else {
+                pickupMethodLi.classList.add("d-none");
+                DeliveryMethodLi.classList.remove("d-none");
+            }
             var newSelected = selectElement.value;
             var selectedOrderType = localStorage.getItem('selectedOrderType');
+            // Pregunta si la opcion seleccionada es diferente a la seleccionada anteriormente.
             if (selectedOrderType !== newSelected) {
-                // Llamar a la función del script externo
+                // Llamar a la función del script externo.
                 toggleDeliveryZone();
+                // Setea local storage.
                 localStorage.setItem('selectedOrderType', newSelected);
             }
         }

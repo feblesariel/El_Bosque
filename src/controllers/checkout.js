@@ -127,7 +127,7 @@ const checkoutController = {
                     res.cookie('cart', cart, options);
 
                     // Envio el nuevo valor del total y el delivery a la llamada.
-                    res.status(200).json({ success: true, message: 'correct change.', newTotal: cart.total, delivery: delivery });
+                    res.status(200).json({ success: true, message: 'correct change.', newTotal: cart.total});
 
                 } else {
 
@@ -164,7 +164,7 @@ const checkoutController = {
                     res.cookie('cart', cart, options);   
                     
                     // Envio el nuevo valor del total y el delivery a la llamada.
-                    res.status(200).json({ success: true, message: 'incorrect change.', newTotal: cart.total, delivery: delivery});
+                    res.status(200).json({ success: true, message: 'incorrect change.', newTotal: cart.total});
 
                 }
 

@@ -31,8 +31,6 @@ function toggleDeliveryZone() {
     var orderType = document.getElementById('orderType').value;
     // Obtener el elemento del área de envío a domicilio
     var deliveryZone = document.getElementById('deliveryZone');
-    // Obtener el li del tipo de envio
-    var pickupDeliveryMethod = document.getElementById('pickupDeliveryMethod');
     // Obtener span del total
     var totalValue = document.getElementById('totalValue');
 
@@ -56,15 +54,11 @@ function toggleDeliveryZone() {
         if (data.success && (orderType === "delivery")) {
 
             totalValue.innerText = "$" + data.newTotal;
-            deliveryZone.classList.remove('d-none'); // Mostrar el área de envío
-            pickupDeliveryMethod.querySelector('span:nth-child(1)').innerText = data.delivery.name;
-            pickupDeliveryMethod.querySelector('span:nth-child(2)').innerText = "$" + data.delivery.price;
+            deliveryZone.classList.remove('d-none'); // Mostrar el área de envío.
 
         } else if (data.success && (orderType === "pickup")) {
 
-            deliveryZone.classList.add('d-none'); // Ocultar el área de envío
-            pickupDeliveryMethod.querySelector('span:nth-child(1)').innerText = "Método de Entrega";
-            pickupDeliveryMethod.querySelector('span:nth-child(2)').innerText = "Retiro";
+            deliveryZone.classList.add('d-none'); // Ocultar el área de envío.
             totalValue.innerText = "$" + data.newTotal;
         }
 
