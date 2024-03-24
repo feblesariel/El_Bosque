@@ -1,8 +1,8 @@
-// Función para verificar si todos los campos del formulario están completos
+// Función para verificar si todos los campos del formulario están completos.
 function checkFormCompletion() {
-    // Obtener el valor seleccionado en el campo select
+    // Obtener el valor seleccionado en el campo select.
     const orderType = document.getElementById('orderType').value;
-    // Definir los campos que deben verificarse dependiendo del tipo de orden
+    // Definir los campos que deben verificarse dependiendo del tipo de orden.
     let formFields;
     if (orderType === "pickup") {
         formFields = document.querySelectorAll('#name, #tel, #email');
@@ -10,7 +10,7 @@ function checkFormCompletion() {
         formFields = document.querySelectorAll('#name, #tel, #email, #postcode, #city, #address');
     }
 
-    // Verificar si todos los campos están completos
+    // Verificar si todos los campos están completos.
     let allFieldsCompleted = true;
     formFields.forEach(field => {
         if (field.value.trim() === '') {
@@ -18,20 +18,20 @@ function checkFormCompletion() {
         }
     });
 
-    // Devolver true si todos los campos están completos, de lo contrario, devolver false
+    // Devolver true si todos los campos están completos, de lo contrario, devolver false.
     return allFieldsCompleted;
 }
 
-// Variable sendBtn definida fuera del alcance de DOMContentLoaded
+// Variable sendBtn definida fuera del alcance de DOMContentLoaded.
 const sendBtn = document.getElementById('btnSendOut');
 
 function toggleDeliveryZone() {
 
-    // Obtener el valor seleccionado en el select
+    // Obtener el valor seleccionado en el select.
     var orderType = document.getElementById('orderType').value;
-    // Obtener el elemento del área de envío a domicilio
+    // Obtener el elemento del área de envío a domicilio.
     var deliveryZone = document.getElementById('deliveryZone');
-    // Obtener span del total
+    // Obtener span del total.
     var totalValue = document.getElementById('totalValue');
 
     // Realizar la consulta asincrónica usando fetch.
@@ -68,7 +68,7 @@ function toggleDeliveryZone() {
         console.error('Error:', error);
     });
 
-    // Verificar el estado inicial del formulario
+    // Verificar el estado inicial del formulario.
     const isFormCompleted = checkFormCompletion();
     sendBtn.disabled = !isFormCompleted;
 }
