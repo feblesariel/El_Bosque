@@ -73,19 +73,56 @@ function toggleDeliveryZone() {
     sendBtn.disabled = !isFormCompleted;
 }
 
-document.addEventListener('DOMContentLoaded', () => {
+// Verificar y establecer el estado seleccionado al cambiar el metodo de entrega.
+function checkSelectedOption(selectElement) {
+    // Capturo los LI del metodo de entrega.
+    var pickupMethodLi = document.getElementById('pickupMethodLi');
+    var DeliveryMethodLi = document.getElementById('DeliveryMethodLi');
+    // Pregunto que value tiene y muestro elemento correspondiente.
+    if (selectElement.value === "pickup") {
+        DeliveryMethodLi.classList.add("d-none");
+        pickupMethodLi.classList.remove("d-none");
+    } else {
+        pickupMethodLi.classList.add("d-none");
+        DeliveryMethodLi.classList.remove("d-none");
+    }
+    var newSelected = selectElement.value;
+    var selectedOrderType = localStorage.getItem('selectedOrderType');
+    // Pregunta si la opcion seleccionada es diferente a la seleccionada anteriormente.
+    if (selectedOrderType !== newSelected) {
+        // Llamar a la función del script externo.
+        toggleDeliveryZone();
+        // Setea local storage.
+        localStorage.setItem('selectedOrderType', newSelected);
+    }
+}
 
-    // Valido al cargar la pagina el select de ratiro o delivery.
+document.addEventListener('DOMContentLoaded', () => {
+    // Capturo los rl value del select y la delivery zone.
     var orderType = document.getElementById('orderType').value;
     var deliveryZone = document.getElementById('deliveryZone');
 
+    // Capturo los LI del metodo de entrega.
+    var pickupMethodLi = document.getElementById('pickupMethodLi');
+    var DeliveryMethodLi = document.getElementById('DeliveryMethodLi');
+
+    // Pregunto que value tiene y muestro elemento correspondiente.
+    if (orderType === "pickup") {
+        DeliveryMethodLi.classList.add("d-none");
+    } else {
+        pickupMethodLi.classList.add("d-none");
+    }   
+    // Obtengo local storage si hay.         
+    var selectedOrderType = localStorage.getItem('selectedOrderType');
+    if (selectedOrderType) {
+        orderType = selectedOrderType;
+    }
     // Si el value es delivery muestro delivery zone.
     if (orderType === "delivery") {
         deliveryZone.classList.remove('d-none'); // Mostrar el área de envío.
     } else if (orderType === "pickup") {
         deliveryZone.classList.add('d-none'); // Ocultar el área de envío.
-    }
-
+    }    
     // Agregar un event listener a cada campo de entrada para verificar si está completo.
     const formFields = document.querySelectorAll('#name, #tel, #email, #postcode, #city, #address');
     formFields.forEach(field => {
