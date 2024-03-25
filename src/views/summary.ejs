@@ -149,7 +149,14 @@
 
 
     <!-- ##### Footer Area Start ##### -->
-    <%-include("./partials/footer.ejs")%>    
+    <%-include("./partials/footer.ejs")%>
+
+    <!-- Delete local storage -->
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            localStorage.clear();
+        });
+    </script>
 
     <!-- jQuery (Necessary for All JavaScript Plugins) -->
     <script src="/js/jquery/jquery-2.2.4.min.js"></script>
