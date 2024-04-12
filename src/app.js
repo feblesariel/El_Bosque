@@ -36,11 +36,13 @@ const indexRouter = require("./routes/index");
 const productsRouter = require("./routes/products");
 const cartRouter = require("./routes/cart");
 const checkoutRouter = require("./routes/checkout");
+const contactRouter = require("./routes/contact");
 
 app.use('/', indexRouter);
 app.use('/products/', productsRouter);
 app.use('/cart/', cartRouter);
 app.use('/checkout/', checkoutRouter);
+app.use('/contact/', contactRouter);
 
 // ************ Run server ************
 
