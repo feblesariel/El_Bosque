@@ -42,7 +42,31 @@ const contactController = {
                 console.error('Error:', error);
             });
 
-    }
+    },
+
+    tracking: function (req, res) {
+
+        const getCategories = Category.findAll({
+            order: [
+                ['name', 'ASC']
+            ]
+        });
+        
+        const cart = req.cookies.cart;
+
+        Promise.all([getCategories])
+            .then(([Categories]) => {
+
+                res.render('tracking', { Categories, cart})
+
+            })
+            .catch(error => {
+                console.error('Error:', error);
+            });
+
+    },
+
+
 }
 
 module.exports = contactController;

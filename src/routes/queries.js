@@ -5,11 +5,12 @@ const router = express.Router();
 
 // ************ Controller Require ************
 
-const contactController = require ("../controllers/contact")
+const queriesController = require ("../controllers/queries")
 
 // ************ Rutas ************
 
-router.get("/", contactController.contact);
+router.get("/contact/", queriesController.contact);
+router.get("/tracking/", queriesController.tracking);
 
 
 module.exports = router;
